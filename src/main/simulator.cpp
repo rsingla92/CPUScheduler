@@ -1,12 +1,21 @@
-//#include "CPUScheduler.h"
-//#include "Gantt.h"
-#include <iostream>
+/*
+ * EECE 315 - Project 3 CPU Scheduler
+ * 
+ * Authors : Lauren Fung, Jorden Hetherington
+ *           Jeremy Lord, Rohit Singla
+ */
+
+#include "scheduler.hpp"
+#include "gantt.hpp"
 
 int main(int argc, char* argv[]){
 
-//   cpuScheduler = new CPUScheduler(();
-//   Gantt.chart();
-//   Gantt.metrics();
+//   welcome();
+//   cpuScheduler = new Scheduler(();
+//   cpuScheduler.run();
+//   gantt = new Gantt();
+//   gantt.chart();
+//   gantt.metrics();
 
    return 0;
 }
