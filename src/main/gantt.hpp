@@ -4,9 +4,12 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
+ 
+#ifndef GANTT_H
+#define GANTT_H
 
 #include "processcontrolblock.hpp"
-#include <sstream>
+#include "utilities.hpp"
 #include <string>
 #include <iostream>
 
@@ -22,9 +25,5 @@ class Gantt
      std::vector<ProcessControlBlock> _queue;
 };
 
-std::string intToString(const int& i)
-{
-   std::stringstream ss;
-   ss << i;
-   return ss.str();
-}
+
+#endif
