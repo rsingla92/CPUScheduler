@@ -4,20 +4,22 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#include "gantt.h"
+#include "gantt.hpp"
 
 Gantt::Gantt( std::vector<ProcessControlBlock> queue) : _queue(queue) {}
 
 void Gantt::display()
 {
-    std::vector<ProcessControlBlock>::iterator it = getQueue().begin();
 
-    std::string chart = "| "
-    for( ; it != getQueue.end(); ++it) {
-	chart += itoa(it->getPID()) + " |"; 
+    std::vector<ProcessControlBlock> temp(this->getQueue());
+    std::vector<ProcessControlBlock>::iterator it = temp.begin();
+
+    std::string chart = "| ";
+    for( ; it != temp.end(); ++it) {
+	chart += intToString(it->getPID()) + " |"; 
     }
 
-   std::cout << chart << endl;
+   std::cout << chart << std::endl;
 }
 
 std::vector<ProcessControlBlock> Gantt::getQueue()
