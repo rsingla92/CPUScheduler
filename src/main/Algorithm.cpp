@@ -8,30 +8,31 @@
 #include "Algorithm.hpp"
 
 Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime){
-	_dataInputToAlgorithm = _inputRawData;
+	_dataInputToAlgorithm = inputRawData;
 	_quantumTime = quantumTime;
-	return;
 }
  
-void Algortithm::breakUpCPUBurst(ProcessControlBlock &refPCB){
-	int currentCPUBurstTime = refPCB._CPUBursts[0];
+void Algorithm::breakUpCPUBurst(ProcessControlBlock &refPCB){
+	int currentCPUBurstTime = refPCB.getCPUBursts()[0];
 
+	std::vector<int> tempQuantumVec = refPCB.getCPUQuantumVec();
 	for(int i = 0; i < currentCPUBurstTime / _quantumTime; i--){
-		_CPUQuantumVec.push(_quantumTime);
+		tempQuantumVec.push_back(_quantumTime);
 	}	
 	if(currentCPUBurstTime % _quantumTime != 0){
-		_CPUQuantumVec.push(currentCPUBurstTime % _quantumTime);
+		tempQuantumVec.push_back(currentCPUBurstTime % _quantumTime);
 	}
+	refPCB.setCPUQuantumVec(tempQuantumVec);
 	
 	return;
 }
 
-void Algortithm::setQuantumTime(int newQTime){
-	_quantumTime = newQtime;
+void Algorithm::setQuantumTime(int newQTime){
+	_quantumTime = newQTime;
 	return;
 }
 
-int Algortithm::getQuantumTime(){
+int Algorithm::getQuantumTime(){
 	return _quantumTime;
 }
 	

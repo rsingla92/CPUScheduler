@@ -5,14 +5,18 @@
  *           Jeremy Lord, Rohit Singla
  */
  
- #include "processcontrolblock.hpp"
- #include <vector>
+#ifndef ALGORITHM_H
+#define ALGORITHM_H
  
  
-class Algorithm(){
+#include "processcontrolblock.hpp"
+#include <vector>
+ 
+ 
+class Algorithm{
 public:
 	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
-	virtual ~Algorithm();
+	virtual ~Algorithm(){};
 
 protected:
 	virtual void run() = 0;
@@ -30,4 +34,6 @@ protected:
 private:
 	std::vector<ProcessControlBlock> _finalQueueOrder;	
 	int _quantumTime;
-}
+};
+
+#endif

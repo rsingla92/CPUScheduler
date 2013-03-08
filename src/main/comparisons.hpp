@@ -9,4 +9,11 @@
  * PCBs by various different qualities.  
  */
 
+#ifndef COMPARISONS_H
+#define COPARISONS_H
+
+
+
+
+#endif
 
