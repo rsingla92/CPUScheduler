@@ -10,5 +10,9 @@ class ProcessControlBlock
 
    private:
    int _pid;
+   std::vector<int> _CPUBursts;
+   std::vector<int> _IOBursts;
+   
+   std::vector<int> _CPUQuantumVec;
 };
 
