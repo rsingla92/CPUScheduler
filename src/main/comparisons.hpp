@@ -10,7 +10,7 @@
  */
 
 #ifndef COMPARISONS_H
-#define COPARISONS_H
+#define COMPARISONS_H
 
 
 
