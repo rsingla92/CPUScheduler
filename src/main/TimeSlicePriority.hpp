@@ -7,16 +7,22 @@
 #ifndef TIME_SLICE_PRIORITY_H
 #define TIME_SLICE_PRIORITY_H
 
+#include <algorithm>
 #include "Algorithm.hpp"
+#include "utilities.hpp"
 
 class TimeSlicePriority :
 	public Algorithm
 {
 public:
 	TimeSlicePriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
-	~TimeSlicePriority(void);
+	~TimeSlicePriority( void );
 
+	void run();
+	std::vector<ProcessControlBlock> getFinalQueueOrder();
 
+private:
+	void populateInitialQueues( void ); 
 };
 
 #endif
