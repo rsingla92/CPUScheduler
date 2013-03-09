@@ -1,6 +1,6 @@
 /*
  * EECE 315 - Project 3 CPU Scheduler
- * 
+ *
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
@@ -18,24 +18,24 @@ int main(int argc, char* argv[]){
     std::vector<ProcessControlBlock> loadFile;
     loadFile = parseTextFile();
     /* for testing purposes - you guys can delete this
-        int i;
-        std::cout <<"this first PID: "  << loadFile[0].getPID() << std::endl;
-        std::cout <<"the TARQ: " << loadFile[0].getTARQ() << std::endl;
-        std::cout << "the Priority: " << loadFile[0].getPriority() << std::endl;
-        std::cout <<"the TNCPU: " << loadFile[0].getTNCPU() << std::endl;
-        for (i=0; i<loadFile[0].getCPUBursts().size(); i++)
-            std::cout <<"the cpubursts: " << loadFile[0].getCPUBursts()[i] << std:: endl;
-        for (i=0; i<loadFile[0].getIOBursts().size(); i++)
-            std:: cout<< "the IO: " << loadFile[0].getIOBursts()[i] << std:: endl;
-        
-        std::cout <<"the second PID: " << loadFile[1].getPID() << std::endl;
+     int i;
+     std::cout <<"this first PID: "  << loadFile[0].getPID() << std::endl;
+     std::cout <<"the TARQ: " << loadFile[0].getTARQ() << std::endl;
+     std::cout << "the Priority: " << loadFile[0].getPriority() << std::endl;
+     std::cout <<"the TNCPU: " << loadFile[0].getTNCPU() << std::endl;
+     for (i=0; i<loadFile[0].getCPUBursts().size(); i++)
+     std::cout <<"the cpubursts: " << loadFile[0].getCPUBursts()[i] << std:: endl;
+     for (i=0; i<loadFile[0].getIOBursts().size(); i++)
+     std:: cout<< "the IO: " << loadFile[0].getIOBursts()[i] << std:: endl;
+     
+     std::cout <<"the second PID: " << loadFile[1].getPID() << std::endl;
      */
-//   welcome();
-//   cpuScheduler = new Scheduler(();
-//   cpuScheduler.run();
-//   gantt = new Gantt();
-//   gantt.chart();
-//   gantt.metrics();
+    //   welcome();
+    //   cpuScheduler = new Scheduler(();
+    //   cpuScheduler.run();
+    //   gantt = new Gantt();
+    //   gantt.chart();
+    //   gantt.metrics();
     
     return 0;
 }
@@ -48,11 +48,12 @@ std::vector<ProcessControlBlock> parseTextFile() {
     int PID = -1;
     int TNCPU = -1;
     int i = 0;
-    
+    int temp = 0;
+    std::string line;
     std::vector<ProcessControlBlock> rawData;
     ProcessControlBlock currentProcess;
     
-    std::string line;
+    
     std::ifstream myfile ("process.txt");
     if (myfile.is_open())
     {
@@ -63,28 +64,24 @@ std::vector<ProcessControlBlock> parseTextFile() {
             PCB_IOTimes.clear();
             PCB_CPUTimes.clear();
             
-            myfile >> line;
-            PID = atoi(line.c_str());
+            myfile >> PID;
             
-            myfile >> line;
-            TARQ = atoi(line.c_str());
+            myfile >> TARQ;
             
-            myfile >> line;
-            priority = atoi(line.c_str());
+            myfile >> priority;
             
-            myfile >> line;
-            TNCPU = atoi(line.c_str());
+            myfile >> TNCPU;
             
             for (i = 0; i < (TNCPU-1); i++) { // need last burst to be CPU burst
-                myfile >> line;
-                PCB_CPUTimes.push_back(atoi(line.c_str()));
+                myfile >> temp;
+                PCB_CPUTimes.push_back(temp);
                 
-                myfile >> line;
-                PCB_IOTimes.push_back(atoi(line.c_str()));
+                myfile >> temp;
+                PCB_IOTimes.push_back(temp);
             }
-            myfile >> line;
-            PCB_CPUTimes.push_back(atoi(line.c_str()));
-        
+            myfile >> temp;
+            PCB_CPUTimes.push_back(temp);
+            
             currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
             rawData.push_back(currentProcess);
         }
