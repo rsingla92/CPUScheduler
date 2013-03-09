@@ -43,10 +43,10 @@ int main(int argc, char* argv[]){
 std::vector<ProcessControlBlock> parseTextFile() {
     std::vector<int> PCB_CPUTimes;
     std::vector<int> PCB_IOTimes;
-    int priority;
-    int TARQ;
-    int PID;
-    int TNCPU;
+    int priority = -1;
+    int TARQ = -1;
+    int PID = -1;
+    int TNCPU = -1;
     int i = 0;
     
     std::vector<ProcessControlBlock> rawData;
