@@ -10,13 +10,12 @@ Gantt::Gantt( std::vector<ProcessControlBlock> queue) : _queue(queue) {}
 
 void Gantt::display()
 {
-
     std::vector<ProcessControlBlock> temp(this->getQueue());
     std::vector<ProcessControlBlock>::iterator it = temp.begin();
 
     std::string chart = "| ";
     for( ; it != temp.end(); ++it) {
-	chart += intToString(it->getPID()) + " |"; 
+		chart += intToString(it->getPID()) + " |"; 
     }
 
    std::cout << chart << std::endl;
