@@ -32,5 +32,5 @@ bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBloc
  */
 bool arrivesEarlier( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 )
 {
-	return (pcb1.getTimeOfArrival() < pcb2.getTimeOfArrival());
+	return (pcb1.getTARQ() < pcb2.getTARQ());
 }

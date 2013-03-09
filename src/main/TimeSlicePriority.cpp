@@ -39,7 +39,7 @@ void TimeSlicePriority::populateInitialQueues( void )
 
 	for( it = _dataInputToAlgorithm.begin(); it != _dataInputToAlgorithm.end(); ++it ) 
 	{
-		if( it->getTimeOfArrival() <= 0 ) 
+		if( it->getTARQ() <= 0 ) 
 		{
 			/* The process is already ready -- add to ready queue. */
 			_readyQueue.push_back( *it ); 

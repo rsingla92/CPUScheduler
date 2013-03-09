@@ -1,4 +1,37 @@
+/*
+ * EECE 315 - Project 3 CPU Scheduler
+ *
+ * Authors : Lauren Fung, Jorden Hetherington
+ *           Jeremy Lord, Rohit Singla
+ */
+
 #include "processcontrolblock.hpp"
+
+ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
+                        _tncpu(-1) 
+{
+}
+
+ProcessControlBlock::ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
+                        std::vector<int> CPUBursts, std::vector<int>IOBursts):
+                        _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU),
+                        _CPUBursts(CPUBursts),_IOBursts(IOBursts)
+{
+}
+
+ProcessControlBlock& ProcessControlBlock::operator=(const ProcessControlBlock& otherProcess)
+{
+    if (&otherProcess != this)
+    {
+        this->_pid = otherProcess._pid;
+        this->_tarq = otherProcess._tarq;
+        this->_prio = otherProcess._prio;
+        this->_tncpu = otherProcess._tncpu;
+        this->_CPUBursts = otherProcess._CPUBursts;
+        this->_IOBursts = otherProcess._IOBursts;
+    }
+    return *this;
+}
 
 int ProcessControlBlock::getPID() const
 {
@@ -7,6 +40,36 @@ int ProcessControlBlock::getPID() const
 void ProcessControlBlock::setPID(int PID)
 {
 	_pid = PID;
+}
+
+int ProcessControlBlock::getTARQ() const
+{
+    return _tarq;
+}
+
+void ProcessControlBlock::setTARQ(int TARQ)
+{
+    _tarq = TARQ;
+}
+
+int ProcessControlBlock::getPriority() const
+{
+    return _prio;
+}
+
+void ProcessControlBlock::setPriority(int PRIO)
+{
+    _prio = PRIO;
+}
+
+int ProcessControlBlock::getTNCPU() const
+{
+    return _tncpu;
+}
+
+void ProcessControlBlock::setTNCPU(int TNCPU)
+{
+    _tncpu = TNCPU;
 }
 
 std::vector<int> ProcessControlBlock::getCPUBursts() const
@@ -40,24 +103,4 @@ void ProcessControlBlock::setCPUQuantumVec(std::vector<int> CPUQuantumVec)
 {
 	_CPUQuantumVec = CPUQuantumVec;
 	return;
-}
-
-int ProcessControlBlock::getTimeOfArrival() const
-{
-	return _timeOfArrival;
-}
-
-void ProcessControlBlock::setTimeOfArrival( int timeOfArrival )
-{
-	_timeOfArrival = timeOfArrival; 
-}
-
-int ProcessControlBlock::getPriority() const
-{
-	return _priority;
-}
-
-void ProcessControlBlock::setPriority( int priority )
-{
-	_priority = priority;
 }

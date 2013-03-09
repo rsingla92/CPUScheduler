@@ -13,33 +13,42 @@
 
 class ProcessControlBlock
 {
-
 public:
-   int getPID() const;
-   void setPID(int PID);
-   
-   std::vector<int> getCPUBursts() const;
-   void setCPUBursts(std::vector<int> CPUBursts);
-   
-   std::vector<int> getIOBursts() const;
-   void setIOBursts(std::vector<int> IOBursts);
-   
-   std::vector<int> getCPUQuantumVec() const;
-   void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
+    ProcessControlBlock();
+    ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
+                            std::vector<int> CPUBursts, std::vector<int>IOBursts);
+    
+    ProcessControlBlock& operator=(const ProcessControlBlock& otherProcess);
+    
+    int getPID() const;
+    void setPID(int PID);
+    
+    int getTARQ() const;
+    void setTARQ(int TARQ);
+    
+    int getPriority() const;
+    void setPriority(int PRIO);
+    
+    int getTNCPU() const;
+    void setTNCPU(int TNCPU);
+    
+    std::vector<int> getCPUBursts() const;
+    void setCPUBursts(std::vector<int> CPUBursts);
 
-   int getTimeOfArrival() const;
-   void setTimeOfArrival( int timeOfArrival ); 
-
-   int getPriority() const;
-   void setPriority( int priority ); 
+    std::vector<int> getIOBursts() const;
+    void setIOBursts(std::vector<int> IOBursts);
+   
+    std::vector<int> getCPUQuantumVec() const;
+    void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
    
 private:
-   int _pid;
-   int _timeOfArrival; 
-   int _priority; 
-   std::vector<int> _CPUBursts;
-   std::vector<int> _IOBursts;
-   std::vector<int> _CPUQuantumVec;
+    int _pid;
+    int _tarq;
+    int _prio;
+    int _tncpu;
+    std::vector<int> _CPUBursts;
+    std::vector<int> _IOBursts;
+    std::vector<int> _CPUQuantumVec;
 };
 
 #endif
