@@ -4,11 +4,7 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-
-
 #include "utilities.hpp"
-
-
 
 std::string intToString(const int i)
 {
@@ -16,4 +12,3 @@ std::string intToString(const int i)
    ss << i;
    return ss.str();
 }
-
