@@ -8,10 +8,7 @@
 #include "scheduler.hpp"
 #include "processcontrolblock.hpp"
 #include "gantt.hpp"
-#include <iostream>
 #include <fstream>
-#include <string>
-#include <vector>
 
 /* Function declarations */
 std::vector<ProcessControlBlock> parseTextFile();
