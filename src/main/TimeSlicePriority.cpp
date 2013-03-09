@@ -12,14 +12,12 @@ TimeSlicePriority::TimeSlicePriority(std::vector<ProcessControlBlock> inputRawDa
 {
 }
 
-
 TimeSlicePriority::~TimeSlicePriority(void)
 {
 }
 
 void TimeSlicePriority::run()
 {
-
 }
 
 std::vector<ProcessControlBlock> TimeSlicePriority::getFinalQueueOrder()
@@ -27,7 +25,14 @@ std::vector<ProcessControlBlock> TimeSlicePriority::getFinalQueueOrder()
 	return _readyQueue; 
 }
 
-// Use _dataInputToAlgorithm to fill _readyQueue and _TimeArrivalReadyQueue
+/*
+ * Function: populateInitialQueues
+ * Parameters: None
+ * Returns: Nothing
+ * Purpose: Fills the ready queue and the TARQ with processes. Any processes that have not arrived yet (they have 
+ *          a non-zero arrival time) are put in the TARQ; processes that are ready (have an arrival time of 0) are 
+ *          put in the Ready queue. Both queues are then sorted. 
+ */
 void TimeSlicePriority::populateInitialQueues( void )
 {
 	std::vector<ProcessControlBlock>::iterator it;
