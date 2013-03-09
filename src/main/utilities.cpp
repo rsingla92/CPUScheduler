@@ -3,14 +3,17 @@
  * 
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
- * 
  */
 
-#ifndef SCHEDULER
-#define SCHEDULER
+
+#include "utilities.hpp"
 
 
 
+std::string intToString(const int i)
+{
+   std::stringstream ss;
+   ss << i;
+   return ss.str();
+}
 
-
-#endif

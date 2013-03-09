@@ -6,11 +6,14 @@
  * 
  */
 
-#ifndef SCHEDULER
-#define SCHEDULER
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
+#include <sstream>
+#include <iostream>
+#include <string>
 
-
+std::string intToString(const int i);
 
 
 #endif
