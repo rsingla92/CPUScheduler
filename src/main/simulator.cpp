@@ -51,7 +51,7 @@ std::vector<ProcessControlBlock> parseTextFile() {
     int temp = 0;
     std::string line;
     std::vector<ProcessControlBlock> rawData;
-    ProcessControlBlock:: ProcessControlBlock currentProcess;
+    ProcessControlBlock currentProcess;
     
     
     std::ifstream myfile ("process.txt");
