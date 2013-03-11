@@ -28,8 +28,11 @@ class ProcessControlBlock
    std::vector<int> getCPUQuantumVec();
    void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
    
+   int getArrivalTime();
+   void setArrivalTime(int arrivalTime);
    private:
    int _pid;
+   int _arrivalTime;
    std::vector<int> _CPUBursts;
    std::vector<int> _IOBursts;
    

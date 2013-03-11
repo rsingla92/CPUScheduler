@@ -17,3 +17,12 @@ std::string intToString(const int i)
    return ss.str();
 }
 
+std::bool priorityLowToHigh(ProcessControlBlock PCB1, ProcessControlBlock PCB2)
+{
+	if(PCB1.getPriority() < PCB2.getPriority()) //NEED TO DEFINE THIS VARIABLE AND THE ACCESSOR
+	{
+		return true;
+	}
+	else 
+		return false;
+}

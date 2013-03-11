@@ -15,5 +15,7 @@
 
 std::string intToString(const int i);
 
+std::bool priorityLowToHigh(ProcessControlBlock PCB1, ProcessControlBlock PCB2);
+
 
 #endif
