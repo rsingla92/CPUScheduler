@@ -22,6 +22,13 @@ bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBloc
 	return (pcb1.getPriority() < pcb2.getPriority()); 
 }
 
+bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
+	return (pcb1.getTARQ() < pcb2.getTARQ()); 
+}
+
+bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
+	return (pcb1.getIOBursts().at(0) < pcb2.getIOBursts().at(0));
+}
 /*
  * Function: arrivesEarlier
  * Parameters: The two PCBs to compare (pcb1 and pcb2)

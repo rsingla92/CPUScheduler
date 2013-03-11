@@ -19,5 +19,7 @@ bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBloc
 bool arrivesEarlier( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ); 
 bool checkToRemoveTARQ( const ProcessControlBlock& val );
 bool checkToRemoveIO( const ProcessControlBlock& val );
+bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
+bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 
 #endif
