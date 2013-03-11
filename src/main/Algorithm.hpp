@@ -4,7 +4,6 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
- 
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
  
@@ -18,10 +17,10 @@ public:
 	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
 	virtual ~Algorithm(){};
 
-protected:
 	virtual void run() = 0;
-	virtual ProcessControlBlock getFinalQueueOrder() = 0;
-	
+	virtual std::vector<ProcessControlBlock> getFinalQueueOrder() = 0;
+
+protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
 	void setQuantumTime(int newQTime);
 	int getQuantumTime();

@@ -12,10 +12,11 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include "processcontrolblock.hpp"
 
 std::string intToString(const int i);
 
-std::bool priorityLowToHigh(ProcessControlBlock PCB1, ProcessControlBlock PCB2);
-
+bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ); 
+bool arrivesEarlier( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ); 
 
 #endif
