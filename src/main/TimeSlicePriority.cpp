@@ -48,10 +48,7 @@ void TimeSlicePriority::run() {
 			_readyQueue[0].setCPUBursts( deductedCPUBurst );
 			passTimeAndCheckWaiting( firstTimeSlice ); 
 
-			if( _readyQueue.size() != checkInitialSize ) {
-				/* New processes were added to _readyQueue, must re-order queue (based on priority) */
-				flagSort = true; 
-			}
+			flagSort = ( _readyQueue.size() > checkInitialSize )?true:flagSort; 
 		}
 
 		if( _readyQueue[0].getCPUQuantumVec().size() == 0 )
