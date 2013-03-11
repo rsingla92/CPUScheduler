@@ -16,7 +16,8 @@ class FCFSAlg : public Algorithm {
 
 public:
 	void initializeQueues(); 
-
+	void run();
+	
 private:
 
 

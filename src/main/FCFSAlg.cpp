@@ -11,19 +11,31 @@
 //Sets up the Ready Queue, IOWaitingQueue, and the timeArrivalQueue, based on the input data.
 void FCFSAlg::initializeQueues()
 {	
-	for(int i = 0; i < _dataInputToAlgorithm.size(); i++){
-		if(_dataInputToAlgorithm[i].getArrivalTime() > 0){
-			_readyQueue.push_back(_dataInputToAlgorithm[i]);
+	std::vector<ProcessControlBlock>::Iterator PCBIt;
+	
+	for(PCBIt = _dataInputToAlgorithm.begin(); PCBIt < _dataInputToAlgorithm.end(); ++PCBIt){
+		if(PCBIt->getArrivalTime() > 0){
+			_readyQueue.push_back(*PCBIt);
 		}
 		else
 		{
-			_timeArrivalReadyQueue.push_back(_dataInputToAlgorithm[i]);
-		}
+			_timeArrivalReadyQueue.push_back(*PCBIt);
+		}	
 	}
+
 	assert(_timeArrivalReadyQueue.size() + _readyQueue.size() + _IOWaitingQueue.size() == _dataInputToAlgorithm.size());
 	
-	//Need to Order the ready queue properly here.
-	_readyQueue.sort(_readyQueue.begin(), _readyQueue.end(), priorityLowToHigh);
+	_readyQueue.sort(_readyQueue.begin(), _readyQueue.end(), isHigherPriority);
 	
+	return;
+}
+
+void FCFSAlg::run()
+{
+	/* setup _ReadyQueue and TimeArrivalReadyQueue */
+	populateInitialQueues(&isHigherPriority); 
+	
+	
+
 	return;
 }
