@@ -25,7 +25,7 @@ protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
 	void setQuantumTime(int newQTime);
 	int getQuantumTime();
-	void populateInitialQueues( void ); 
+	void populateInitialQueues(  bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) ); 
 	void passTimeAndCheckWaiting( int time );
 	int getMinimumWaitIndex( void );
 	void checkWaitingProcesses( void );

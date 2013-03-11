@@ -20,7 +20,7 @@ void TimeSlicePriority::run() {
 	std::vector<ProcessControlBlock>::iterator it; 
 	int firstTimeSlice = 0;
 
-	populateInitialQueues(); 
+	populateInitialQueues( isHigherPriority ); 
 
 	/* Loop until the algorithm is done */
 	while( true ) {

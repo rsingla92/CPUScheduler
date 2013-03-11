@@ -56,7 +56,7 @@ int Algorithm::getQuantumTime(){
  *          a non-zero arrival time) are put in the TARQ; processes that are ready (have an arrival time of 0) are 
  *          put in the Ready queue. Both queues are then sorted. 
  */
-void Algorithm::populateInitialQueues( void )
+void Algorithm::populateInitialQueues( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) )
 {
 	std::vector<ProcessControlBlock>::iterator it;
 
@@ -75,7 +75,7 @@ void Algorithm::populateInitialQueues( void )
 	}
 
 	/* Sort in order of priority. */
-	std::sort( _readyQueue.begin(), _readyQueue.end(), isHigherPriority ); 
+	std::sort( _readyQueue.begin(), _readyQueue.end(), predicate ); 
 
 	/* Sort the TARQ - minimum arrival times will be at the front. */
 	std::sort( _TimeArrivalReadyQueue.begin(), _TimeArrivalReadyQueue.end(), arrivesEarlier ); 
