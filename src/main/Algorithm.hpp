@@ -9,8 +9,9 @@
  
  
 #include "processcontrolblock.hpp"
+#include "utilities.hpp"
 #include <vector>
- 
+#include <algorithm>
  
 class Algorithm{
 public:
@@ -24,7 +25,11 @@ protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
 	void setQuantumTime(int newQTime);
 	int getQuantumTime();
-	
+	void populateInitialQueues(  bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) ); 
+	void passTimeAndCheckWaiting( int time );
+	int getMinimumWaitIndex( void );
+	void checkWaitingProcesses( void );
+
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
 	std::vector<ProcessControlBlock> _readyQueue; 
 	std::vector<ProcessControlBlock> _IOWaitingQueue;
@@ -33,6 +38,9 @@ protected:
 private:
 	std::vector<ProcessControlBlock> _finalQueueOrder;	
 	int _quantumTime;
+
+	/* Constants */
+	static const int NO_WAITING_PROCESSES;
 };
 
 #endif

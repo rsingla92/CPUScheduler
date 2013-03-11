@@ -7,9 +7,7 @@
 #ifndef TIME_SLICE_PRIORITY_H
 #define TIME_SLICE_PRIORITY_H
 
-#include <algorithm>
 #include "Algorithm.hpp"
-#include "utilities.hpp"
 
 class TimeSlicePriority :
 	public Algorithm
@@ -21,8 +19,9 @@ public:
 	void run();
 	std::vector<ProcessControlBlock> getFinalQueueOrder();
 
-private:
-	void populateInitialQueues( void ); 
+private: 
+	/* Constants used by the class */
+	static const int NO_WAITING_PROCESSES;
 };
 
 #endif
