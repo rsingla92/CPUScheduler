@@ -23,6 +23,11 @@ public:
 
 private:
 	void populateInitialQueues( void ); 
+	void checkWaitingProcesses( void ); 
+	int getMinimumWaitIndex( void ); 
+	void passTimeAndCheckWaiting( int time ); 
+	/* Constants used by the class */
+	static const int NO_WAITING_PROCESSES;
 };
 
 #endif

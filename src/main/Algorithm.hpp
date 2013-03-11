@@ -24,7 +24,7 @@ protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
 	void setQuantumTime(int newQTime);
 	int getQuantumTime();
-	
+
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
 	std::vector<ProcessControlBlock> _readyQueue; 
 	std::vector<ProcessControlBlock> _IOWaitingQueue;
