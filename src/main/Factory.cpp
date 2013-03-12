@@ -15,7 +15,7 @@
  * Purpose: To abstract the creation of the different Algorithm objects
  */
 
-Algorithm* Factory:: factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum) {
+Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum) {
     if (rawData.size() > 0 && isAlgorithmType(algorithmType)){
         if (algorithmType == "FCFS")
             return new FirstComeFirstServe(rawData);
@@ -27,12 +27,14 @@ Algorithm* Factory:: factory_makeAlgorithm(std::string algorithmType, std::vecto
             return new InstantPriority(rawData, timeQuantum);
         else if (algorithmType == "NPP")
             return new NonPreemptivePriority(rawData, timeQuantum);
-        else if (algorithmType == "SJF")
-            return new ShortestJobFirst(rawData, timeQuantum);
+        else if (algorithmType == "PSJF")
+            return new PreShortestJobFirst(rawData, timeQuantum);
         // this is assuming SJF implements instantaneous preemption
         // otherwise lets process go until completion
         else if (algorithmType == "SPB")
             return new ShortestPreviousBursts(rawData, timeQuantum);
+        else if (algorithmType == "NPSJF")
+            return new NonPreShortestJobFirst(rawData, timeQuantum);
         // same assumptions as above
     }
     else {

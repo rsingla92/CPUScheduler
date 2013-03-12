@@ -9,7 +9,6 @@
 #define SHORTEST_PREVIOUS_BURSTS_H
 
 #include "Algorithm.hpp"
-#include <iostream>
 
 class ShortestPreviousBursts : public Algorithm {
 public:

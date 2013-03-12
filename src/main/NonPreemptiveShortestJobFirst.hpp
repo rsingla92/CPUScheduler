@@ -5,19 +5,19 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#ifndef FIRST_COME_FIRST_SERVE_H
-#define FIRST_COME_FIRST_SERVE_H
+#ifndef NON_PREEMPTIVE_SHORTEST_JOB_FIRST_H
+#define NON_PREEMPTIVE_SHORTEST_JOB_FIRST_H
 
 #include "Algorithm.hpp"
 
-class FirstComeFirstServe : public Algorithm {
+class NonPreShortestJobFirst : public Algorithm {
 public:
-    FirstComeFirstServe(std::vector<ProcessControlBlock> rawData);
+    NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
-
+    
     std::vector<ProcessControlBlock> getFinalQueueOrder();
 private:
-
+    
 };
 
 #endif

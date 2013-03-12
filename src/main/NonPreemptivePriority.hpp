@@ -9,7 +9,6 @@
 #define NONPREEMPTIVE_PRIORITY_H
 
 #include "Algorithm.hpp"
-#include <iostream>
 
 class NonPreemptivePriority : public Algorithm {
 public:

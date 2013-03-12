@@ -14,9 +14,9 @@
 #include "RoundRobin.hpp"
 #include "InstantPriority.hpp"
 #include "NonPreemptivePriority.hpp"
-#include "ShortestJobFirst.hpp"
+#include "PreShortestJobFirst.hpp"
 #include "ShortestPreviousBursts.hpp"
-#include <iostream>
+#include "NonPreemptiveShortestJobFirst.hpp"
 
 class Factory
 {

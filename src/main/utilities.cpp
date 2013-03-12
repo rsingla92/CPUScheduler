@@ -48,7 +48,7 @@ bool checkToRemoveTARQ( const ProcessControlBlock& val ) {
 }
 
 bool isAlgorithmType (std::string algorithmType){
-    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "SJF" || algorithmType == "SPB")
+    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "PSJF" || algorithmType == "SPB" || algorithmType == "NPSJF")
         return true;
     else
         return false;

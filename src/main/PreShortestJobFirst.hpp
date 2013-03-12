@@ -9,11 +9,10 @@
 #define SHORTEST_JOB_FIRST_H
 
 #include "Algorithm.hpp"
-#include <iostream>
 
-class ShortestJobFirst : public Algorithm {
+class PreShortestJobFirst : public Algorithm {
 public:
-    ShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    PreShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();

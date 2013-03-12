@@ -9,7 +9,6 @@
 #define ROUND_ROBIN_H
 
 #include "Algorithm.hpp"
-#include <iostream>
 
 class RoundRobin : public Algorithm {
 public:

@@ -36,13 +36,16 @@ int main(int argc, char* argv[]){
     testAlg = AlgFac.factory_makeAlgorithm("INSTP", loadFile, 3);
     testAlg->run();
     
-    testAlg = AlgFac.factory_makeAlgorithm("SJF", loadFile, 3);
+    testAlg = AlgFac.factory_makeAlgorithm("PSJF", loadFile, 3);
     testAlg->run();
     
     testAlg = AlgFac.factory_makeAlgorithm("SPB", loadFile, 3);
     testAlg->run();
     
     testAlg = AlgFac.factory_makeAlgorithm("FCFS", loadFile, 3);
+    testAlg->run();
+    
+    testAlg = AlgFac.factory_makeAlgorithm("NPSJF", loadFile, 3);
     testAlg->run();
     
     /*for testing purposes - you guys can delete this

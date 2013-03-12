@@ -9,7 +9,6 @@
 #define INSTANT_PRIORITY_H
 
 #include "Algorithm.hpp"
-#include <iostream>
 
 class InstantPriority : public Algorithm {
 public:
