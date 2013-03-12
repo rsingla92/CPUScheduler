@@ -14,7 +14,7 @@ FCFSAlg::FCFSAlg(std::vector<ProcessControlBlock> inputRawData, int quantumTime)
  
 
 //My alterations of Jeremy's code to make it work for FCFS
-void FCFSAlg::run()
+void FCFSAlg::run(){
 	std::vector<ProcessControlBlock>::iterator it; 
 	int firstTimeSlice = 0;
 
