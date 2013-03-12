@@ -62,29 +62,6 @@ void FCFSAlg::run(){
 	}
 }
 
-//Sets up the Ready Queue, IOWaitingQueue, and the timeArrivalQueue, based on the input data.
-void FCFSAlg::initializeQueues()
-{	
-	std::vector<ProcessControlBlock>::Iterator PCBIt;
-	
-	for(PCBIt = _dataInputToAlgorithm.begin(); PCBIt < _dataInputToAlgorithm.end(); ++PCBIt){
-		if(PCBIt->getArrivalTime() > 0){
-			_readyQueue.push_back(*PCBIt);
-		}
-		else
-		{
-			_timeArrivalReadyQueue.push_back(*PCBIt);
-		}	
-	}
-
-	assert(_timeArrivalReadyQueue.size() + _readyQueue.size() + _IOWaitingQueue.size() == _dataInputToAlgorithm.size());
-	
-	_readyQueue.sort(_readyQueue.begin(), _readyQueue.end(), isHigherPriority);
-	
-	return;
-}
-
-
 
 ////Runs Round Robin and FCFS Algorithm, using the quantum time as the defining variable
 //void FCFSAlg::run()

@@ -54,7 +54,7 @@ std::vector<ProcessControlBlock> parseTextFile() {
     ProcessControlBlock currentProcess;
     
     
-    std::ifstream myfile ("process.txt");
+    std::ifstream myfile ("/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt");
     if (myfile.is_open())
     {
         getline(myfile,line); // the first column name line, dont need it
