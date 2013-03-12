@@ -36,6 +36,7 @@ Algorithm* Factory:: factory_makeAlgorithm(std::string algorithmType, std::vecto
     // same assumptions as above
     }
     else {
-        std::cout << "Invalid Parameters" << std::endl;
+        std::cout << "Invalid Parameters: now implementing FCFS Alg" << std::endl;
+        return new FirstComeFirstServe(rawData);
     }
 }
