@@ -42,19 +42,6 @@ void ProcessControlBlock::setPID(int PID)
 	_pid = PID;
 }
 
-int ProcessControlBlock::getArrivalTime()
-{
-	return _arrivalTime;
-}
-
-void ProcessControlBlock::setArrivalTime(int arrivalTime)
-{
-	_arrivalTime = arrivalTime;
-	return;
-}
-
-std::vector<int> ProcessControlBlock::getCPUBursts()
-
 int ProcessControlBlock::getTARQ() const
 {
     return _tarq;

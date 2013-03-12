@@ -40,8 +40,6 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-	return 0;
-
 std::vector<ProcessControlBlock> parseTextFile() {
     std::vector<int> PCB_CPUTimes;
     std::vector<int> PCB_IOTimes;
@@ -54,7 +52,6 @@ std::vector<ProcessControlBlock> parseTextFile() {
     std::string line;
     std::vector<ProcessControlBlock> rawData;
     ProcessControlBlock currentProcess;
-    bool properInputProcess = true;
     
     
     std::ifstream myfile ("process.txt");
@@ -67,8 +64,6 @@ std::vector<ProcessControlBlock> parseTextFile() {
             PCB_IOTimes.clear();
             PCB_CPUTimes.clear();
             
-            properInputProcess = true;
-            
             myfile >> PID;
             
             myfile >> TARQ;
@@ -79,28 +74,16 @@ std::vector<ProcessControlBlock> parseTextFile() {
             
             for (i = 0; i < (TNCPU-1); i++) { // need last burst to be CPU burst
                 myfile >> temp;
-                if(temp <= 0)
-                	properInputProcess = false;
                 PCB_CPUTimes.push_back(temp);
                 
                 myfile >> temp;
-                if(temp <= 0)
-                	properInputProcess = false;
                 PCB_IOTimes.push_back(temp);
             }
             myfile >> temp;
-            if(temp <= 0)
-                	properInputProcess = false;
             PCB_CPUTimes.push_back(temp);
             
-            if(properInputProcess == true){
-	            currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
-    	        rawData.push_back(currentProcess);
-    		}
-    		else{
-    			std::cout << "The input text file has an input that is incorrect for PID: " + PID + std::endl;
-    		}
-    		
+            currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
+            rawData.push_back(currentProcess);
         }
         myfile.close();
     }
@@ -110,4 +93,3 @@ std::vector<ProcessControlBlock> parseTextFile() {
     
     return rawData;
 }
-

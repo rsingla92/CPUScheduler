@@ -38,13 +38,6 @@ public:
     std::vector<int> getIOBursts() const;
     void setIOBursts(std::vector<int> IOBursts);
    
-   int getArrivalTime();
-   void setArrivalTime(int arrivalTime);
-   private:
-   int _pid;
-   int _arrivalTime;
-   std::vector<int> _CPUBursts;
-   std::vector<int> _IOBursts;
     std::vector<int> getCPUQuantumVec() const;
     void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
    
