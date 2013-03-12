@@ -10,13 +10,17 @@
 
 #include "Algorithm.hpp" 
 #include "processcontrolblock.hpp"
+#include "utilities.hpp"
 #include <assert.h>
 
 class FCFSAlg : public Algorithm {
 
 public:
+	FCFSAlg(std::vector<ProcessControlBlock> inputRawData, int quantumTime); 
+	
 	void initializeQueues(); 
 	void run();
+	
 	
 private:
 
