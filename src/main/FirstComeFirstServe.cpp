@@ -1,20 +1,22 @@
 /*
  * EECE 315 - Project 3 CPU Scheduler
- * 
+ *
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
- 
-#include "FCFSAlg.hpp"
 
-FCFSAlg::FCFSAlg(std::vector<ProcessControlBlock> inputRawData, int quantumTime) 
-	: Algorithm(inputRawData, quantumTime)
-{
+#include "FirstComeFirstServe.hpp"
+
+FirstComeFirstServe::FirstComeFirstServe(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+    std::cout << "make a FCFS object" << std::endl;
 }
- 
 
-//My alterations of Jeremy's code to make it work for FCFS
-void FCFSAlg::run(){
+std::vector<ProcessControlBlock> FirstComeFirstServe::getFinalQueueOrder()
+{
+	return _readyQueue;
+}
+
+void FirstComeFirstServe::run(){
 	std::vector<ProcessControlBlock>::iterator it; 
 	int firstTimeSlice = 0;
 
@@ -107,14 +109,3 @@ void FCFSAlg::run(){
 //	
 //	return;
 //}
-
-
-
-
-
-
-
-
-
-
-
