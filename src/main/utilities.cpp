@@ -46,3 +46,10 @@ bool checkToRemoveIO( const ProcessControlBlock& val ) {
 bool checkToRemoveTARQ( const ProcessControlBlock& val ) {
 	return ( val.getTARQ() <= 0 ); 
 }
+
+bool isAlgorithmType (std::string algorithmType){
+    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "SJF" || algorithmType == "SPB")
+        return true;
+    else
+        return false;
+}
