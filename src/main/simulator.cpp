@@ -14,8 +14,8 @@
 
 /* Function declarations */
 std::vector<ProcessControlBlock> parseTextFile(std::string filename);
-void welcomeMessage (int * intAlgorithmChoice, std::string * fileStringToOpen, int * quantumTimeSlice, int * preemption);
-void runSpecifiedAlgorithm(int * intAlgorithmChoice, std::vector<ProcessControlBlock> * loadFile, int * quantumTimeSlice, int * preemption);
+void welcomeMessage (int & intAlgorithmChoice, std::string & fileStringToOpen, int & quantumTimeSlice, int & preemption);
+void runSpecifiedAlgorithm(int & intAlgorithmChoice, std::vector<ProcessControlBlock> & loadFile, int & quantumTimeSlice, int & preemption);
 
 int main(int argc, char* argv[]){
     std::string contSimulating = "y";
@@ -25,12 +25,12 @@ int main(int argc, char* argv[]){
     std::string fileStringToOpen;
     
     while(contSimulating == "y" && argc == 1){
-		welcomeMessage(&intAlgorithmChoice, &fileStringToOpen, &quantumTimeSlice, &preemption);
+		welcomeMessage(intAlgorithmChoice, fileStringToOpen, quantumTimeSlice, preemption);
 
 		std::vector<ProcessControlBlock> loadFile;
 		loadFile = parseTextFile(fileStringToOpen);
 
-		runSpecifiedAlgorithm(&intAlgorithmChoice, &loadFile, &quantumTimeSlice, &preemption);
+		runSpecifiedAlgorithm(intAlgorithmChoice, loadFile, quantumTimeSlice, preemption);
 
 		std::cout << "Do you wish to continue? ('y'/'n') ";
 		std::cin >> contSimulating;
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
     	std::vector<ProcessControlBlock> loadFile;
     	loadFile = parseTextFile(fileStringToOpen);
 
-    	runSpecifiedAlgorithm(&intAlgorithmChoice, &loadFile, &quantumTimeSlice, &preemption);
+    	runSpecifiedAlgorithm(intAlgorithmChoice, loadFile, quantumTimeSlice, preemption);
     }
     std::cout << "Program Completed." << std::endl;
 
@@ -131,17 +131,17 @@ std::vector<ProcessControlBlock> parseTextFile(std::string filename) {
 }
 
 
-void welcomeMessage (int * intAlgorithmChoice, std::string * fileStringToOpen, int * quantumTimeSlice, int * preemption){
+void welcomeMessage (int & intAlgorithmChoice, std::string & fileStringToOpen, int & quantumTimeSlice, int & preemption){
 	std::cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
-	std::cin >> (*fileStringToOpen);
+	std::cin >> (fileStringToOpen);
 
-	std::ifstream myFile(fileStringToOpen->c_str());
+	std::ifstream myFile(fileStringToOpen.c_str());
 	if(myFile.is_open()){
-		std::cout << "Your entry, " << *fileStringToOpen << ", is valid. loading input file..." << std::endl;
+		std::cout << "Your entry, " << fileStringToOpen << ", is valid. loading input file..." << std::endl;
 	}
 	else{
-		*fileStringToOpen = "/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt";
-		std::ifstream myFile(fileStringToOpen->c_str());
+		fileStringToOpen = "/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt";
+		std::ifstream myFile(fileStringToOpen.c_str());
 		if(myFile.is_open())
 			std::cout << "Your entry was invalid, defaulting to default txt file" << std::endl;
 		else{
@@ -150,28 +150,27 @@ void welcomeMessage (int * intAlgorithmChoice, std::string * fileStringToOpen, i
 	}
 
 	std::cout << "Please choose which algorithm you would like to run \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << std::endl;
-	std::cin >> *intAlgorithmChoice;
+	std::cin >> intAlgorithmChoice;
 
-	if(*intAlgorithmChoice > 1 && *intAlgorithmChoice <= 5){
+	if(intAlgorithmChoice > 1 && intAlgorithmChoice <= 5){
 		std::cout << "Please enter the quantum timeslice to use: ";
-		std::cin >> *quantumTimeSlice;
-		while(*quantumTimeSlice <= 0){
+		std::cin >> quantumTimeSlice;
+		while(quantumTimeSlice <= 0){
 			std::cout << "Please ensure the timeslice is > 0. Re-input: ";
-			std::cin >> *quantumTimeSlice;
+			std::cin >> quantumTimeSlice;
 		}
 
-		if(*intAlgorithmChoice >= 3){
+		if(intAlgorithmChoice >= 3){
 			std::cout << "Please enter whether or to have preemption in your algorithm choice ('0'=no preemption, otherwise preemption): ";
-			std::cin >> *preemption;
+			std::cin >> preemption;
 		}
 	}
 
 	return;
 }
 
-void runSpecifiedAlgorithm(int * intAlgorithmChoice, std::vector<ProcessControlBlock> * loadFile, int * quantumTimeSlice, int * preemption){
-
-	switch(*intAlgorithmChoice){
+void runSpecifiedAlgorithm(int & intAlgorithmChoice, std::vector<ProcessControlBlock> & loadFile, int & quantumTimeSlice, int & preemption){
+	switch(intAlgorithmChoice){
 	case 1 : std::cout << "FCFS Selected to run..." << std::endl;
 		//FCFSAlg testFCFSAlg();
 		//testFCFSAlg.run();
@@ -181,7 +180,7 @@ void runSpecifiedAlgorithm(int * intAlgorithmChoice, std::vector<ProcessControlB
 			//testRRAlg.run();
 		break;
 	case 3 : std::cout << "SJF Selected to run..." << std::endl;
-		if(*preemption){
+		if(preemption){
 			//SJFAlg testSJFAlg();
 			//testSJFAlg.run();
 		} else{
@@ -190,7 +189,7 @@ void runSpecifiedAlgorithm(int * intAlgorithmChoice, std::vector<ProcessControlB
 		}
 		break;
 	case 4 : std::cout << "SPB Selected to run..." << std::endl;
-		if(*preemption){
+		if(preemption){
 			//SPBAlg testSPBAlg();
 			//testSPBAlg.run();
 		} else{
@@ -199,17 +198,17 @@ void runSpecifiedAlgorithm(int * intAlgorithmChoice, std::vector<ProcessControlB
 		}
 		break;
 	case 5 : std::cout << "Priority Selected to run..." << std::endl;
-		if(*preemption){
+		if(preemption){
 			//TimeSlicePriority testAlgo(loadFile, 3);
 			//testAlgo.run();
 		} else{
-			TimeSlicePriority testAlgo(*loadFile, *quantumTimeSlice);
+			TimeSlicePriority testAlgo(loadFile, quantumTimeSlice);
 			testAlgo.run();
 		}
 		break;
 	default :
 		std::cout << "Please input a proper algorithm number, from 1-6." << std::endl;
-		*intAlgorithmChoice = -1;
+		intAlgorithmChoice = -1;
 		break;
 	}
 
