@@ -155,7 +155,6 @@ void Algorithm::checkWaitingProcesses( void ) {
  */
 int Algorithm::getMinimumWaitIndex( void )
 {
-	int minIndex = 0;
 	int minTARQVal = 0, minIOVal = 0; 
 	std::vector<ProcessControlBlock>::iterator tarqIt;
 	std::vector<ProcessControlBlock>::iterator ioIt;
