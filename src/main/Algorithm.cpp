@@ -35,7 +35,7 @@ void Algorithm::breakUpCPUBurst(ProcessControlBlock &refPCB){
 	}
 
 	refPCB.setCPUQuantumVec(tempQuantumVec);
-	
+
 	return;
 }
 
@@ -47,7 +47,7 @@ void Algorithm::setQuantumTime(int newQTime){
 int Algorithm::getQuantumTime(){
 	return _quantumTime;
 }
-	
+
 /*
  * Function: populateInitialQueues
  * Parameters: None
@@ -161,7 +161,7 @@ int Algorithm::getMinimumWaitIndex( void )
 	std::vector<ProcessControlBlock>::iterator ioIt;
 
 	if( _TimeArrivalReadyQueue.size() == 0 && _IOWaitingQueue.size() == 0 ) return NO_WAITING_PROCESSES; 
-	
+
 	/* There are waiting processes */
 	if( _TimeArrivalReadyQueue.size() > 0 ) {
 		tarqIt = std::min_element( _TimeArrivalReadyQueue.begin(), _TimeArrivalReadyQueue.end(), isLowerTarq ); 

@@ -34,7 +34,7 @@ protected:
 	std::vector<ProcessControlBlock> _readyQueue; 
 	std::vector<ProcessControlBlock> _IOWaitingQueue;
 	std::vector<ProcessControlBlock> _TimeArrivalReadyQueue;
-	
+
 private:
 	std::vector<ProcessControlBlock> _finalQueueOrder;	
 	int _quantumTime;
