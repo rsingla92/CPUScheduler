@@ -19,12 +19,17 @@ void runSpecifiedAlgorithm(int & intAlgorithmChoice, std::vector<ProcessControlB
 
 int main(int argc, char* argv[]){
     std::string contSimulating = "y";
-    int intAlgorithmChoice = -1;
-    int quantumTimeSlice = -1;
-    int preemption = 0;
+    int intAlgorithmChoice;
+    int quantumTimeSlice;
+    int preemption;
     std::string fileStringToOpen;
     
     while(contSimulating == "y" && argc == 1){
+    	intAlgorithmChoice = -1;
+    	quantumTimeSlice = -1;
+    	preemption = 0;
+    	fileStringToOpen = "";
+
 		welcomeMessage(intAlgorithmChoice, fileStringToOpen, quantumTimeSlice, preemption);
 
 		std::vector<ProcessControlBlock> loadFile;
@@ -51,21 +56,6 @@ int main(int argc, char* argv[]){
     }
     std::cout << "Program Completed." << std::endl;
 
-
-
-    /* for testing purposes - you guys can delete this
-     int i;
-     std::cout <<"this first PID: "  << loadFile[0].getPID() << std::endl;
-     std::cout <<"the TARQ: " << loadFile[0].getTARQ() << std::endl;
-     std::cout << "the Priority: " << loadFile[0].getPriority() << std::endl;
-     std::cout <<"the TNCPU: " << loadFile[0].getTNCPU() << std::endl;
-     for (i=0; i<loadFile[0].getCPUBursts().size(); i++)
-     std::cout <<"the cpubursts: " << loadFile[0].getCPUBursts()[i] << std:: endl;
-     for (i=0; i<loadFile[0].getIOBursts().size(); i++)
-     std:: cout<< "the IO: " << loadFile[0].getIOBursts()[i] << std:: endl;
-     
-     std::cout <<"the second PID: " << loadFile[1].getPID() << std::endl;
-     */
     //   welcome();
     //   cpuScheduler = new Scheduler(();
     //   cpuScheduler.run();
@@ -89,7 +79,6 @@ std::vector<ProcessControlBlock> parseTextFile(std::string filename) {
     std::vector<ProcessControlBlock> rawData;
     ProcessControlBlock currentProcess;
     
-    //std::ifstream myfile ("/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt");
     std::ifstream myfile (filename.c_str());
     if (myfile.is_open())
     {
@@ -140,21 +129,33 @@ void welcomeMessage (int & intAlgorithmChoice, std::string & fileStringToOpen, i
 		std::cout << "Your entry, " << fileStringToOpen << ", is valid. loading input file..." << std::endl;
 	}
 	else{
-		fileStringToOpen = "/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt";
+		fileStringToOpen = "/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt"; //set this line specific to each persons computer
 		std::ifstream myFile(fileStringToOpen.c_str());
-		if(myFile.is_open())
+
+		if(myFile.is_open()){
 			std::cout << "Your entry was invalid, defaulting to default txt file" << std::endl;
+		}
 		else{
 			std::cout << "Error, default program failed to load, try again." << std::endl;
 		}
 	}
 
 	std::cout << "Please choose which algorithm you would like to run \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << std::endl;
-	std::cin >> intAlgorithmChoice;
+	std::string tempString = "";
+	std::getline(std::cin,tempString);
+	std::stringstream(tempString) >> intAlgorithmChoice;
 
-	if(intAlgorithmChoice > 1 && intAlgorithmChoice <= 5){
+	//enforce input Algorithm Choice to be between 1 and 5
+	while(intAlgorithmChoice < 1 || intAlgorithmChoice > 5){
+		std::cout << "Please input a proper integer choice (1-5): ";
+		std::getline(std::cin,tempString);
+		std::stringstream(tempString) >> intAlgorithmChoice;
+	}
+
+	if(intAlgorithmChoice >= 2 && intAlgorithmChoice <= 5){
 		std::cout << "Please enter the quantum timeslice to use: ";
 		std::cin >> quantumTimeSlice;
+
 		while(quantumTimeSlice <= 0){
 			std::cout << "Please ensure the timeslice is > 0. Re-input: ";
 			std::cin >> quantumTimeSlice;
