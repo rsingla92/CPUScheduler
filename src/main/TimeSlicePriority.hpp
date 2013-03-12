@@ -10,7 +10,7 @@
 #include "Algorithm.hpp"
 
 class TimeSlicePriority :
-	public Algorithm
+   public Algorithm
 {
 public:
 	TimeSlicePriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime);

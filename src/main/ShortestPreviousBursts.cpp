@@ -8,11 +8,11 @@
 #include "ShortestPreviousBursts.hpp"
 
 ShortestPreviousBursts:: ShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
-    std::cout << "make a SJF object" << std::endl;
+    std::cout << "make a SPB object" << std::endl;
 }
 
 void ShortestPreviousBursts:: run(){
-    std::cout << "running SJF" << std::endl;
+    std::cout << "running SPB" << std::endl;
 }
 
 std::vector<ProcessControlBlock> ShortestPreviousBursts::getFinalQueueOrder()

@@ -33,7 +33,7 @@ Algorithm* Factory:: factory_makeAlgorithm(std::string algorithmType, std::vecto
         // otherwise lets process go until completion
         else if (algorithmType == "SPB")
             return new ShortestPreviousBursts(rawData, timeQuantum);
-    // same assumptions as above
+        // same assumptions as above
     }
     else {
         std::cout << "Invalid Parameters: now implementing FCFS Alg" << std::endl;
