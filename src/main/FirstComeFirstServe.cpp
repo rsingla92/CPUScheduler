@@ -7,7 +7,7 @@
 
 #include "FirstComeFirstServe.hpp"
 
-FirstComeFirstServe:: FirstComeFirstServe(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData, 0){
+FirstComeFirstServe::FirstComeFirstServe(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData, 0){
     std::cout << "make a FCFS object" << std::endl;
 }
 
