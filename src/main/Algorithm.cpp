@@ -14,6 +14,9 @@ Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumT
 {
 }
 
+Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData) : _dataInputToAlgorithm(inputRawData), _quantumTime(0) { 
+}
+
 /*
  * Function: breakUpCPUBurst
  * Parameters: refPCB - The PCB of the process.

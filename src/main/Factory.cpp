@@ -36,7 +36,7 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         else if (algorithmType == "PSPB")
             return new PreemptiveShortestPreviousBursts(rawData, timeQuantum);
         else if (algorithmType == "NPSJF")
-            return new NonPreShortestJobFirst(rawData, timeQuantum);
+            return new NonPreShortestJobFirst(rawData);
         // same assumptions as above
     }
     else {

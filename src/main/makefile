@@ -1,10 +1,9 @@
 CC=g++
 CFLAGS=-g -Wall 
-#-std=gnu99
 
 all: simulator
 	
-simulator                : simulator.o Algorithm.o FCFSAlg.o gantt.o processcontrolblock.o scheduler.o TimeSlicePriority.o utilities.o
+simulator                :  
 	$(CC) -o simulator simulator.o Algorithm.o FCFSAlg.o gantt.o processcontrolblock.o scheduler.o TimeSlicePriority.o utilities.o
 
 simulator.o              : simulator.cpp simulator.hpp scheduler.hpp processcontrolblock.hpp gant.hpp

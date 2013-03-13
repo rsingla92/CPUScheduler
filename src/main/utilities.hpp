@@ -23,5 +23,6 @@ bool checkToRemoveIO( const ProcessControlBlock& val );
 bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool isAlgorithmType (std::string algorithmType);
+bool isShorterCPUBurst(const ProcessControlBlock& lhs, const ProcessControlBlock& rhs);
 
 #endif
