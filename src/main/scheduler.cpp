@@ -4,3 +4,12 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
+ 
+ class scheduler {
+ public:
+ 
+ 	scheduler();
+ 
+ private:
+  
+ };
