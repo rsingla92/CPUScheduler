@@ -13,8 +13,9 @@
 #include "FirstComeFirstServe.hpp"
 #include "InstantPriority.hpp"
 #include "NonPreemptivePriority.hpp"
-#include "PreShortestJobFirst.hpp"
+#include "PreemptiveShortestJobFirst.hpp"
 #include "ShortestPreviousBursts.hpp"
+#include "PreemptiveShortestPreviousBursts.hpp"
 #include "NonPreemptiveShortestJobFirst.hpp"
 
 class Factory

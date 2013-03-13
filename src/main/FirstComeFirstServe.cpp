@@ -31,7 +31,7 @@ void FirstComeFirstServe::run(){
 		/* Split the next CPU burst of the ready queue (if it has not already been) into time slices */
 		breakUpCPUBurst( _readyQueue[0] );  
 
-		if( _readyQueue[0].getCPUQuantumVec().size() != 0 )
+		if( _readyQueue[0].getCPUQuantumVec().size() > 0 )
 		{
 			int checkInitialSize = _readyQueue.size();
 			std::vector<int> newCPUQuantumVec = _readyQueue[0].getCPUQuantumVec();
