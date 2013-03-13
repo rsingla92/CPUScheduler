@@ -10,9 +10,9 @@
 
 #include "Algorithm.hpp"
 
-class PreShortestJobFirst : public Algorithm {
+class PreemptiveShortestJobFirst : public Algorithm {
 public:
-    PreShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();

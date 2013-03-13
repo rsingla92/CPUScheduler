@@ -15,8 +15,6 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
-using namespace std;
-
 scheduler::scheduler(){
 	_currentAlgorithm = NULL;
 	_algFactory = Factory();
@@ -36,7 +34,6 @@ void scheduler::parseTextFile(){
 	int i = 0;
 	int temp = 0;
 	string line;
-	vector<ProcessControlBlock> rawData;
 	ProcessControlBlock currentProcess;
 
 	ifstream myfile (_fileStringToOpen.c_str());
@@ -68,15 +65,14 @@ void scheduler::parseTextFile(){
 	        PCB_CPUTimes.push_back(temp);
 
 	        currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
-	        rawData.push_back(currentProcess);
+	        _rawData.push_back(currentProcess);
 	    }
 	    myfile.close();
 	}
 
-	else
-	    cout << "unable to open file" << std::endl;
-
-	_rawData = rawData;
+	else {
+	    cout << "unable to open file" << endl;
+    }
 	return;
 }
 
@@ -85,28 +81,28 @@ void scheduler::welcomeMessage (){
 	_intAlgorithmChoice = -1;
 	_quantumTimeSlice = -1;
 	_preemption = 0;
+    string tempString = "";
 
 	cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
 	cin >> (_fileStringToOpen);
 
 	ifstream myFile(_fileStringToOpen.c_str());
 	if(myFile.is_open()){
-		cout << "Your entry, " << _fileStringToOpen << ", is valid. loading input file..." << std::endl;
+		cout << "Your entry, " << _fileStringToOpen << ", is valid. loading input file..." << endl;
 	}
 	else{
-		_fileStringToOpen = "/home/jordenh/Documents/GitHub/CPUScheduler/src/test/process.txt"; //set this line specific to each persons computer
+		_fileStringToOpen = "/Users/laurenfung/lauren/Desktop/proj 3 master/DerivedData/proj 3 master/Build/Products/Debug/process.txt"; //set this line specific to each persons computer
 		ifstream myFile(_fileStringToOpen.c_str());
 
 		if(myFile.is_open()){
-			cout << "Your entry was invalid, defaulting to default txt file" << std::endl;
+			cout << "Your entry was invalid, defaulting to default txt file" << endl;
 		}
 		else{
-			cout << "Error, default program failed to load, try again." << std::endl;
+			cout << "Error, default program failed to load, try again." << endl;
 		}
 	}
 
-	cout << "Please choose which algorithm you would like to run \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << std::endl;
-	string tempString = "";
+	cout << "Please choose an algorithm to run: \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << endl;
 	getline(cin,tempString);
 	stringstream(tempString) >> _intAlgorithmChoice;
 
@@ -127,60 +123,71 @@ void scheduler::welcomeMessage (){
 			stringstream(tempString) >> _quantumTimeSlice;
 		}
 
-		if(_intAlgorithmChoice >= 3){
-			cout << "Please enter whether or to have preemption in your algorithm choice ('0'=no preemption, otherwise preemption): ";
+		if(_intAlgorithmChoice == 3 || _intAlgorithmChoice == 4){
+			cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
 			getline(cin,tempString);
 			stringstream(tempString) >> _preemption;
 		}
+        
+        if(_intAlgorithmChoice == 5){
+            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption: ";
+            getline(cin, tempString);
+            stringstream(tempString) >> _preemption;
+        }
 	}
 
 	return;
 }
 
 void scheduler::runSpecifiedAlgorithm(){
-	int tempInt = 0;
-	//Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum);
-
 	this->parseTextFile();
 
-	//need INSTP
-
 	switch(_intAlgorithmChoice){
-	case 1 : cout << "FCFS Selected to run..." << endl;
+    case 1 :
+        cout << "FCFS selected to run..." << endl << endl;
 		_currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice);
 		break;
-	case 2 : cout << "RR Selected to run..." << endl;
+    case 2 :
+        cout << "RR selected to run..." << endl << endl;
 		_currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
 		break;
-	case 3 : cout << "SJF Selected to run..." << endl;
+    case 3 :
+        cout << "SJF selected to run ";
 		if(_preemption){
+            cout << "with preemption..." << endl << endl;
 			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice);
 		} else{
+            cout << "without preemption..." << endl << endl;
 			_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice);
 		}
 		break;
-	case 4 : cout << "SPB Selected to run..." << endl;
+    case 4 :
+        cout << "SPB selected to run ";
 		if(_preemption){
+            cout << "with preemption..." << endl << endl;
 			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice);
 		} else{
+            cout << "without preemption..." << endl << endl;
 			_currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice);
 		}
 		break;
-	case 5 : cout << "Priority Selected to run..." << endl;
-		cout << "Enter a '1' for instant priority, otherwise, stick to preemptive or non-preemptive priority: ";
-		cin >> tempInt;
-		if(tempInt == 1){
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
-		}else{
-			if(_preemption){
-				_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
-			} else{
-				_currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
-			}
+	case 5 :
+        cout << "Priority selected to run ";
+		if(_preemption == 1){
+            cout << "with patient preemption..." << endl << endl;
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
 		}
+        else if(_preemption == 2){
+            cout << "wit impatient premption..." << endl << endl;
+				_currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
+        }
+        else{
+            cout << "without preemption..." << endl << endl;
+            _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
+			}
 		break;
 	default :
-		cout << "Please input a proper algorithm number, from 1-6." << endl;
+		cout << "Please input a proper algorithm number (must be between 1 and 5)." << endl;
 		_intAlgorithmChoice = -1;
 		break;
 	}

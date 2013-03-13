@@ -12,7 +12,6 @@
 #include "Algorithm.hpp"
 #include "utilities.hpp"
 #include "Factory.hpp"
-#include <limits>
 
 class scheduler {
  public:
