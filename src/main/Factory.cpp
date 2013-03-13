@@ -33,6 +33,9 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         // otherwise lets process go until completion
         else if (algorithmType == "SPB")
             return new ShortestPreviousBursts(rawData, timeQuantum);
+        else if (algorithmType == "PSPB")
+                    //return new PreShortestPreviousBursts(rawData, timeQuantum);
+        			std::cout << "This doesnt do anything yet... for PSPB";
         else if (algorithmType == "NPSJF")
             return new NonPreShortestJobFirst(rawData, timeQuantum);
         // same assumptions as above

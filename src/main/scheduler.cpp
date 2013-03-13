@@ -13,10 +13,13 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::ifstream;
+using std::stringstream;
+
+using namespace std;
 
 scheduler::scheduler(){
 	_currentAlgorithm = NULL;
-	_algFactory = new Factory();
+	_algFactory = Factory();
 	_intAlgorithmChoice = -1;
 	_quantumTimeSlice = -1;
 	_preemption = 0;
@@ -24,8 +27,8 @@ scheduler::scheduler(){
 }
 
 void scheduler::parseTextFile(){
-	std::vector<int> PCB_CPUTimes;
-	std::vector<int> PCB_IOTimes;
+	vector<int> PCB_CPUTimes;
+	vector<int> PCB_IOTimes;
 	int priority = -1;
 	int TARQ = -1;
 	int PID = -1;
@@ -71,13 +74,18 @@ void scheduler::parseTextFile(){
 	}
 
 	else
-	    std::cout << "unable to open file" << std::endl;
+	    cout << "unable to open file" << std::endl;
 
 	_rawData = rawData;
 	return;
 }
 
 void scheduler::welcomeMessage (){
+	_fileStringToOpen= "";
+	_intAlgorithmChoice = -1;
+	_quantumTimeSlice = -1;
+	_preemption = 0;
+
 	cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
 	cin >> (_fileStringToOpen);
 
@@ -99,7 +107,7 @@ void scheduler::welcomeMessage (){
 
 	cout << "Please choose which algorithm you would like to run \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << std::endl;
 	string tempString = "";
-	getline(std::cin,tempString);
+	getline(cin,tempString);
 	stringstream(tempString) >> _intAlgorithmChoice;
 
 	//enforce input Algorithm Choice to be between 1 and 5
@@ -111,16 +119,18 @@ void scheduler::welcomeMessage (){
 
 	if(_intAlgorithmChoice >= 2 && _intAlgorithmChoice <= 5){
 		cout << "Please enter the quantum timeslice to use: ";
-		cin >> _quantumTimeSlice;
-
+		getline(cin,tempString);
+		stringstream(tempString) >> _quantumTimeSlice;
 		while(_quantumTimeSlice <= 0){
-			cout << "Please ensure the timeslice is > 0. Re-input: ";
-			cin >> _quantumTimeSlice;
+			cout << "must input an integer > 0. Re-input: ";
+			getline(cin,tempString);
+			stringstream(tempString) >> _quantumTimeSlice;
 		}
 
 		if(_intAlgorithmChoice >= 3){
 			cout << "Please enter whether or to have preemption in your algorithm choice ('0'=no preemption, otherwise preemption): ";
-			cin >> _preemption;
+			getline(cin,tempString);
+			stringstream(tempString) >> _preemption;
 		}
 	}
 
@@ -128,43 +138,45 @@ void scheduler::welcomeMessage (){
 }
 
 void scheduler::runSpecifiedAlgorithm(){
+	int tempInt = 0;
+	//Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum);
 
+	this->parseTextFile();
 
+	//need INSTP
 
 	switch(_intAlgorithmChoice){
 	case 1 : cout << "FCFS Selected to run..." << endl;
-		//FCFSAlg testFCFSAlg();
-		//testFCFSAlg.run();
+		_currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice);
 		break;
 	case 2 : cout << "RR Selected to run..." << endl;
-			//RRAlg testRRAlg(quantumTimeSlice);
-			//testRRAlg.run();
+		_currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
 		break;
 	case 3 : cout << "SJF Selected to run..." << endl;
 		if(_preemption){
-			//SJFAlg testSJFAlg();
-			//testSJFAlg.run();
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice);
 		} else{
-			//SJFAlg testSJFAlg();
-			//testSJFAlg.run();
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice);
 		}
 		break;
 	case 4 : cout << "SPB Selected to run..." << endl;
 		if(_preemption){
-			//SPBAlg testSPBAlg();
-			//testSPBAlg.run();
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice);
 		} else{
-			//SPBAlg testSPBAlg();
-			//testSPBAlg.run();
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice);
 		}
 		break;
 	case 5 : cout << "Priority Selected to run..." << endl;
-		if(_preemption){
-			//TimeSlicePriority testAlgo(loadFile, 3);
-			//testAlgo.run();
-		} else{
-			TimeSlicePriority testAlgo(_rawData, _quantumTimeSlice);
-			testAlgo.run();
+		cout << "Enter a '1' for instant priority, otherwise, stick to preemptive or non-preemptive priority: ";
+		cin >> tempInt;
+		if(tempInt == 1){
+			_currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
+		}else{
+			if(_preemption){
+				_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
+			} else{
+				_currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
+			}
 		}
 		break;
 	default :
@@ -172,6 +184,7 @@ void scheduler::runSpecifiedAlgorithm(){
 		_intAlgorithmChoice = -1;
 		break;
 	}
+	_currentAlgorithm->run();
 
 	return;
 }

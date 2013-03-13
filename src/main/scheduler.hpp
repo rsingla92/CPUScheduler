@@ -12,6 +12,7 @@
 #include "Algorithm.hpp"
 #include "utilities.hpp"
 #include "Factory.hpp"
+#include <limits>
 
 class scheduler {
  public:
@@ -31,7 +32,6 @@ class scheduler {
  	int _intAlgorithmChoice;
  	int _quantumTimeSlice;
  	int _preemption;
- 	std::string _fileStringToOpen;
  };
 
 #endif
