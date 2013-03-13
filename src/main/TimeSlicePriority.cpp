@@ -16,20 +16,6 @@ TimeSlicePriority::~TimeSlicePriority(void)
 {
 }
 
-void TimeSlicePriority::printInfo( void ) {
-	for( int i = 0; i < _readyQueue.size(); i++ ) {
-		std::cout << _readyQueue[i].getPID() << std::endl; 
-
-		for( int j = 0; j < _readyQueue[i].getCPUBursts().size(); j++ ) {
-			std::cout << "CPU Burst " << j << ": "<< _readyQueue[i].getCPUBursts()[j] << std::endl;
-		}
-
-		for( int j = 0; j < _readyQueue[i].getIOBursts().size(); j++ ) {
-			std::cout << "IO Burst " << j << ": "<< _readyQueue[i].getIOBursts()[j] << std::endl;
-		}
-	}
-}
-
 void TimeSlicePriority::run() {
 	std::vector<ProcessControlBlock>::iterator it; 
 	int firstTimeSlice = 0;
