@@ -14,7 +14,11 @@ NonPreShortestJobFirst::NonPreShortestJobFirst(std::vector<ProcessControlBlock> 
 
 void NonPreShortestJobFirst::run(){
    std::cout << "running NPSJF" << std::endl;
+
+   typedef vector<ProcessControlBlock>::size_type vec_sz;
+   vec_sz initialSize = 0;
    std::vector<ProcessControlBlock>::iterator it;
+
    populateInitialQueues(isShorterCPUBurst);
 
    while(true){
@@ -22,7 +26,7 @@ void NonPreShortestJobFirst::run(){
        if(_readyQueue.size() == 0) break;
 
        if(_readyQueue[0].getCPUBursts().size() != 0) {
-           int initialSize = _readyQueue.size();
+           initialSize = _readyQueue.size();
            std::vector<int> cpuBursts = _readyQueue[0].getCPUBursts();
 	   passTimeAndCheckWaiting( cpuBursts[0] );
 
