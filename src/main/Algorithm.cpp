@@ -142,6 +142,9 @@ void Algorithm::checkWaitingProcesses( void ) {
     
 	/* There is nothing in the ready queue; find the minimum waiting time from the TARQ and IO queues. */
 	minimumWait = getMinimumWaitIndex();
+	if(minimumWait == NO_WAITING_PROCESSES){
+		return;
+	}
 	/* Add any processes that are done waiting to the ready queue */
 	passTimeAndCheckWaiting( minimumWait );
 }

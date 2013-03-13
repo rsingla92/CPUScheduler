@@ -9,8 +9,29 @@
 #ifndef SCHEDULER
 #define SCHEDULER
 
+#include "Algorithm.hpp"
+#include "utilities.hpp"
+#include "Factory.hpp"
 
+class scheduler {
+ public:
+	//default constructor
+ 	scheduler();
 
+ 	void parseTextFile();
+ 	void welcomeMessage ();
+ 	void runSpecifiedAlgorithm();
+ 	std::vector<ProcessControlBlock> getFinalQueueOrder();
 
+ private:
+ 	Algorithm * _currentAlgorithm;
+ 	std::vector<ProcessControlBlock> _rawData;
+ 	Factory _algFactory;
+ 	std::string _fileStringToOpen;
+ 	int _intAlgorithmChoice;
+ 	int _quantumTimeSlice;
+ 	int _preemption;
+ 	std::string _fileStringToOpen;
+ };
 
 #endif
