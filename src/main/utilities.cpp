@@ -5,6 +5,7 @@
  *           Jeremy Lord, Rohit Singla
  */
 #include "utilities.hpp"
+#include "TimeSlicePriority.hpp" //temporarily
 
 std::string intToString(const int i) {
    std::stringstream ss;
@@ -50,4 +51,11 @@ bool checkToRemoveIO( const ProcessControlBlock& val ) {
 
 bool checkToRemoveTARQ( const ProcessControlBlock& val ) {
 	return ( val.getTARQ() <= 0 ); 
+}
+
+bool isAlgorithmType (std::string algorithmType){
+    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "PSJF" || algorithmType == "PSPB" || algorithmType == "SPB" || algorithmType == "NPSJF")
+        return true;
+    else
+        return false;
 }

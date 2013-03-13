@@ -10,6 +10,7 @@
  
 #include "processcontrolblock.hpp"
 #include "utilities.hpp"
+#include <iostream>
 #include <vector>
 #include <algorithm>
  
@@ -20,7 +21,7 @@ public:
 
 	virtual void run() = 0;
 	virtual std::vector<ProcessControlBlock> getFinalQueueOrder() = 0;
-
+    
 protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
 	void setQuantumTime(int newQTime);
@@ -35,7 +36,7 @@ protected:
 	std::vector<ProcessControlBlock> _readyQueue; 
 	std::vector<ProcessControlBlock> _IOWaitingQueue;
 	std::vector<ProcessControlBlock> _TimeArrivalReadyQueue;
-	
+
 private:
 	std::vector<ProcessControlBlock> _finalQueueOrder;	
 	int _quantumTime;

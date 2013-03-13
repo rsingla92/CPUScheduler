@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include "processcontrolblock.hpp"
+#include <fstream>
 
 std::string intToString(const int i);
 bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ); 
@@ -22,5 +23,6 @@ bool checkToRemoveIO( const ProcessControlBlock& val );
 bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool checkToRemoveWaiting( const ProcessControlBlock& pcb1 ); 
+bool isAlgorithmType (std::string algorithmType);
 
 #endif
