@@ -25,55 +25,52 @@ scheduler::scheduler(){
 }
 
 void scheduler::parseTextFile(){
-	vector<int> PCB_CPUTimes;
-	vector<int> PCB_IOTimes;
-	int priority = -1;
-	int TARQ = -1;
-	int PID = -1;
-	int TNCPU = -1;
-	int i = 0;
-	int temp = 0;
-	string line;
-	ProcessControlBlock currentProcess;
-    
-	ifstream myfile (_fileStringToOpen.c_str());
-	if (myfile.is_open())
-	{
-	    getline(myfile,line); // the first column name line, dont need it
-	    while (myfile.good())
-        {
-	        // clearing both vectors so each PCB is populated with one line from the text file
-	        PCB_IOTimes.clear();
-	        PCB_CPUTimes.clear();
-            
-	        myfile >> PID;
-            
-	        myfile >> TARQ;
-            
-	        myfile >> priority;
-            
-	        myfile >> TNCPU;
-            
-	        for (i = 0; i < (TNCPU-1); i++) { // need last burst to be CPU burst
-	            myfile >> temp;
-	            PCB_CPUTimes.push_back(temp);
-                
-	            myfile >> temp;
-	            PCB_IOTimes.push_back(temp);
-	        }
-	        myfile >> temp;
-	        PCB_CPUTimes.push_back(temp);
-            
-	        currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
-	        _rawData.push_back(currentProcess);
-	    }
-	    myfile.close();
-	}
-    
-	else {
-	    cout << "unable to open file" << endl;
+    vector<int> PCB_CPUTimes;
+    vector<int> PCB_IOTimes;
+    int priority = -1;
+    int TARQ = -1;
+    int PID = -1;
+    int TNCPU = -1;
+    int i = 0;
+    int temp = 0;
+    string line;
+    ProcessControlBlock currentProcess;
+
+    ifstream myfile (_fileStringToOpen.c_str());
+    if (myfile.is_open()) {
+        getline(myfile,line); // the first column name line, dont need it
+        while (myfile.good()) {
+            // clearing both vectors so each PCB is populated with one line from the text file
+            PCB_IOTimes.clear();
+            PCB_CPUTimes.clear();
+
+            myfile >> PID;
+
+            myfile >> TARQ;
+
+            myfile >> priority;
+
+            myfile >> TNCPU;
+
+            for (i = 0; i < (TNCPU-1); i++) { // need last burst to be CPU burst
+                myfile >> temp;
+                PCB_CPUTimes.push_back(temp);
+
+                myfile >> temp;
+                PCB_IOTimes.push_back(temp);
+            }
+            myfile >> temp;
+            PCB_CPUTimes.push_back(temp);
+
+            currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
+            _rawData.push_back(currentProcess);
+        }
+        myfile.close();
     }
-	return;
+    else {
+        cout << "unable to open file" << endl;
+    }
+return;
 }
 
 void scheduler::welcomeMessage (){
@@ -83,47 +80,47 @@ void scheduler::welcomeMessage (){
     _preemption = 0;
     string tempString = "";
     string defaultFilePath = "/Users/laurenfung/lauren/Desktop/proj 3 master/DerivedData/proj 3 master/Build/Products/Debug/process.txt";
-    
-	cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
-	cin >> (_fileStringToOpen);
-    
-	ifstream myFile(_fileStringToOpen.c_str());
-	if(myFile.is_open()){
-		cout << "Your entry, " << _fileStringToOpen << ", is valid. loading input file..." << endl;
-	}
-	else{
-		_fileStringToOpen = defaultFilePath; //set this line specific to each persons computer
-		ifstream myFile(_fileStringToOpen.c_str());
-        
-		if(myFile.is_open()){
-			cout << "Your entry was invalid, defaulting to default txt file" << endl;
-		}
-		else{
-			cout << "Error, default program failed to load, try again." << endl;
-		}
-	}
-    
-	cout << "Please choose an algorithm to run: \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << endl;
-	getline(cin,tempString);
-	stringstream(tempString) >> _intAlgorithmChoice;
-    
-	//enforce input Algorithm Choice to be between 1 and 5
-	while(_intAlgorithmChoice < 1 || _intAlgorithmChoice > 5){
-		cout << "Please input a proper integer choice (1-5): ";
-		getline(cin,tempString);
-		stringstream(tempString) >> _intAlgorithmChoice;
-	}
-    
-	if(_intAlgorithmChoice >= 2 && _intAlgorithmChoice <= 5){
-		cout << "Please enter the quantum timeslice to use: ";
-		getline(cin,tempString);
-		stringstream(tempString) >> _quantumTimeSlice;
-		while(_quantumTimeSlice <= 0){
-			cout << "must input an integer > 0. Re-input: ";
-			getline(cin,tempString);
-			stringstream(tempString) >> _quantumTimeSlice;
-		}
-        
+
+    cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
+    cin >> (_fileStringToOpen);
+
+    ifstream myFile(_fileStringToOpen.c_str());
+    if(myFile.is_open()){
+        cout << "Your entry, " << _fileStringToOpen << ", is valid. loading input file..." << endl;
+    }
+    else{
+        _fileStringToOpen = defaultFilePath; //set this line specific to each persons computer
+        ifstream myFile(_fileStringToOpen.c_str());
+
+        if(myFile.is_open()){
+            cout << "Your entry was invalid, defaulting to default txt file" << endl;
+        }
+        else{
+            cout << "Error, default program failed to load, try again." << endl;
+        }
+    }
+
+    cout << "Please choose an algorithm to run: \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << endl;
+    getline(cin,tempString);
+    stringstream(tempString) >> _intAlgorithmChoice;
+
+    //enforce input Algorithm Choice to be between 1 and 5
+    while(_intAlgorithmChoice < 1 || _intAlgorithmChoice > 5){
+        cout << "Please input a proper integer choice (1-5): ";
+        getline(cin,tempString);
+        stringstream(tempString) >> _intAlgorithmChoice;
+    }
+
+    if(_intAlgorithmChoice >= 2 && _intAlgorithmChoice <= 5){
+        cout << "Please enter the quantum timeslice to use: ";
+        getline(cin,tempString);
+        stringstream(tempString) >> _quantumTimeSlice;
+        while(_quantumTimeSlice <= 0){
+            cout << "must input an integer > 0. Re-input: ";
+            getline(cin,tempString);
+            stringstream(tempString) >> _quantumTimeSlice;
+        }
+
         if(_intAlgorithmChoice == 3 || _intAlgorithmChoice == 4){
             cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
             getline(cin,tempString);
@@ -199,9 +196,9 @@ void scheduler::runSpecifiedAlgorithm(){
 }
 
 vector<ProcessControlBlock> scheduler::getFinalQueueOrder(){
-	if(_currentAlgorithm != NULL){
-		return _currentAlgorithm->getFinalQueueOrder();
-	}
-    
-	return _rawData;
+    if(_currentAlgorithm != NULL){
+        return _currentAlgorithm->getFinalQueueOrder();
+    }
+
+    return _rawData;
 }
