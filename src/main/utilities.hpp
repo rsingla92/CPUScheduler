@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include "processcontrolblock.hpp"
+#include <fstream>
 
 std::string intToString(const int i);
 bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ); 
@@ -21,5 +22,9 @@ bool checkToRemoveTARQ( const ProcessControlBlock& val );
 bool checkToRemoveIO( const ProcessControlBlock& val );
 bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
+bool isAlgorithmType (std::string algorithmType);
+std::vector<ProcessControlBlock> parseTextFile(std::string filename);
+void welcomeMessage (int & intAlgorithmChoice, std::string & fileStringToOpen, int & quantumTimeSlice, int & preemption);
+void runSpecifiedAlgorithm(int & intAlgorithmChoice, std::vector<ProcessControlBlock> & loadFile, int & quantumTimeSlice, int & preemption);
 
 #endif
