@@ -104,3 +104,10 @@ void ProcessControlBlock::setCPUQuantumVec(std::vector<int> CPUQuantumVec)
 	_CPUQuantumVec = CPUQuantumVec;
 	return;
 }
+
+PCB_STATES ProcessControlBlock::getState() const {
+	return _state;
+}
+void ProcessControlBlock::setState( PCB_STATES state ) {
+	_state = state; 
+}

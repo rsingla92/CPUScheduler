@@ -7,6 +7,7 @@
 
 #include "scheduler.hpp"
 #include "processcontrolblock.hpp"
+#include "TimeSlicePriority.hpp"
 #include "gantt.hpp"
 #include "utilities.hpp"
 #include <fstream>
