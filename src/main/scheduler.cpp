@@ -201,5 +201,5 @@ vector<ProcessControlBlock> scheduler::getFinalQueueOrder(){
 		return _currentAlgorithm->getFinalQueueOrder();
 	}
 
-	return *(new vector<ProcessControlBlock>());
+	return _rawData;
 }
