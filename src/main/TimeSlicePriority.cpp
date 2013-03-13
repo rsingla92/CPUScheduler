@@ -28,7 +28,7 @@ void TimeSlicePriority::run() {
 
 		checkWaitingProcesses(); 
 		if( _readyQueue.size() == 0 ) break;
-
+		
 		/* Split the next CPU burst of the ready queue (if it has not already been) into time slices */
 		breakUpCPUBurst( _readyQueue[0] );  
 
@@ -51,17 +51,7 @@ void TimeSlicePriority::run() {
 
 		if( _readyQueue[0].getCPUQuantumVec().size() == 0 )
 		{
-			std::vector<int> newCPUBurstsVec = _readyQueue[0].getCPUBursts();
-			/* Nothing left in the time slice list, can pop out this CPU burst and send process to IO queue */
-			newCPUBurstsVec.erase( newCPUBurstsVec.begin() );
-
-			_readyQueue[0].setCPUBursts( newCPUBurstsVec ); 
-
-			if( _readyQueue[0].getCPUBursts().size() != 0 ) {
-				_IOWaitingQueue.push_back( _readyQueue[0] );
-			}
-
-			_readyQueue.erase( _readyQueue.begin() );
+			sendExecutingProcessToIO(); 
 		}
 
 		if( flagSort ) {
