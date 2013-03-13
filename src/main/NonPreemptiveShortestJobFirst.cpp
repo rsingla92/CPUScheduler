@@ -20,9 +20,11 @@ void NonPreShortestJobFirst::run(){
    std::vector<ProcessControlBlock>::iterator it;
 
    populateInitialQueues(isShorterCPUBurst);
+   std::cerr << "Populated initial queues." << std::endl;
 
    while(true){
        checkWaitingProcesses();
+
        if(_readyQueue.size() == 0) break;
 
        if(_readyQueue[0].getCPUBursts().size() != 0) {
@@ -35,6 +37,7 @@ void NonPreShortestJobFirst::run(){
            _readyQueue.erase( _readyQueue.begin() );
 
 	   if( _readyQueue.size() >= initialSize ) {
+	       std::cerr << "Initial size is less than current readyQ size" << std::endl;
 	       std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
 	   }
        }
