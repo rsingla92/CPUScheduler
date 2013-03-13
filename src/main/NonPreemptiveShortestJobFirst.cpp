@@ -33,8 +33,7 @@ void NonPreShortestJobFirst::run(){
 	   if( _readyQueue.size() >= initialSize ) {
 	       std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
 	   }
-      
-         }
+       }
     }
 }
 
