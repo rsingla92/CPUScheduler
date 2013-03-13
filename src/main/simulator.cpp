@@ -7,6 +7,7 @@
 
 #include "scheduler.hpp"
 #include "processcontrolblock.hpp"
+#include "TimeSlicePriority.hpp"
 #include "gantt.hpp"
 #include <fstream>
 
@@ -17,25 +18,9 @@ int main(int argc, char* argv[]){
     
     std::vector<ProcessControlBlock> loadFile;
     loadFile = parseTextFile();
-    /* for testing purposes - you guys can delete this
-     int i;
-     std::cout <<"this first PID: "  << loadFile[0].getPID() << std::endl;
-     std::cout <<"the TARQ: " << loadFile[0].getTARQ() << std::endl;
-     std::cout << "the Priority: " << loadFile[0].getPriority() << std::endl;
-     std::cout <<"the TNCPU: " << loadFile[0].getTNCPU() << std::endl;
-     for (i=0; i<loadFile[0].getCPUBursts().size(); i++)
-     std::cout <<"the cpubursts: " << loadFile[0].getCPUBursts()[i] << std:: endl;
-     for (i=0; i<loadFile[0].getIOBursts().size(); i++)
-     std:: cout<< "the IO: " << loadFile[0].getIOBursts()[i] << std:: endl;
-     
-     std::cout <<"the second PID: " << loadFile[1].getPID() << std::endl;
-     */
-    //   welcome();
-    //   cpuScheduler = new Scheduler(();
-    //   cpuScheduler.run();
-    //   gantt = new Gantt();
-    //   gantt.chart();
-    //   gantt.metrics();
+    TimeSlicePriority testAlgo(loadFile, 3);
+
+	testAlgo.run(); 
     
     return 0;
 }

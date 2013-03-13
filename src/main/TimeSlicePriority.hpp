@@ -22,6 +22,8 @@ public:
 private: 
 	/* Constants used by the class */
 	static const int NO_WAITING_PROCESSES;
+
+	void printInfo( void ); 
 };
 
 #endif
