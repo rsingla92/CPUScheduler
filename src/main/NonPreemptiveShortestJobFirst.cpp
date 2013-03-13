@@ -15,7 +15,7 @@ NonPreShortestJobFirst::NonPreShortestJobFirst(std::vector<ProcessControlBlock> 
 void NonPreShortestJobFirst::run(){
    std::cout << "running NPSJF" << std::endl;
 
-   typedef vector<ProcessControlBlock>::size_type vec_sz;
+   typedef std::vector<ProcessControlBlock>::size_type vec_sz;
    vec_sz initialSize = 0;
    std::vector<ProcessControlBlock>::iterator it;
 

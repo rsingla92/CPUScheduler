@@ -39,8 +39,7 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
             return new NonPreShortestJobFirst(rawData);
         // same assumptions as above
     }
-    else {
-        std::cout << "Invalid Parameters: now implementing FCFS Alg" << std::endl;
-        return new FirstComeFirstServe(rawData, -1);
-    }
+
+    std::cout << "Invalid Parameters: now implementing FCFS Alg" << std::endl;
+    return new FirstComeFirstServe(rawData, -1);
 }
