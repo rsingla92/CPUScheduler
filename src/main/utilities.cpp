@@ -30,6 +30,11 @@ bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pc
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
 	return (pcb1.getIOBursts().at(0) < pcb2.getIOBursts().at(0));
 }
+
+bool checkToRemoveWaiting( const ProcessControlBlock& pcb ) {
+	return ( pcb.getState() == READY ); 
+}
+
 /*
  * Function: arrivesEarlier
  * Parameters: The two PCBs to compare (pcb1 and pcb2)
