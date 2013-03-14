@@ -30,6 +30,8 @@ protected:
 	void passTimeAndCheckWaiting( int time );
 	int getMinimumWaitIndex( void );
 	void checkWaitingProcesses( void );
+	void sendExecutingProcessToIO( void ); 
+	void printInfo( void ); 
 
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
 	std::vector<ProcessControlBlock> _readyQueue; 
