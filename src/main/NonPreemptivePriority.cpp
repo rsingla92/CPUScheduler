@@ -26,28 +26,35 @@ void NonPreemptivePriority:: run(){
         vector<int> newCPUBursts = _readyQueue[0].getCPUBursts();
         
         if (newCPUBursts.size() != 0){
-            
             int oldReadyQSize = _readyQueue.size();
             // since NPP will finish CPU Burst
             passTimeAndCheckWaiting(newCPUBursts[0]);
+            
             // for testing purposes
             cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
             
             if (_readyQueue.size() > oldReadyQSize){
                 std::sort(_readyQueue.begin()+1, _readyQueue.end(), isHigherPriority);
-                // for testing purposes
-                for (int i=0; i< _readyQueue.size(); i++)
-                    cout << "READY-Q RE-ORDERED: " << _readyQueue[i].getPID() << endl;
             }
+            
+            // for testing purposes
+            for (int i=0; i< _readyQueue.size(); i++) {
+                cout << "READY-Q ORDER: " << _readyQueue[i].getPID() << endl;
+            }
+            cout << endl;
+            
             if(_readyQueue[0].getIOBursts().size() > 0){
                 sendExecutingProcessToIO();
-                            
-                for (int i = 0; i < _IOWaitingQueue.size() ; i++)
+                
+                for (int i = 0; i < _IOWaitingQueue.size() ; i++){
                     // for testing purposes
-                    cout <<  "PID "<< _IOWaitingQueue[i].getPID() << " in IO for " << _IOWaitingQueue[i].getIOBursts()[0] << endl;
-            }
-            else
+                    cout <<  "PID "<< _IOWaitingQueue[i].getPID() << " now in IO for " << _IOWaitingQueue[i].getIOBursts()[0] << endl;
+                }
+                cout << endl;
+            }  
+            else {
                 _readyQueue.erase(_readyQueue.begin());
+            }
         }
     }
 }
