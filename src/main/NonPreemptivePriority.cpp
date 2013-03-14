@@ -10,7 +10,7 @@ using std::endl;
 using std::cout;
 using std::vector;
 
-NonPreemptivePriority:: NonPreemptivePriority(vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+NonPreemptivePriority::NonPreemptivePriority(vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
     cout << "make an NPP object" << endl;
 }
 
@@ -26,14 +26,14 @@ void NonPreemptivePriority:: run(){
         vector<int> newCPUBursts = _readyQueue[0].getCPUBursts();
         
         if (newCPUBursts.size() != 0){
-            int oldReadyQSize = _readyQueue.size();
+            vector< ProcessControlBlock >::size_type oldReadyQSize = _readyQueue.size();
             // since NPP will finish CPU Burst
             passTimeAndCheckWaiting(newCPUBursts[0]);
             
             // for testing purposes
             cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
             
-            if (_readyQueue.size() > oldReadyQSize){
+            if (_readyQueue.size() >= oldReadyQSize){
                 std::sort(_readyQueue.begin()+1, _readyQueue.end(), isHigherPriority);
             }
             
