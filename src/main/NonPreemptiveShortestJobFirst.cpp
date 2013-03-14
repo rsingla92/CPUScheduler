@@ -31,10 +31,8 @@ void NonPreShortestJobFirst::run(){
            initialSize = _readyQueue.size();
            std::vector<int> cpuBursts = _readyQueue[0].getCPUBursts();
 	   passTimeAndCheckWaiting( cpuBursts[0] );
-
-           cpuBursts.erase( cpuBursts.begin() );
-	   _IOWaitingQueue.push_back( _readyQueue[0] );
-           _readyQueue.erase( _readyQueue.begin() );
+	   sendExecutingProcessToIO();
+           printInfo();
 
 	   if( _readyQueue.size() >= initialSize ) {
 	       std::cerr << "Initial size is less than current readyQ size" << std::endl;
