@@ -26,7 +26,7 @@ void NonPreemptivePriority:: run(){
         vector<int> newCPUBursts = _readyQueue[0].getCPUBursts();
         
         if (newCPUBursts.size() != 0){
-            vector< ProcessControlBlock >::size_type oldReadyQSize = _readyQueue.size();
+            vector<ProcessControlBlock>::size_type oldReadyQSize = _readyQueue.size();
             // since NPP will finish CPU Burst
             passTimeAndCheckWaiting(newCPUBursts[0]);
             
