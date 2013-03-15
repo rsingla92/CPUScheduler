@@ -59,3 +59,7 @@ bool isAlgorithmType (std::string algorithmType){
     else
         return false;
 }
+
+bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
+   return (lhs.getCPUBursts().at(0) < rhs.getCPUBursts().at(0) );
+}

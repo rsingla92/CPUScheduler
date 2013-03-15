@@ -17,7 +17,9 @@ TimeSlicePriority::~TimeSlicePriority(void)
 }
 
 void TimeSlicePriority::run() {
-	std::vector<ProcessControlBlock>::iterator it; 
+	std::vector<ProcessControlBlock>::iterator it;
+        typedef std::vector<ProcessControlBlock>::size_type vec_sz;
+        vec_sz checkInitialSize = 0;
 	int firstTimeSlice = 0;
 
 	populateInitialQueues( isHigherPriority ); 
@@ -34,7 +36,7 @@ void TimeSlicePriority::run() {
 
 		if( _readyQueue[0].getCPUQuantumVec().size() != 0 )
 		{
-			int checkInitialSize = _readyQueue.size();
+			checkInitialSize = _readyQueue.size();
 			std::vector<int> newCPUQuantumVec = _readyQueue[0].getCPUQuantumVec();
 			std::vector<int> deductedCPUBurst = _readyQueue[0].getCPUBursts();
 			firstTimeSlice = _readyQueue[0].getCPUQuantumVec()[0];
