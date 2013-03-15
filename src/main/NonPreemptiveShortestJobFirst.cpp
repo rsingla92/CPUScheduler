@@ -33,11 +33,9 @@ void NonPreShortestJobFirst::run(){
            std::vector<int> cpuBursts = _readyQueue[0].getCPUBursts();
            passTimeAndCheckWaiting( cpuBursts[0] );
            sendExecutingProcessToIO();
-           printInfo();
 
-	   if( _readyQueue.size() >= initialSize ) {
-	       std::cerr << "Initial size is less than current readyQ size" << std::endl;
-	       std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
+	   if( _readyQueue.size() >= initialSize )  {
+               std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
            }
        }
     }
