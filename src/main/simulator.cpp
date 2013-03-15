@@ -20,8 +20,11 @@ int main(int argc, char* argv[]){
     	sched.welcomeMessage();
     	sched.runSpecifiedAlgorithm();
 
+        do {
 		std::cout << "Do you wish to continue? ('y'/'n') ";
-		std::cin >> contSimulating;
+		getline(std::cin, contSimulating);
+        } while (contSimulating != "y" && contSimulating != "n");
+        
     }
 
     std::cout << "Program Completed." << std::endl;
