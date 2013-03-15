@@ -22,9 +22,9 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         else if (algorithmType == "RR")
             return new FirstComeFirstServe(rawData, timeQuantum);
         else if (algorithmType == "TSP")
-            return new TimeSlicePriority(rawData, timeQuantum);
+            return new PatientPriority(rawData, timeQuantum);
         else if (algorithmType == "INSTP")
-            return new InstantPriority(rawData, timeQuantum);
+            return new ImpatientPriority(rawData, timeQuantum);
         else if (algorithmType == "NPP")
             return new NonPreemptivePriority(rawData, timeQuantum);
         else if (algorithmType == "PSJF")
@@ -32,11 +32,11 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         // this is assuming SJF implements instantaneous preemption
         // otherwise lets process go until completion
         else if (algorithmType == "SPB")
-            return new ShortestPreviousBursts(rawData, timeQuantum);
+            return new NonPreemptiveShortestPreviousBursts(rawData, timeQuantum);
         else if (algorithmType == "PSPB")
             return new PreemptiveShortestPreviousBursts(rawData, timeQuantum);
         else if (algorithmType == "NPSJF")
-            return new NonPreShortestJobFirst(rawData);
+            return new NonPreemptiveShortestJobFirst(rawData);
         // same assumptions as above
     }
 

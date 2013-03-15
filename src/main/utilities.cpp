@@ -4,8 +4,8 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#include "utilities.hpp"
-#include "TimeSlicePriority.hpp" //temporarily
+#include "Utilities.hpp"
+#include "PatientPriority.hpp" //temporarily
 
 std::string intToString(const int i) {
    std::stringstream ss;

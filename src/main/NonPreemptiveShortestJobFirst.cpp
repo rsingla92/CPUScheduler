@@ -6,14 +6,14 @@
  */
 
 #include "NonPreemptiveShortestJobFirst.hpp"
-#include "utilities.hpp"
+#include "Utilities.hpp"
 
-NonPreShortestJobFirst::NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData)
+NonPreemptiveShortestJobFirst::NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData)
 {
     std::cout << "make an NPSJF object" << std::endl;
 }
 
-void NonPreShortestJobFirst::run(){
+void NonPreemptiveShortestJobFirst::run(){
    std::cout << "running NPSJF" << std::endl;
 
    typedef std::vector<ProcessControlBlock>::size_type vec_sz;
@@ -41,7 +41,7 @@ void NonPreShortestJobFirst::run(){
     }
 }
 
-std::vector<ProcessControlBlock> NonPreShortestJobFirst::getFinalQueueOrder()
+std::vector<ProcessControlBlock> NonPreemptiveShortestJobFirst::getFinalQueueOrder()
 {
 	return _readyQueue;
 }

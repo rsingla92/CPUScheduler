@@ -4,7 +4,7 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#include "gantt.hpp"
+#include "Gantt.hpp"
 
 Gantt::Gantt( std::vector<ProcessControlBlock> queue) : _queue(queue) {}
 

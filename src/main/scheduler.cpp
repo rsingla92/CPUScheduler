@@ -5,7 +5,7 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "scheduler.hpp"
+#include "Scheduler.hpp"
 
 using std::vector;
 using std::cout;
@@ -15,7 +15,7 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
-scheduler::scheduler(){
+Scheduler::Scheduler(){
 	_currentAlgorithm = NULL;
 	_algFactory = Factory();
 	_intAlgorithmChoice = -1;
@@ -24,7 +24,7 @@ scheduler::scheduler(){
 	_fileStringToOpen = "";
 }
 
-void scheduler::parseTextFile(){
+void Scheduler::parseTextFile(){
     vector<int> PCB_CPUTimes;
     vector<int> PCB_IOTimes;
     int priority = -1;
@@ -73,7 +73,7 @@ void scheduler::parseTextFile(){
 return;
 }
 
-void scheduler::welcomeMessage (){
+void Scheduler::welcomeMessage (){
     _fileStringToOpen= "";
     _intAlgorithmChoice = -1;
     _quantumTimeSlice = -1;
@@ -139,7 +139,7 @@ void scheduler::welcomeMessage (){
 	return;
 }
 
-void scheduler::runSpecifiedAlgorithm(){
+void Scheduler::runSpecifiedAlgorithm(){
 	this->parseTextFile();
     
     switch(_intAlgorithmChoice){
@@ -197,7 +197,7 @@ void scheduler::runSpecifiedAlgorithm(){
 	return;
 }
 
-vector<ProcessControlBlock> scheduler::getFinalQueueOrder(){
+vector<ProcessControlBlock> Scheduler::getFinalQueueOrder(){
     if(_currentAlgorithm != NULL){
         return _currentAlgorithm->getFinalQueueOrder();
     }

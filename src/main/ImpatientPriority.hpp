@@ -5,14 +5,14 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#ifndef SHORTEST_PREVIOUS_BURSTS_H
-#define SHORTEST_PREVIOUS_BURSTS_H
+#ifndef IMPATIENT_PRIORITY_H
+#define IMPATIENT_PRIORITY_H
 
 #include "Algorithm.hpp"
 
-class ShortestPreviousBursts : public Algorithm {
+class ImpatientPriority: public Algorithm {
 public:
-    ShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();
