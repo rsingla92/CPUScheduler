@@ -12,27 +12,27 @@ InstantPriority:: InstantPriority(std::vector<ProcessControlBlock> rawData, int 
 }
 
 void InstantPriority:: run(){
-   typedef std::vector<ProcessControlBlock>::size_type vec_sz;
-   vec_sz initialSize = 0;
-   std::vector<ProcessControlBlock>::iterator it;
+	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
+	vec_sz initialSize = 0;
+	std::vector<ProcessControlBlock>::iterator it;
 
-   populateInitialQueues(isHigherPriority);
+	populateInitialQueues(isHigherPriority);
 
-   while(true){
-       checkWaitingProcesses();
+	while(true){
+		checkWaitingProcesses();
 
-       if(_readyQueue.size() == 0) break;
+		if(_readyQueue.size() == 0) break;
 
-       if(_readyQueue[0].getCPUBursts().size() != 0) {
-           initialSize = _readyQueue.size();
+		if(_readyQueue[0].getCPUBursts().size() != 0) {
+			initialSize = _readyQueue.size();
 
-           preempt( isHigherPriority ); 
+			preempt( isHigherPriority ); 
 
-		   if( _readyQueue.size() >= initialSize )  {
-				   std::sort( _readyQueue.begin(), _readyQueue.end(), isHigherPriority);
-		   }
-       }
-    }
+			if( _readyQueue.size() >= initialSize )  {
+				std::sort( _readyQueue.begin(), _readyQueue.end(), isHigherPriority);
+			}
+		}
+	}
 }
 
 std::vector<ProcessControlBlock> InstantPriority::getFinalQueueOrder()
