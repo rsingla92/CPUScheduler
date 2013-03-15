@@ -79,7 +79,7 @@ void scheduler::welcomeMessage (){
     _quantumTimeSlice = -1;
     _preemption = 0;
     string tempString = "";
-    string defaultFilePath = "/Users/laurenfung/lauren/Desktop/proj 3 master/DerivedData/proj 3 master/Build/Products/Debug/process.txt";
+    string defaultFilePath = "/home/singlar/EECE315/CPUScheduler/src/test/process.txt";
 
     cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
     cin >> (_fileStringToOpen);
