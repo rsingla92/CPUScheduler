@@ -16,6 +16,7 @@
 #include "PreShortestJobFirst.hpp"
 #include "ShortestPreviousBursts.hpp"
 #include "NonPreemptiveShortestJobFirst.hpp"
+#include <limits>
 
 class Factory
 {

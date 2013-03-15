@@ -15,8 +15,6 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
-using namespace std;
-
 scheduler::scheduler(){
 	_currentAlgorithm = NULL;
 	_algFactory = Factory();
@@ -139,15 +137,12 @@ void scheduler::welcomeMessage (){
 
 void scheduler::runSpecifiedAlgorithm(){
 	int tempInt = 0;
-	//Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum);
 
 	this->parseTextFile();
 
-	//need INSTP
-
 	switch(_intAlgorithmChoice){
 	case 1 : cout << "FCFS Selected to run..." << endl;
-		_currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice);
+		_currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice); // the factory uses max_int size for quantumTimeSlice.
 		break;
 	case 2 : cout << "RR Selected to run..." << endl;
 		_currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
