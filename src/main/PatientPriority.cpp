@@ -4,19 +4,19 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#include "TimeSlicePriority.hpp"
+#include "PatientPriority.hpp"
 #include <iostream>
 
-TimeSlicePriority::TimeSlicePriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime) 
+PatientPriority::PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime) 
 	: Algorithm(inputRawData, quantumTime)
 {
 }
 
-TimeSlicePriority::~TimeSlicePriority(void)
+PatientPriority::~PatientPriority(void)
 {
 }
 
-void TimeSlicePriority::run() {
+void PatientPriority::run() {
 	std::vector<ProcessControlBlock>::iterator it;
     typedef std::vector<ProcessControlBlock>::size_type vec_sz;
     vec_sz checkInitialSize = 0;
@@ -62,7 +62,7 @@ void TimeSlicePriority::run() {
 	}
 }
 
-std::vector<ProcessControlBlock> TimeSlicePriority::getFinalQueueOrder()
+std::vector<ProcessControlBlock> PatientPriority::getFinalQueueOrder()
 {
 	return _readyQueue; 
 }

@@ -4,17 +4,17 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#ifndef TIME_SLICE_PRIORITY_H
-#define TIME_SLICE_PRIORITY_H
+#ifndef PATIENT_PRIORITY_H
+#define PATIENT_PRIORITY_H
 
 #include "Algorithm.hpp"
 
-class TimeSlicePriority :
+class PatientPriority :
    public Algorithm
 {
 public:
-	TimeSlicePriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
-	~TimeSlicePriority( void );
+	PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
+	~PatientPriority( void );
 
 	void run();
 	std::vector<ProcessControlBlock> getFinalQueueOrder();
