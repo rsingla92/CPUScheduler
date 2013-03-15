@@ -8,7 +8,8 @@
 #include "NonPreemptiveShortestJobFirst.hpp"
 #include "utilities.hpp"
 
-NonPreShortestJobFirst::NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData){
+NonPreShortestJobFirst::NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData)
+{
     std::cout << "make an NPSJF object" << std::endl;
 }
 
@@ -30,14 +31,14 @@ void NonPreShortestJobFirst::run(){
        if(_readyQueue[0].getCPUBursts().size() != 0) {
            initialSize = _readyQueue.size();
            std::vector<int> cpuBursts = _readyQueue[0].getCPUBursts();
-	   passTimeAndCheckWaiting( cpuBursts[0] );
-	   sendExecutingProcessToIO();
+           passTimeAndCheckWaiting( cpuBursts[0] );
+           sendExecutingProcessToIO();
            printInfo();
 
 	   if( _readyQueue.size() >= initialSize ) {
 	       std::cerr << "Initial size is less than current readyQ size" << std::endl;
 	       std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
-	   }
+           }
        }
     }
 }
