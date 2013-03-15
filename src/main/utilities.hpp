@@ -24,5 +24,6 @@ bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pc
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 );
 bool checkToRemoveWaiting( const ProcessControlBlock& pcb1 ); 
 bool isAlgorithmType (std::string algorithmType);
+bool isShorterCPUBurst(const ProcessControlBlock& lhs, const ProcessControlBlock& rhs);
 
 #endif

@@ -12,7 +12,7 @@
 
 class NonPreShortestJobFirst : public Algorithm {
 public:
-    NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    NonPreShortestJobFirst(std::vector<ProcessControlBlock> rawData);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();
