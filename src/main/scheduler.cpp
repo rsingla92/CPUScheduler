@@ -79,28 +79,30 @@ void scheduler::welcomeMessage (){
     _quantumTimeSlice = -1;
     _preemption = 0;
     string tempString = "";
-    string defaultFilePath = "/home/singlar/EECE315/CPUScheduler/src/test/process.txt";
-
-    cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
-    cin >> (_fileStringToOpen);
 
     ifstream myFile(_fileStringToOpen.c_str());
-    if(myFile.is_open()){
-        cout << "Your entry, " << _fileStringToOpen << ", is valid. loading input file..." << endl;
-    }
-    else{
-        _fileStringToOpen = defaultFilePath; //set this line specific to each persons computer
+
+    while(myFile.fail()){
+        cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
+        getline(cin, _fileStringToOpen);
         ifstream myFile(_fileStringToOpen.c_str());
-
         if(myFile.is_open()){
-            cout << "Your entry was invalid, defaulting to default txt file" << endl;
+            myFile >> tempString;
+            if (tempString == "PID") {
+                cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
+                break;
+            }
+            else {
+                cout << "Your entry, " << _fileStringToOpen << ", is not in the proper format." << endl;
+            }
         }
-        else{
-            cout << "Error, default program failed to load, try again." << endl;
+        else {
+            cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
         }
     }
 
-    cout << "Please choose an algorithm to run: \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << endl;
+    cout << "Please choose an algorithm to run: \n1)FCFS \n2)RR \n3)SJF \n4)SPB \n5)Priority" << endl << endl;
+    cout << "Selection: ";
     getline(cin,tempString);
     stringstream(tempString) >> _intAlgorithmChoice;
 
@@ -133,7 +135,7 @@ void scheduler::welcomeMessage (){
             stringstream(tempString) >> _preemption;
         }
 	}
-    
+
 	return;
 }
 
@@ -144,11 +146,11 @@ void scheduler::runSpecifiedAlgorithm(){
     case 1 :
             cout << "FCFS selected to run..." << endl << endl;
             _currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice);
-    break;
+            break;
     case 2 :
             cout << "RR selected to run..." << endl << endl;
             _currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
-    break;
+            break;
     case 3 :
             cout << "SJF selected to run ";
             if(_preemption){
@@ -158,7 +160,7 @@ void scheduler::runSpecifiedAlgorithm(){
                 cout << "without preemption..." << endl << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice);
             }
-    break;
+            break;
     case 4 :
             cout << "SPB selected to run ";
             if(_preemption){
@@ -169,7 +171,7 @@ void scheduler::runSpecifiedAlgorithm(){
                 cout << "without preemption..." << endl << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice);
             }
-    break;
+            break;
     case 5 :
             cout << "Priority selected to run ";
             if(_preemption == 1){
@@ -184,11 +186,11 @@ void scheduler::runSpecifiedAlgorithm(){
                 cout << "without preemption..." << endl << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
             }
-    break;
+            break;
     default :
             cout << "Please input a proper algorithm number (must be between 1 and 5)." << endl;
             _intAlgorithmChoice = -1;
-    break;
+            break;
 	}
 	_currentAlgorithm->run();
     
