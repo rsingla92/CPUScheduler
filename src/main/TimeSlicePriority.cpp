@@ -18,8 +18,8 @@ TimeSlicePriority::~TimeSlicePriority(void)
 
 void TimeSlicePriority::run() {
 	std::vector<ProcessControlBlock>::iterator it;
-        typedef std::vector<ProcessControlBlock>::size_type vec_sz;
-        vec_sz checkInitialSize = 0;
+    typedef std::vector<ProcessControlBlock>::size_type vec_sz;
+    vec_sz checkInitialSize = 0;
 	int firstTimeSlice = 0;
 
 	populateInitialQueues( isHigherPriority ); 

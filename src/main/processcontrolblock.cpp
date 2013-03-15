@@ -105,6 +105,11 @@ void ProcessControlBlock::setCPUQuantumVec(std::vector<int> CPUQuantumVec)
 	return;
 }
 
+void ProcessControlBlock::setFirstCPUBurst( int burst ) {
+	if( _CPUBursts.size() == 0 ) return;
+	_CPUBursts[0] = burst; 
+}
+
 PCB_STATES ProcessControlBlock::getState() const {
 	return _state;
 }

@@ -45,6 +45,8 @@ public:
    
     std::vector<int> getCPUQuantumVec() const;
     void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
+
+	void setFirstCPUBurst( int burst ); 
    
 private:
     int _pid;
