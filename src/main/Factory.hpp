@@ -9,12 +9,12 @@
 #define FACTORY_H
 
 #include "Algorithm.hpp"
-#include "TimeSlicePriority.hpp"
+#include "PatientPriority.hpp"
 #include "FirstComeFirstServe.hpp"
-#include "InstantPriority.hpp"
+#include "ImpatientPriority.hpp"
 #include "NonPreemptivePriority.hpp"
 #include "PreemptiveShortestJobFirst.hpp"
-#include "ShortestPreviousBursts.hpp"
+#include "NonPreemptiveShortestPreviousBursts.hpp"
 #include "PreemptiveShortestPreviousBursts.hpp"
 #include "NonPreemptiveShortestJobFirst.hpp"
 

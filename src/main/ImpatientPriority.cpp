@@ -5,13 +5,13 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "InstantPriority.hpp"
+#include "ImpatientPriority.hpp"
 
-InstantPriority:: InstantPriority(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+ImpatientPriority:: ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
     std::cout << "make an INSTP object" << std::endl;
 }
 
-void InstantPriority:: run(){
+void ImpatientPriority:: run(){
 	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
 	vec_sz initialSize = 0;
 	std::vector<ProcessControlBlock>::iterator it;
@@ -35,7 +35,7 @@ void InstantPriority:: run(){
 	}
 }
 
-std::vector<ProcessControlBlock> InstantPriority::getFinalQueueOrder()
+std::vector<ProcessControlBlock> ImpatientPriority::getFinalQueueOrder()
 {
 	return _readyQueue;
 }

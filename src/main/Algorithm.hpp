@@ -8,8 +8,8 @@
 #define ALGORITHM_H
  
  
-#include "processcontrolblock.hpp"
-#include "utilities.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Utilities.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>

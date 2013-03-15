@@ -5,7 +5,7 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "processcontrolblock.hpp"
+#include "ProcessControlBlock.hpp"
 
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
                         _tncpu(-1) 

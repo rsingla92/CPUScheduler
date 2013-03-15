@@ -9,8 +9,8 @@
 #define FIRST_COME_FIRST_SERVE_H
 
 #include "Algorithm.hpp" 
-#include "processcontrolblock.hpp"
-#include "utilities.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Utilities.hpp"
 #include <assert.h>
 
 class FirstComeFirstServe : public Algorithm {
