@@ -22,7 +22,7 @@
 class Factory
 {
 public:
-    static Algorithm* factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum);
+    static Algorithm* factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum, float alpha = 1.0);
 };
 
 #endif

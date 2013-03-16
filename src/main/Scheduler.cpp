@@ -25,6 +25,11 @@ Scheduler::Scheduler(){
 	_fileStringToOpen = "";
 }
 
+Scheduler::~Scheduler(){
+    delete _currentAlgorithm;
+    _currentAlgorithm = NULL;
+}
+
 void Scheduler::parseTextFile(){
     vector<int> PCB_CPUTimes;
     vector<int> PCB_IOTimes;
@@ -114,34 +119,41 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _intAlgorithmChoice;
     }
 
-    if(_intAlgorithmChoice >= 2 && _intAlgorithmChoice <= 5){
+    if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5){
         cout << "Please enter the quantum timeslice to use: ";
         getline(cin,tempString);
         stringstream(tempString) >> _quantumTimeSlice;
-        while(_quantumTimeSlice <= 0){
-            cout << "must input an integer > 0. Re-input: ";
+        while(_quantumTimeSlice <= 0) {
+            cout << "Must input an integer > 0. Re-input: ";
             getline(cin,tempString);
             stringstream(tempString) >> _quantumTimeSlice;
         }
 
-        if(_intAlgorithmChoice == 3 || _intAlgorithmChoice == 4){
-            cout << "Please enter whether to have preemption ('1' = with Preemption, '0' = No Preemption): ";
-            getline(cin,tempString);
-            stringstream(tempString) >> _preemption;
-        }
+    } else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
+		cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
+		getline(cin,tempString);
+		stringstream(tempString) >> _preemption;
 
-        if(_intAlgorithmChoice == 5){
-            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
-            getline(cin, tempString);
-            stringstream(tempString) >> _preemption;
-        }
+		if( _intAlgorithmChoice == 4 ) {
+			cout << "Please enter your alpha-value (between 0 and 1): ";
+			getline(cin, tempString);
+			stringstream(tempString) >> _alpha;
+			while( _alpha < 0.0 || _alpha > 1.0 ) {
+				cout << "Must input a value in the range 0 to 1. Re-input: ";
+				getline(cin, tempString);
+				stringstream(tempString) >> _alpha;
+			}
+		}
 	}
 
 	return;
 }
 
+
 void Scheduler::runSpecifiedAlgorithm(){
 	this->parseTextFile();
+    delete this->_currentAlgorithm;
+    this->_currentAlgorithm = NULL;
     
     switch(_intAlgorithmChoice){
     case 1 :
@@ -166,11 +178,11 @@ void Scheduler::runSpecifiedAlgorithm(){
             cout << "SPB selected to run ";
             if(_preemption){
                 cout << "with preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice, _alpha);
             }
             else{
                 cout << "without preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice, _alpha);
             }
             break;
     case 5 :
@@ -194,7 +206,7 @@ void Scheduler::runSpecifiedAlgorithm(){
             break;
 	}
 	_currentAlgorithm->run();
-    
+    _rawData.clear();
 	return;
 }
 

@@ -9,12 +9,12 @@
 
 const int Algorithm::NO_WAITING_PROCESSES = -1;
 
-Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime)
-: _dataInputToAlgorithm(inputRawData), _quantumTime(quantumTime)
+Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime, double alpha)
+: _dataInputToAlgorithm(inputRawData), _quantumTime(quantumTime), _alpha(alpha)
 {
 }
 
-Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData) : _dataInputToAlgorithm(inputRawData), _quantumTime(0) { 
+Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData) : _dataInputToAlgorithm(inputRawData), _quantumTime(0), _alpha(1.0) { 
 }
 
 /*
@@ -210,6 +210,13 @@ void Algorithm::sendExecutingProcessToIO( void ) {
 
 	std::vector<int> newCPUBurstsVec = _readyQueue[0].getCPUBursts();
 
+	/* For checking the order - testing */
+	std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << newCPUBurstsVec[0] << ", estimated avg is " << 
+		_readyQueue[0].getBurstAvg() << std::endl;
+
+	/* Calculate the predicted burst time based on the history */
+	_readyQueue[0].calculateAverageBurst(_alpha, newCPUBurstsVec[0] ); 
+
 	/* Delete the first CPU burst, then send to do the IO burst */
 	newCPUBurstsVec.erase( newCPUBurstsVec.begin() );
 
@@ -305,6 +312,7 @@ void Algorithm::printInfo( void ) {
 	}
 }
 
+
 void Algorithm::printIOWaitingInfo( void ) {
 	std::cout << "printing IO WaitingQueue info:" << std::endl;
 	for( int i = 0; i < _IOWaitingQueue.size(); i++ ) {
@@ -334,3 +342,12 @@ void Algorithm::printTARQInfo( void ) {
 		}
 	}
 }
+
+void Algorithm::setAlpha( int newAlpha ) {
+	_alpha = newAlpha;
+}
+
+float Algorithm::getAlpha( void ) const {
+	return _alpha;
+}
+
