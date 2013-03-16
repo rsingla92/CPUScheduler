@@ -12,7 +12,7 @@
 
 class NonPreemptiveShortestPreviousBursts : public Algorithm {
 public:
-    NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();

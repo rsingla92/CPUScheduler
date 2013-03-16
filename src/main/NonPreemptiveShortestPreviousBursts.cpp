@@ -7,7 +7,7 @@
 
 #include "NonPreemptiveShortestPreviousBursts.hpp"
 
-NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha ) : Algorithm(rawData, 0, alpha){
     std::cout << "make a SPB object" << std::endl;
 }
 
