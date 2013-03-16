@@ -17,7 +17,7 @@ class Scheduler {
  public:
 	//default constructor
  	Scheduler();
-
+    ~Scheduler();
  	void parseTextFile();
  	void welcomeMessage ();
  	void runSpecifiedAlgorithm();
