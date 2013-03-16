@@ -24,7 +24,7 @@ void FirstComeFirstServe::run() {
 
 	/* Loop until the algorithm is done */
 	while( true ) {
-		checkWaitingProcesses(); // if _readyQueue is empty, pass minimum time in IO or Waiting to fill _readyQueue
+		checkWaitingProcesses();
 		if( _readyQueue.size() == 0 ) break;
 
 		/* Split the next CPU burst of the ready queue (if it has not already been) into time slices */
