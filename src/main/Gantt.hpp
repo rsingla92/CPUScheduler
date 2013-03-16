@@ -8,8 +8,8 @@
 #ifndef GANTT_H
 #define GANTT_H
 
-#include "processcontrolblock.hpp"
-#include "utilities.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Utilities.hpp"
 #include <string>
 #include <iostream>
 

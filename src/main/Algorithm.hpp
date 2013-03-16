@@ -33,6 +33,8 @@ protected:
 	void checkWaitingProcesses( void );
 	void sendExecutingProcessToIO( void ); 
 	void printInfo( void ); 
+	void printIOWaitingInfo( void );
+	void printTARQInfo( void );
 	void preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) );
 
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;

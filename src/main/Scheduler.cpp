@@ -15,11 +15,8 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
-<<<<<<< HEAD
-scheduler::scheduler(){
-=======
+
 Scheduler::Scheduler(){
->>>>>>> 9d864da44eb8196d0b3f3f0b1883bf8c00b1b51a
 	_currentAlgorithm = NULL;
 	_algFactory = Factory();
 	_intAlgorithmChoice = -1;
@@ -128,13 +125,13 @@ void Scheduler::welcomeMessage (){
         }
 
         if(_intAlgorithmChoice == 3 || _intAlgorithmChoice == 4){
-            cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
+            cout << "Please enter whether to have preemption ('1' = with Preemption, '0' = No Preemption): ";
             getline(cin,tempString);
             stringstream(tempString) >> _preemption;
         }
 
         if(_intAlgorithmChoice == 5){
-            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption: ";
+            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
         }
@@ -143,51 +140,6 @@ void Scheduler::welcomeMessage (){
 	return;
 }
 
-<<<<<<< HEAD
-void scheduler::runSpecifiedAlgorithm(){
-	int tempInt = 0;
-
-	this->parseTextFile();
-
-	switch(_intAlgorithmChoice){
-	case 1 : cout << "FCFS Selected to run..." << endl;
-		_currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice); // the factory uses max_int size for quantumTimeSlice.
-		break;
-	case 2 : cout << "RR Selected to run..." << endl;
-		_currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
-		break;
-	case 3 : cout << "SJF Selected to run..." << endl;
-		if(_preemption){
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice);
-		} else{
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice);
-		}
-		break;
-	case 4 : cout << "SPB Selected to run..." << endl;
-		if(_preemption){
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice);
-		} else{
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice);
-		}
-		break;
-	case 5 : cout << "Priority Selected to run..." << endl;
-		cout << "Enter a '1' for instant priority, otherwise, stick to preemptive or non-preemptive priority: ";
-		cin >> tempInt;
-		if(tempInt == 1){
-			_currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
-		}else{
-			if(_preemption){
-				_currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
-			} else{
-				_currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
-			}
-		}
-		break;
-	default :
-		cout << "Please input a proper algorithm number, from 1-6." << endl;
-		_intAlgorithmChoice = -1;
-		break;
-=======
 void Scheduler::runSpecifiedAlgorithm(){
 	this->parseTextFile();
     
@@ -240,7 +192,6 @@ void Scheduler::runSpecifiedAlgorithm(){
             cout << "Please input a proper algorithm number (must be between 1 and 5)." << endl;
             _intAlgorithmChoice = -1;
             break;
->>>>>>> 9d864da44eb8196d0b3f3f0b1883bf8c00b1b51a
 	}
 	_currentAlgorithm->run();
     
