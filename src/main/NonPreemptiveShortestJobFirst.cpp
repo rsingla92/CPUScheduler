@@ -34,7 +34,7 @@ void NonPreemptiveShortestJobFirst::run(){
            passTimeAndCheckWaiting( cpuBursts[0] );
            sendExecutingProcessToIO();
 
-	   if( _readyQueue.size() >= initialSize )  {
+           if( _readyQueue.size() >= initialSize )  {
                std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterCPUBurst);
            }
        }

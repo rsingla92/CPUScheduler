@@ -33,6 +33,9 @@ public:
     
     int getTNCPU() const;
     void setTNCPU(int TNCPU);
+
+	float getBurstAvg() const;
+	void setBurstAvg( float burstAvg ); 
     
 	PCB_STATES getState() const;
 	void setState( PCB_STATES state ); 
@@ -47,16 +50,22 @@ public:
     void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
 
 	void setFirstCPUBurst( int burst ); 
+
+	void calculateAverageBurst( float alpha, int lastBurst ); 
    
 private:
     int _pid;
     int _tarq;
     int _prio;
     int _tncpu;
-	PCB_STATES _state; 
+    float _burstavg; 
+    PCB_STATES _state; 
     std::vector<int> _CPUBursts;
     std::vector<int> _IOBursts;
     std::vector<int> _CPUQuantumVec;
+
+	/* Constants */
+    static const float INIT_BURST_ESTIMATE; 
 };
 
 #endif
