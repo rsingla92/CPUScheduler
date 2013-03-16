@@ -14,7 +14,6 @@ class NonPreemptivePriority : public Algorithm {
 public:
     NonPreemptivePriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
-    ~NonPreemptivePriority();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();
 private:

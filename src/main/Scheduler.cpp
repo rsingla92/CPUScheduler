@@ -200,7 +200,7 @@ void Scheduler::runSpecifiedAlgorithm(){
             break;
 	}
 	_currentAlgorithm->run();
-    
+    _rawData.clear();
 	return;
 }
 
