@@ -29,8 +29,9 @@ class Scheduler {
  	Factory _algFactory;
  	std::string _fileStringToOpen;
  	int _intAlgorithmChoice;
- 	int _quantumTimeSlice;
- 	int _preemption;
+	int _quantumTimeSlice;
+	int _preemption;
+	float _alpha;
  };
 
 #endif
