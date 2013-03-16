@@ -21,7 +21,9 @@ void FirstComeFirstServe::run() {
 	int firstTimeSlice = 0;
 
 	populateInitialQueues( isHigherPriority );
-	//printInfo();
+
+	_TimeArrivalReadyQueue.erase(_TimeArrivalReadyQueue.begin()+1); // hack to remove the weird 19 case thats showing up TO BE REMOVED!!!!!s
+
 	printInfo();
 	printIOWaitingInfo();
 	printTARQInfo();
@@ -34,9 +36,9 @@ void FirstComeFirstServe::run() {
 		/* Split the next CPU burst of the ready queue (if it has not already been) into time slices */
 		breakUpCPUBurst( _readyQueue[0] );
 
-		printInfo();
-		printIOWaitingInfo();
-		printTARQInfo();
+		//printInfo();
+		//printIOWaitingInfo();
+		//printTARQInfo();
 
 		if( _readyQueue[0].getCPUQuantumVec().size() != 0 )
 		{
@@ -64,53 +66,5 @@ void FirstComeFirstServe::run() {
 		}
 	}
 }
-
-
-/*
-void FirstComeFirstServe::run(){
-	std::vector<ProcessControlBlock>::iterator it; 
-	int firstTimeSlice = 0;
-
-	populateInitialQueues( isHigherPriority ); 
-
-	// Loop until the algorithm is done
-	while( true ) {
-
-		checkWaitingProcesses(); 
-		if( _readyQueue.size() == 0 ) break;
-
-		// Split the next CPU burst of the ready queue (if it has not already been) into time slices
-		breakUpCPUBurst( _readyQueue[0] );  
-
-		if( _readyQueue[0].getCPUQuantumVec().size() > 0 )
-		{
-			std::vector<int> newCPUQuantumVec = _readyQueue[0].getCPUQuantumVec();
-			std::cout << "newCPUQuantumVec[0]: " << newCPUQuantumVec[0] << std::endl;
-			std::vector<int> deductedCPUBurst = _readyQueue[0].getCPUBursts();
-			firstTimeSlice = newCPUQuantumVec[0];
-			// Remove the first element from the list of time slices
-			newCPUQuantumVec.erase( newCPUQuantumVec.begin() );
-			_readyQueue[0].setCPUQuantumVec( newCPUQuantumVec ); 
-			// Testing
-				std::cout << "FCFS -- Process: " << _readyQueue[0].getPID() <<" Time Slice: " << firstTimeSlice << std::endl;
-			deductedCPUBurst[0] -= firstTimeSlice; 
-			_readyQueue[0].setCPUBursts( deductedCPUBurst );
-			passTimeAndCheckWaiting( firstTimeSlice ); 
-		}
-		//sendExecutingProcessToIO(); // send process To IO Waiting Queue
-		if( _readyQueue[0].getCPUQuantumVec().size() == 0 )
-		{
-			sendExecutingProcessToIO();
-		}
-	}
-} */
-
-
-
-
-
-
-
-
 
 
