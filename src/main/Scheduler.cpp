@@ -24,6 +24,11 @@ Scheduler::Scheduler(){
 	_fileStringToOpen = "";
 }
 
+Scheduler::~Scheduler(){
+    delete _currentAlgorithm;
+    _currentAlgorithm = NULL;
+}
+
 void Scheduler::parseTextFile(){
     vector<int> PCB_CPUTimes;
     vector<int> PCB_IOTimes;
@@ -141,6 +146,8 @@ void Scheduler::welcomeMessage (){
 
 void Scheduler::runSpecifiedAlgorithm(){
 	this->parseTextFile();
+    delete this->_currentAlgorithm;
+    this->_currentAlgorithm = NULL;
     
     switch(_intAlgorithmChoice){
     case 1 :

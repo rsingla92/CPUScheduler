@@ -14,6 +14,13 @@ NonPreemptivePriority::NonPreemptivePriority(vector<ProcessControlBlock> rawData
     cout << "make an NPP object" << endl;
 }
 
+NonPreemptivePriority::~NonPreemptivePriority(){
+    _readyQueue.clear();
+    _IOWaitingQueue.clear();
+    _TimeArrivalReadyQueue.clear();
+    _dataInputToAlgorithm.clear();
+}
+
 void NonPreemptivePriority:: run(){
     cout << "running NPP. NOBODY CUTS ME OOOFFF" << endl;
     

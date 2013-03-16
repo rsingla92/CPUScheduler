@@ -18,7 +18,7 @@ class Algorithm{
 public:
 	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
 	Algorithm(std::vector<ProcessControlBlock> inputRawData);
-	virtual ~Algorithm(){};
+    virtual~Algorithm(){};
 
 	virtual void run() = 0;
 	virtual std::vector<ProcessControlBlock> getFinalQueueOrder() = 0;
