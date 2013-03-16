@@ -12,7 +12,7 @@
 
 class PreemptiveShortestJobFirst : public Algorithm {
 public:
-    PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();
