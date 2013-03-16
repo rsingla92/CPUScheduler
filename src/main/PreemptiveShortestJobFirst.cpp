@@ -11,7 +11,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-PreemptiveShortestJobFirst:: PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+PreemptiveShortestJobFirst::PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
     cout << "make a PSJF object" << endl;
 }
 
