@@ -12,7 +12,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
-#include "processcontrolblock.hpp"
+#include "ProcessControlBlock.hpp"
 #include <fstream>
 
 std::string intToString(const int i);
