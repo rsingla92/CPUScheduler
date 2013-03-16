@@ -202,6 +202,10 @@ void Algorithm::sendExecutingProcessToIO( void ) {
 
 	std::vector<int> newCPUBurstsVec = _readyQueue[0].getCPUBursts();
 
+	/* For checking the order - testing */
+	std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << newCPUBurstsVec[0] << ", estimated avg is " << 
+		_readyQueue[0].getBurstAvg() << std::endl;
+
 	/* Calculate the predicted burst time based on the history */
 	_readyQueue[0].calculateAverageBurst(_alpha, newCPUBurstsVec[0] ); 
 
