@@ -13,6 +13,27 @@ PreemptiveShortestPreviousBursts:: PreemptiveShortestPreviousBursts(std::vector<
 
 void PreemptiveShortestPreviousBursts:: run(){
     std::cout << "running PSPB" << std::endl;
+	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
+	vec_sz initialSize = 0;
+	std::vector<ProcessControlBlock>::iterator it;
+
+	populateInitialQueues(isShorterPreviousCPUAvg);
+
+	while(true){
+		checkWaitingProcesses();
+
+		if(_readyQueue.size() == 0) break;
+
+		if(_readyQueue[0].getCPUBursts().size() != 0) {
+			initialSize = _readyQueue.size();
+
+			preempt( isShorterPreviousCPUAvg ); 
+
+			if( _readyQueue.size() >= initialSize )  {
+				std::sort( _readyQueue.begin(), _readyQueue.end(), isShorterPreviousCPUAvg);
+			}
+		}
+	}
 }
 
 std::vector<ProcessControlBlock> PreemptiveShortestPreviousBursts::getFinalQueueOrder()
