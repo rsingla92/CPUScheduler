@@ -7,15 +7,17 @@
 
 #include "ProcessControlBlock.hpp"
 
+const float ProcessControlBlock::INIT_BURST_ESTIMATE = 10.0;
+
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
-                        _tncpu(-1) 
+                        _tncpu(-1), _burstavg(INIT_BURST_ESTIMATE)
 {
 }
 
 ProcessControlBlock::ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
                         std::vector<int> CPUBursts, std::vector<int>IOBursts):
                         _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU),
-                        _CPUBursts(CPUBursts),_IOBursts(IOBursts)
+                        _CPUBursts(CPUBursts),_IOBursts(IOBursts), _burstavg(INIT_BURST_ESTIMATE)
 {
 }
 
@@ -29,6 +31,7 @@ ProcessControlBlock& ProcessControlBlock::operator=(const ProcessControlBlock& o
         this->_tncpu = otherProcess._tncpu;
         this->_CPUBursts = otherProcess._CPUBursts;
         this->_IOBursts = otherProcess._IOBursts;
+        this->_burstavg = otherProcess._burstavg; 
     }
     return *this;
 }
@@ -113,6 +116,19 @@ void ProcessControlBlock::setFirstCPUBurst( int burst ) {
 PCB_STATES ProcessControlBlock::getState() const {
 	return _state;
 }
+
 void ProcessControlBlock::setState( PCB_STATES state ) {
 	_state = state; 
+}
+
+float ProcessControlBlock::getBurstAvg() const {
+	return _burstavg;
+}
+
+void ProcessControlBlock::setBurstAvg( float burstAvg ) {
+	_burstavg = burstAvg; 
+}
+
+void ProcessControlBlock::calculateAverageBurst( float alpha, int lastBurst ) {
+	_burstavg = alpha*lastBurst + _burstavg*(1-alpha); 
 }
