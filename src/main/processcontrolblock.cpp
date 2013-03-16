@@ -5,7 +5,7 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "processcontrolblock.hpp"
+#include "ProcessControlBlock.hpp"
 
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
                         _tncpu(-1) 
@@ -103,4 +103,16 @@ void ProcessControlBlock::setCPUQuantumVec(std::vector<int> CPUQuantumVec)
 {
 	_CPUQuantumVec = CPUQuantumVec;
 	return;
+}
+
+void ProcessControlBlock::setFirstCPUBurst( int burst ) {
+	if( _CPUBursts.size() == 0 ) return;
+	_CPUBursts[0] = burst; 
+}
+
+PCB_STATES ProcessControlBlock::getState() const {
+	return _state;
+}
+void ProcessControlBlock::setState( PCB_STATES state ) {
+	_state = state; 
 }

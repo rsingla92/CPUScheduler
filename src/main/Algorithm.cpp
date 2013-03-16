@@ -14,6 +14,9 @@ Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumT
 {
 }
 
+Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData) : _dataInputToAlgorithm(inputRawData), _quantumTime(0) { 
+}
+
 /*
  * Function: breakUpCPUBurst
  * Parameters: refPCB - The PCB of the process.
@@ -64,12 +67,14 @@ void Algorithm::populateInitialQueues( bool (*predicate)(const ProcessControlBlo
 		if( it->getTARQ() <= 0 )
 		{
 			/* The process is already ready -- add to ready queue. */
-			_readyQueue.push_back( *it );
+			it->setState( READY );
+			_readyQueue.push_back( *it ); 
 		}
 		else
 		{
 			/* The process has not yet arrived; add it to TARQ */
-			_TimeArrivalReadyQueue.push_back( *it );
+			it->setState( NEW );
+			_TimeArrivalReadyQueue.push_back( *it ); 
 		}
 	}
     
@@ -99,7 +104,8 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
         
 		if( it->getTARQ() <= 0 ) {
 			/* This process is ready to be sent to the ready queue. */
-			_readyQueue.push_back( *it );
+			it->setState( READY );
+			_readyQueue.push_back( *it ); 
 		}
 	}
     
@@ -107,23 +113,28 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 	for( it = _IOWaitingQueue.begin(); it != _IOWaitingQueue.end(); ++it ) {
 		newIOBurstQueue = it->getIOBursts();
 		if( newIOBurstQueue.size() != 0 ) {
-			newIOBurstQueue[0] -= time;
-            
-			it->setIOBursts( newIOBurstQueue );
-            
+			newIOBurstQueue[0] -= time; 
+
 			if( newIOBurstQueue[0] <= 0 ) {
 				/* Process is ready to be sent to the ready queue */
-				_readyQueue.push_back( *it );
+				newIOBurstQueue.erase( newIOBurstQueue.begin() );
+				it->setIOBursts( newIOBurstQueue );
+				it->setState( READY );
+				_readyQueue.push_back( *it ); 
+			}
+			else
+			{ 
+				it->setIOBursts( newIOBurstQueue );
 			}
 		}
 	}
     
 	/* Remove any processes that are no longer waiting from the TARQ/IO Queues */
-	_TimeArrivalReadyQueue.erase( std::remove_if( _TimeArrivalReadyQueue.begin(), _TimeArrivalReadyQueue.end(), checkToRemoveTARQ ),
-                                 _TimeArrivalReadyQueue.end() );
-    
-	_IOWaitingQueue.erase( std::remove_if( _IOWaitingQueue.begin(), _IOWaitingQueue.end(), checkToRemoveIO ),
-                          _IOWaitingQueue.end() );
+	_TimeArrivalReadyQueue.erase( std::remove_if( _TimeArrivalReadyQueue.begin(), _TimeArrivalReadyQueue.end(), checkToRemoveWaiting ), 
+			_TimeArrivalReadyQueue.end() );
+
+	_IOWaitingQueue.erase( std::remove_if( _IOWaitingQueue.begin(), _IOWaitingQueue.end(), checkToRemoveWaiting ), 
+			_IOWaitingQueue.end() );
 }
 
 /*
@@ -157,7 +168,7 @@ void Algorithm::checkWaitingProcesses( void ) {
  */
 int Algorithm::getMinimumWaitIndex( void )
 {
-	int minTARQVal = 0, minIOVal = 0;
+	int minTARQVal = -1, minIOVal = -1; 
 	std::vector<ProcessControlBlock>::iterator tarqIt;
 	std::vector<ProcessControlBlock>::iterator ioIt;
 
@@ -168,7 +179,7 @@ int Algorithm::getMinimumWaitIndex( void )
 		minTARQVal = tarqIt->getTARQ();
 	}
 	else {
-		minTARQVal = 0;
+		minTARQVal = -1;
 	}
     
 	if( _IOWaitingQueue.size() > 0 && _IOWaitingQueue[0].getIOBursts().size() > 0 ) {
@@ -177,8 +188,110 @@ int Algorithm::getMinimumWaitIndex( void )
 	}
 	else
 	{
-		minIOVal = 0;
+		minIOVal = -1;
 	}
-    
-	return std::min( minTARQVal, minIOVal );
+
+	if( minTARQVal == -1 ) return minIOVal;
+	else if( minIOVal == -1 ) return minTARQVal; 
+	else return std::min( minTARQVal, minIOVal );
+}
+
+void Algorithm::sendExecutingProcessToIO( void ) {
+
+	if( _readyQueue.size() == 0) return; 
+
+	std::vector<int> newCPUBurstsVec = _readyQueue[0].getCPUBursts();
+
+	/* Delete the first CPU burst, then send to do the IO burst */
+	newCPUBurstsVec.erase( newCPUBurstsVec.begin() );
+
+	_readyQueue[0].setCPUBursts( newCPUBurstsVec ); 
+
+	if( _readyQueue[0].getCPUBursts().size() != 0 ) {
+		_readyQueue[0].setState( WAITING ); 
+		_IOWaitingQueue.push_back( _readyQueue[0] );
+	}
+
+	_readyQueue.erase( _readyQueue.begin() );
+}
+
+void Algorithm::preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) ) {
+
+	if( _readyQueue.size() == 0 || _readyQueue[0].getCPUBursts().size() == 0 ) return; 
+
+	int executingBurst = _readyQueue[0].getCPUBursts()[0]; 
+	int timeToPass = 0;
+	std::vector<ProcessControlBlock>::iterator minTarq = _TimeArrivalReadyQueue.end(); 
+	std::vector<ProcessControlBlock>::iterator minIO = _IOWaitingQueue.end(); 
+	std::vector<ProcessControlBlock>::iterator index; 
+	bool preemptFlag = true;
+
+	/* Find the process in the TARQ with the minimum arrival time that will preempt the current process
+	 * in the CPU. */
+	for( index = _TimeArrivalReadyQueue.begin(); index != _TimeArrivalReadyQueue.end(); ++index ) {
+		if( executingBurst - index->getTARQ() > 0 ) {
+			/* The PCB in the TARQ arrives before the currently executing process finishes */
+			if( predicate( *index, _readyQueue[0] ) ) {
+				/* The PCB in the TARQ has a higher priority than the current executing PCB */
+				if( minTarq == _TimeArrivalReadyQueue.end() ) {
+					minTarq = index;
+				} else if(  index->getTARQ() < minTarq->getTARQ() ) {
+					minTarq = index; 
+				} 
+			}
+		}
+	}
+
+	for( index = _IOWaitingQueue.begin(); index != _IOWaitingQueue.end(); ++index ) {
+
+		if( index->getIOBursts().size() == 0 ) continue; 
+
+		if( executingBurst - index->getIOBursts()[0] > 0 ) {
+			/* The PCB in the IO Queue finishes before the currently executing process finishes */
+			if( predicate( *index, _readyQueue[0] ) ) {
+				/* The PCB in the IO Queue has a higher priority than the currently executing PCB */
+				if( minIO == _IOWaitingQueue.end() ) {
+					minIO = index;
+				} else if( index->getIOBursts()[0] < minIO->getIOBursts()[0] ) {
+					minIO = index; 
+				}
+			}
+		}
+	}
+
+	if( minTarq == _TimeArrivalReadyQueue.end() && minIO == _IOWaitingQueue.end() ) {
+		/* Neither preempt the executing process */
+		timeToPass = _readyQueue[0].getCPUBursts()[0]; 
+		preemptFlag = false;
+	} else if( minTarq == _TimeArrivalReadyQueue.end() ) {
+		/* The minimum from the IO queue preempts */
+		timeToPass = minIO->getIOBursts()[0]; 
+	} else {
+		/* The minimum from the TARQ preempts */
+		timeToPass = minTarq->getTARQ(); 
+	}
+
+	std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
+
+	if( preemptFlag ) {
+		_readyQueue[0].setFirstCPUBurst( _readyQueue[0].getCPUBursts()[0] - timeToPass ); 
+		passTimeAndCheckWaiting( timeToPass ); 
+	} else {
+		passTimeAndCheckWaiting( timeToPass ); 
+		sendExecutingProcessToIO(); 
+	}
+}
+
+void Algorithm::printInfo( void ) {
+	for( int i = 0; i < _readyQueue.size(); i++ ) {
+		std::cout << _readyQueue[i].getPID() << std::endl; 
+
+		for( int j = 0; j < _readyQueue[i].getCPUBursts().size(); j++ ) {
+			std::cout << "CPU Burst " << j << ": "<< _readyQueue[i].getCPUBursts()[j] << std::endl;
+		}
+
+		for( int j = 0; j < _readyQueue[i].getIOBursts().size(); j++ ) {
+			std::cout << "IO Burst " << j << ": "<< _readyQueue[i].getIOBursts()[j] << std::endl;
+		}
+	}
 }

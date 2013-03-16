@@ -4,8 +4,8 @@
  * Authors : Lauren Fung, Jorden Hetherington
  *           Jeremy Lord, Rohit Singla
  */
-#include "utilities.hpp"
-#include "TimeSlicePriority.hpp" //temporarily
+#include "Utilities.hpp"
+#include "PatientPriority.hpp" //temporarily
 
 std::string intToString(const int i) {
    std::stringstream ss;
@@ -30,6 +30,11 @@ bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pc
 bool isFirstIOBurstLess( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
 	return (pcb1.getIOBursts().at(0) < pcb2.getIOBursts().at(0));
 }
+
+bool checkToRemoveWaiting( const ProcessControlBlock& pcb ) {
+	return ( pcb.getState() == READY ); 
+}
+
 /*
  * Function: arrivesEarlier
  * Parameters: The two PCBs to compare (pcb1 and pcb2)
@@ -49,8 +54,12 @@ bool checkToRemoveTARQ( const ProcessControlBlock& val ) {
 }
 
 bool isAlgorithmType (std::string algorithmType){
-    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "PSJF" || algorithmType == "SPB" || algorithmType == "NPSJF")
+    if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "PSJF" || algorithmType == "PSPB" || algorithmType == "SPB" || algorithmType == "NPSJF")
         return true;
     else
         return false;
+}
+
+bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
+   return (lhs.getCPUBursts().at(0) < rhs.getCPUBursts().at(0) );
 }

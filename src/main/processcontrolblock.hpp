@@ -11,6 +11,8 @@
 #include <vector>
 #include <iostream>
 
+enum PCB_STATES { NEW, READY, RUNNING, WAITING, TERMINATED }; 
+
 class ProcessControlBlock
 {
 public:
@@ -32,6 +34,9 @@ public:
     int getTNCPU() const;
     void setTNCPU(int TNCPU);
     
+	PCB_STATES getState() const;
+	void setState( PCB_STATES state ); 
+
     std::vector<int> getCPUBursts() const;
     void setCPUBursts(std::vector<int> CPUBursts);
 
@@ -40,12 +45,15 @@ public:
    
     std::vector<int> getCPUQuantumVec() const;
     void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
+
+	void setFirstCPUBurst( int burst ); 
    
 private:
     int _pid;
     int _tarq;
     int _prio;
     int _tncpu;
+	PCB_STATES _state; 
     std::vector<int> _CPUBursts;
     std::vector<int> _IOBursts;
     std::vector<int> _CPUQuantumVec;

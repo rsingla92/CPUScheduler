@@ -8,8 +8,8 @@
 #define ALGORITHM_H
  
  
-#include "processcontrolblock.hpp"
-#include "utilities.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Utilities.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -17,6 +17,7 @@
 class Algorithm{
 public:
 	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
+	Algorithm(std::vector<ProcessControlBlock> inputRawData);
 	virtual ~Algorithm(){};
 
 	virtual void run() = 0;
@@ -30,6 +31,9 @@ protected:
 	void passTimeAndCheckWaiting( int time );
 	int getMinimumWaitIndex( void );
 	void checkWaitingProcesses( void );
+	void sendExecutingProcessToIO( void ); 
+	void printInfo( void ); 
+	void preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) );
 
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
 	std::vector<ProcessControlBlock> _readyQueue; 

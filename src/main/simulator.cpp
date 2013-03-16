@@ -5,47 +5,29 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "scheduler.hpp"
-#include "processcontrolblock.hpp"
-#include "gantt.hpp"
-#include "utilities.hpp"
+#include "Scheduler.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Gantt.hpp"
+#include "Utilities.hpp"
 #include <fstream>
 
 int main(int argc, char* argv[]){
     std::string contSimulating = "y";
     
-    scheduler sched = scheduler();
+    Scheduler sched = Scheduler();
 
     while(contSimulating == "y" && argc == 1){
     	sched.welcomeMessage();
     	sched.runSpecifiedAlgorithm();
 
+        do {
 		std::cout << "Do you wish to continue? ('y'/'n') ";
-		std::cin >> contSimulating;
+		getline(std::cin, contSimulating);
+        } while (contSimulating != "y" && contSimulating != "n");
+        
     }
-    //if(argc > 1){
-    //	intAlgorithmChoice = (int)(*argv[1]);
-    //	if(intAlgorithmChoice >= 2 && argv[2] != NULL){
-    //		quantumTimeSlice = (int)(*argv[2]);
-    //	}
-    //	if(intAlgorithmChoice >= 3 && argv[3] != NULL){
-    //		preemption = (int)(*argv[3]);
-    //	}
-
-    //	std::vector<ProcessControlBlock> loadFile;
-    //	loadFile = parseTextFile(fileStringToOpen);
-
-    //	runSpecifiedAlgorithm(intAlgorithmChoice, loadFile, quantumTimeSlice, preemption);
-    //}
 
     std::cout << "Program Completed." << std::endl;
-
-    //   welcome();
-    //   cpuScheduler = new Scheduler(();
-    //   cpuScheduler.run();
-    //   gantt = new Gantt();
-    //   gantt.chart();
-    //   gantt.metrics();
     
     return 0;
 }

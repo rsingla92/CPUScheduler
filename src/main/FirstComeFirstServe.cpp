@@ -33,7 +33,6 @@ void FirstComeFirstServe::run(){
 
 		if( _readyQueue[0].getCPUQuantumVec().size() > 0 )
 		{
-			int checkInitialSize = _readyQueue.size();
 			std::vector<int> newCPUQuantumVec = _readyQueue[0].getCPUQuantumVec();
 			std::vector<int> deductedCPUBurst = _readyQueue[0].getCPUBursts();
 			firstTimeSlice = newCPUQuantumVec[0];

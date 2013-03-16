@@ -10,14 +10,13 @@
 #define SCHEDULER
 
 #include "Algorithm.hpp"
-#include "utilities.hpp"
+#include "Utilities.hpp"
 #include "Factory.hpp"
-#include <limits>
 
-class scheduler {
+class Scheduler {
  public:
 	//default constructor
- 	scheduler();
+ 	Scheduler();
 
  	void parseTextFile();
  	void welcomeMessage ();
