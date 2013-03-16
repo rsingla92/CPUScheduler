@@ -5,14 +5,14 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#ifndef INSTANT_PRIORITY_H
-#define INSTANT_PRIORITY_H
+#ifndef NON_PREEMPTIVE_SHORTEST_PREVIOUS_BURSTS_H
+#define NON_PREEMPTIVE_SHORTEST_PREVIOUS_BURSTS_H
 
 #include "Algorithm.hpp"
 
-class InstantPriority : public Algorithm {
+class NonPreemptiveShortestPreviousBursts : public Algorithm {
 public:
-    InstantPriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
     
     std::vector<ProcessControlBlock> getFinalQueueOrder();

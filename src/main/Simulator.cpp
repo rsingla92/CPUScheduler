@@ -5,24 +5,26 @@
  *           Jeremy Lord, Rohit Singla
  */
 
-#include "scheduler.hpp"
-#include "processcontrolblock.hpp"
-#include "TimeSlicePriority.hpp"
-#include "gantt.hpp"
-#include "utilities.hpp"
+#include "Scheduler.hpp"
+#include "ProcessControlBlock.hpp"
+#include "Gantt.hpp"
+#include "Utilities.hpp"
 #include <fstream>
 
 int main(int argc, char* argv[]){
     std::string contSimulating = "y";
     
-    scheduler sched = scheduler();
+    Scheduler sched = Scheduler();
 
     while(contSimulating == "y" && argc == 1){
     	sched.welcomeMessage();
     	sched.runSpecifiedAlgorithm();
 
+        do {
 		std::cout << "Do you wish to continue? ('y'/'n') ";
-		std::cin >> contSimulating;
+		getline(std::cin, contSimulating);
+        } while (contSimulating != "y" && contSimulating != "n");
+        
     }
 
     std::cout << "Program Completed." << std::endl;
