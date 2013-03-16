@@ -14,9 +14,9 @@ NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::v
 void NonPreemptiveShortestPreviousBursts:: run(){
     std::cout << "running SPB" << std::endl;
 
-    typedef std::vector<ProcessControlBlock>::size_type vec_sz;
-    vec_sz initialSize = 0;
-    std::vector<ProcessControlBlock>::iterator it;
+	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
+	vec_sz initialSize = 0;
+	std::vector<ProcessControlBlock>::iterator it;
 
 	populateInitialQueues( isShorterPreviousCPUAvg ); 
 

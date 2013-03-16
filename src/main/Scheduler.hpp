@@ -31,7 +31,7 @@ class Scheduler {
  	int _intAlgorithmChoice;
  	int _quantumTimeSlice;
  	int _preemption;
-	float _alpha;
+    float _alpha;
  };
 
 #endif

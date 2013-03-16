@@ -133,16 +133,16 @@ void Scheduler::welcomeMessage (){
         getline(cin,tempString);
         stringstream(tempString) >> _preemption;
 
-		if( _intAlgorithmChoice == 4 ) {
-			cout << "Please enter your alpha-value (between 0 and 1): "; 
-			getline(cin, tempString);
-			stringstream(tempString) >> _alpha;
-			while( _alpha < 0.0 || _alpha > 1.0 ) {
-				cout << "Must input a value in the range 0 to 1. Re-input: ";
-				getline(cin, tempString);
-				stringstream(tempString) >> _alpha;
-			}
-		}
+        if( _intAlgorithmChoice == 4 ) {
+            cout << "Please enter your alpha-value (between 0 and 1): "; 
+            getline(cin, tempString);
+            stringstream(tempString) >> _alpha;
+            while( _alpha < 0.0 || _alpha > 1.0 ) {
+                cout << "Must input a value in the range 0 to 1. Re-input: ";
+                getline(cin, tempString);
+                stringstream(tempString) >> _alpha;
+            }
+        }
     }
 
 	return;

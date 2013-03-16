@@ -58,14 +58,14 @@ private:
     int _tarq;
     int _prio;
     int _tncpu;
-	float _burstavg; 
-	PCB_STATES _state; 
+    float _burstavg; 
+    PCB_STATES _state; 
     std::vector<int> _CPUBursts;
     std::vector<int> _IOBursts;
     std::vector<int> _CPUQuantumVec;
 
 	/* Constants */
-	static const float INIT_BURST_ESTIMATE; 
+    static const float INIT_BURST_ESTIMATE; 
 };
 
 #endif

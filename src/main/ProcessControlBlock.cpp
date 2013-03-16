@@ -31,7 +31,7 @@ ProcessControlBlock& ProcessControlBlock::operator=(const ProcessControlBlock& o
         this->_tncpu = otherProcess._tncpu;
         this->_CPUBursts = otherProcess._CPUBursts;
         this->_IOBursts = otherProcess._IOBursts;
-		this->_burstavg = otherProcess._burstavg; 
+        this->_burstavg = otherProcess._burstavg; 
     }
     return *this;
 }
