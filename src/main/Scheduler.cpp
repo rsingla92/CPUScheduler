@@ -15,6 +15,7 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
+
 Scheduler::Scheduler(){
 	_currentAlgorithm = NULL;
 	_algFactory = Factory();
@@ -139,7 +140,7 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _preemption;
 
         if( _intAlgorithmChoice == 4 ) {
-            cout << "Please enter your alpha-value (between 0 and 1): "; 
+            cout << "Please enter your alpha-value (between 0 and 1): ";
             getline(cin, tempString);
             stringstream(tempString) >> _alpha;
             while( _alpha < 0.0 || _alpha > 1.0 ) {
