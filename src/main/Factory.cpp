@@ -28,7 +28,7 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         else if (algorithmType == "NPP")
             return new NonPreemptivePriority(rawData, timeQuantum);
         else if (algorithmType == "PSJF")
-            return new PreemptiveShortestJobFirst(rawData, timeQuantum);
+            return new PreemptiveShortestJobFirst(rawData);
         // this is assuming SJF implements instantaneous preemption
         // otherwise lets process go until completion
         else if (algorithmType == "SPB")
