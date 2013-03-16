@@ -64,14 +64,6 @@ void Algorithm::populateInitialQueues( bool (*predicate)(const ProcessControlBlo
     
 	for( it = _dataInputToAlgorithm.begin(); it != _dataInputToAlgorithm.end(); ++it )
 	{
-		std::cout << "dataInputToAlgorithm has PID : " << it->getPID() << std::endl;
-		for(int i = 0; i< it->getCPUBursts().size(); i++){
-			std::cout << "CPU Bursts: " << it->getCPUBursts()[i] << std::endl;
-		}
-		for(int i = 0; i< it->getIOBursts().size(); i++){
-			std::cout << "IO Bursts: " << it->getIOBursts()[i] << std::endl;
-		}
-
 		if( it->getTARQ() <= 0 )
 		{
 			/* The process is already ready -- add to ready queue. */

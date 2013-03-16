@@ -22,23 +22,19 @@ void FirstComeFirstServe::run() {
 
 	populateInitialQueues( isHigherPriority );
 
-	_TimeArrivalReadyQueue.erase(_TimeArrivalReadyQueue.begin()+1); // hack to remove the weird 19 case thats showing up TO BE REMOVED!!!!!s
-
-	printInfo();
-	printIOWaitingInfo();
-	printTARQInfo();
-
 	/* Loop until the algorithm is done */
 	while( true ) {
+
+		std::cout << "*************************************" << std::endl;
+		printInfo();
+		printIOWaitingInfo();
+		printTARQInfo();
+
 		checkWaitingProcesses(); // if _readyQueue is empty, pass minimum time in IO or Waiting to fill _readyQueue
 		if( _readyQueue.size() == 0 ) break;
 
 		/* Split the next CPU burst of the ready queue (if it has not already been) into time slices */
 		breakUpCPUBurst( _readyQueue[0] );
-
-		//printInfo();
-		//printIOWaitingInfo();
-		//printTARQInfo();
 
 		if( _readyQueue[0].getCPUQuantumVec().size() != 0 )
 		{
@@ -62,7 +58,6 @@ void FirstComeFirstServe::run() {
 		{
 			_readyQueue.push_back(_readyQueue[0]);
 			_readyQueue.erase(_readyQueue.begin());
-
 		}
 	}
 }
