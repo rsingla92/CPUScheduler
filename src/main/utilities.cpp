@@ -63,3 +63,7 @@ bool isAlgorithmType (std::string algorithmType){
 bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
    return (lhs.getCPUBursts().at(0) < rhs.getCPUBursts().at(0) );
 }
+
+bool isShorterPreviousCPUAvg(const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
+	return( lhs.getBurstAvg() < rhs.getBurstAvg() ); 
+}
