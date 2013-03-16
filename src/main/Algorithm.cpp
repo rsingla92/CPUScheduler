@@ -302,3 +302,11 @@ void Algorithm::printInfo( void ) {
 		}
 	}
 }
+
+void Algorithm::setAlpha( int newAlpha ) {
+	_alpha = newAlpha;
+}
+
+float Algorithm::getAlpha( void ) const {
+	return _alpha;
+}

@@ -28,7 +28,7 @@ protected:
 	void setQuantumTime(int newQTime);
 	int getQuantumTime();
 	void setAlpha( int newAlpha );
-	void getAlpha( void ) const;
+	float getAlpha( void ) const;
 	void populateInitialQueues(  bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) ); 
 	void passTimeAndCheckWaiting( int time );
 	int getMinimumWaitIndex( void );
@@ -45,7 +45,7 @@ protected:
 private:
 	std::vector<ProcessControlBlock> _finalQueueOrder;	
 	int _quantumTime;
-	double _alpha;
+	float _alpha;
 
 	/* Constants */
 	static const int NO_WAITING_PROCESSES;
