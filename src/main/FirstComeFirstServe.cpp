@@ -24,12 +24,6 @@ void FirstComeFirstServe::run() {
 
 	/* Loop until the algorithm is done */
 	while( true ) {
-
-		std::cout << "*************************************" << std::endl;
-		printInfo();
-		printIOWaitingInfo();
-		printTARQInfo();
-
 		checkWaitingProcesses(); // if _readyQueue is empty, pass minimum time in IO or Waiting to fill _readyQueue
 		if( _readyQueue.size() == 0 ) break;
 
