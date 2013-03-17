@@ -22,17 +22,14 @@ Gantt::Gantt( std::vector<AlgorithmData> queue) : _queue(queue) {}
 void Gantt::display()
 {
    std::string chart = "| ";
-   std::string chartTimes = "| ";
    itr it = _queue.begin();
 
    for(it = _queue.begin() ; it != _queue.end(); ++it) {
        if( it->PID == IDLE) {
-           chart += "IDLE | ";
+           chart += "IDLE: " + intToString(it->burstTime)+ " | ";
        } else {
-           chart += intToString(it->PID) + " | ";
+           chart += "PID " + intToString(it->PID) + ": " + intToString(it->burstTime) + " | ";
        }
-       
-       chartTimes += intToString(it->burstTime) + " | ";
    }
 
    std::cout << chart << std::endl;
@@ -59,8 +56,7 @@ void Gantt::metrics()
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " turnAroundTime time " << index->second.turnAroundTime << std::endl;
-           std::cout << "\twaitingTime " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turaround time: " << index->second.turnAroundTime << "\tWaiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
        } 
    }
