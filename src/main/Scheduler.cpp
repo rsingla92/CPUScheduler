@@ -214,10 +214,6 @@ void Scheduler::runSpecifiedAlgorithm(){
 	return;
 }
 
-vector<ProcessControlBlock> Scheduler::getFinalQueueOrder(){
-    if(_currentAlgorithm != NULL){
-        return _currentAlgorithm->getFinalQueueOrder();
-    }
-
-    return _rawData;
+vector<AlgorithmData> Scheduler::getFinalQueueOrder(){
+    return _currentAlgorithm->getFinalQueueOrder();
 }
