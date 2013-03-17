@@ -21,7 +21,6 @@ void NonPreemptiveShortestJobFirst::run(){
    std::vector<ProcessControlBlock>::iterator it;
 
    populateInitialQueues(isShorterCPUBurst);
-   std::cerr << "Populated initial queues." << std::endl;
 
    while(true){
        checkWaitingProcesses();

@@ -303,7 +303,7 @@ void Algorithm::preempt( bool (*predicate)(const ProcessControlBlock&, const Pro
 		timeToPass = minTarq->getTARQ(); 
 	}
 
-	std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
+	//std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
 
 	if( preemptFlag ) {
 		_readyQueue[0].setFirstCPUBurst( _readyQueue[0].getCPUBursts()[0] - timeToPass ); 
@@ -316,14 +316,14 @@ void Algorithm::preempt( bool (*predicate)(const ProcessControlBlock&, const Pro
 
 void Algorithm::printInfo( void ) {
 	std::cout << "printing readyQueue info:" << std::endl;
-	for( int i = 0; i < _readyQueue.size(); i++ ) {
+	for(unsigned int i = 0; i < _readyQueue.size(); i++ ) {
 		std::cout << _readyQueue[i].getPID() << std::endl; 
 
-		for( int j = 0; j < _readyQueue[i].getCPUBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _readyQueue[i].getCPUBursts().size(); j++ ) {
 			std::cout << "CPU Burst " << j << ": "<< _readyQueue[i].getCPUBursts()[j] << std::endl;
 		}
 
-		for( int j = 0; j < _readyQueue[i].getIOBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _readyQueue[i].getIOBursts().size(); j++ ) {
 			std::cout << "IO Burst " << j << ": "<< _readyQueue[i].getIOBursts()[j] << std::endl;
 		}
 	}
@@ -332,14 +332,14 @@ void Algorithm::printInfo( void ) {
 
 void Algorithm::printIOWaitingInfo( void ) {
 	std::cout << "printing IO WaitingQueue info:" << std::endl;
-	for( int i = 0; i < _IOWaitingQueue.size(); i++ ) {
+	for(unsigned int i = 0; i < _IOWaitingQueue.size(); i++ ) {
 		std::cout << _IOWaitingQueue[i].getPID() << std::endl;
 
-		for( int j = 0; j < _IOWaitingQueue[i].getCPUBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _IOWaitingQueue[i].getCPUBursts().size(); j++ ) {
 			std::cout << "CPU Burst " << j << ": "<< _IOWaitingQueue[i].getCPUBursts()[j] << std::endl;
 		}
 
-		for( int j = 0; j < _IOWaitingQueue[i].getIOBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _IOWaitingQueue[i].getIOBursts().size(); j++ ) {
 			std::cout << "IO Burst " << j << ": "<< _IOWaitingQueue[i].getIOBursts()[j] << std::endl;
 		}
 	}
@@ -347,14 +347,14 @@ void Algorithm::printIOWaitingInfo( void ) {
 
 void Algorithm::printTARQInfo( void ) {
 	std::cout << "printing TARQ info:" << std::endl;
-	for( int i = 0; i < _TimeArrivalReadyQueue.size(); i++ ) {
+	for(unsigned int i = 0; i < _TimeArrivalReadyQueue.size(); i++ ) {
 		std::cout << _TimeArrivalReadyQueue[i].getPID() << std::endl;
 
-		for( int j = 0; j < _TimeArrivalReadyQueue[i].getCPUBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _TimeArrivalReadyQueue[i].getCPUBursts().size(); j++ ) {
 			std::cout << "CPU Burst " << j << ": "<< _TimeArrivalReadyQueue[i].getCPUBursts()[j] << std::endl;
 		}
 
-		for( int j = 0; j < _TimeArrivalReadyQueue[i].getIOBursts().size(); j++ ) {
+		for(unsigned int j = 0; j < _TimeArrivalReadyQueue[i].getIOBursts().size(); j++ ) {
 			std::cout << "IO Burst " << j << ": "<< _TimeArrivalReadyQueue[i].getIOBursts()[j] << std::endl;
 		}
 	}

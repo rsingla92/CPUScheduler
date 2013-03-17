@@ -40,6 +40,6 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
         // same assumptions as above
     }
 
-    std::cout << "Invalid Parameters: now implementing FCFS Alg" << std::endl;
-    return new FirstComeFirstServe(rawData, -1);
+    std::cout << "Invalid Parameters: now implementing First Come First Serve" << std::endl;
+    return new FirstComeFirstServe(rawData, std::numeric_limits<int>::max());
 }
