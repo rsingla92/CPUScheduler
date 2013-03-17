@@ -69,6 +69,7 @@ void Gantt::metrics()
            continue;
        } else {
            std::cout << "PID " << index->first << " turnAroundTime time " << index->second.turnAroundTime << std::endl;
+           std::cout << "\twaitingTime " << index->second.waitTime << std::endl;
        } 
    }
 
