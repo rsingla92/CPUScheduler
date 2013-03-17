@@ -21,19 +21,10 @@ Gantt::Gantt( std::vector<AlgorithmData> queue) : _queue(queue) {}
 void Gantt::display()
 {
 
-   std::string chart = "|";
+   std::string chart = "| ";
+   std::string chartTimes = "| ";
    itr it = _queue.begin();
    
-   for( it = _queue.begin(); it != _queue.end(); ++it) {
-       int tempTime = 0;
-       while(it->PID == (it+1)->PID) {
-            tempTime += it->burstTime;
-            it++;
-       }
-
-       // kk now what.
-   }
-
 
    for(it = _queue.begin() ; it != _queue.end(); ++it) {
        if( it->PID == IDLE) {
@@ -41,6 +32,8 @@ void Gantt::display()
        } else {
            chart += intToString(it->PID) + " | ";
        }
+       
+       chartTimes += intToString(it->burstTime) + " | ";
    }
 
    std::cout << chart << std::endl;
@@ -50,6 +43,7 @@ void Gantt::metrics()
 {
    timeMap pidTimes;
    int totalBurstTime = 0;
+   int totalWaitTime = 0;
    int totalProcesses = 0;
 
    for(itr it =_queue.begin(); it != _queue.end(); ++it) {
@@ -70,12 +64,16 @@ void Gantt::metrics()
        } else {
            std::cout << "PID " << index->first << " turnAroundTime time " << index->second.turnAroundTime << std::endl;
            std::cout << "\twaitingTime " << index->second.waitTime << std::endl;
+           totalWaitTime += index->second.waitTime;
        } 
    }
 
+   std::cout << "The total waiting time was " << totalWaitTime << std:: endl;
    std::cout << "The total CPU execution time was " << totalBurstTime << std::endl;
    std::cout << "The number of processes executed was " << totalProcesses << std::endl;
    std::cout << "The throughput of this run per one time unit was " << (float) totalProcesses/totalBurstTime << std::endl;
+   std::cout << "The average waiting time per process was " << (float) totalWaitTime/totalProcesses << std::endl;
+
    return;
 }
 
