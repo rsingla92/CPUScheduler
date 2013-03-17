@@ -95,6 +95,25 @@ void Algorithm::populateInitialQueues( bool (*predicate)(const ProcessControlBlo
 void Algorithm::passTimeAndCheckWaiting( int time ) {
 	std::vector<ProcessControlBlock>::iterator it;
 	std::vector<int> newIOBurstQueue;
+
+	AlgorithmData executingData;
+	executingData.burstTime = time;
+	if(_readyQueue.size() != 0) {
+		executingData.PID = _readyQueue[0].getPID();
+		executingData.waitTime = _readyQueue[0].getWaitTime();
+		executingData.IOTime = _readyQueue[0].getIOTime();
+
+		//increment waiting time of all processes in ready queue that are not executing
+		for(it = (_readyQueue.begin()+1); it != _readyQueue.end() ; ++it){
+			it->setWaitTime(it->getWaitTime() + time);
+		}
+	} else {
+		executingData.PID = IDLE;
+		executingData.waitTime = IDLE;
+		executingData.IOTime = IDLE;
+	}
+
+	_finalQueueOrder.push_back(executingData);
     
 	if( _TimeArrivalReadyQueue.size() == 0 && _IOWaitingQueue.size() == 0 ) return;
     
@@ -103,6 +122,7 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 		it->setTARQ( it->getTARQ() - time );
         
 		if( it->getTARQ() <= 0 ) {
+			it->setWaitTime(it->getWaitTime() + std::abs(it->getTARQ()));
 			/* This process is ready to be sent to the ready queue. */
 			it->setState( READY );
 			_readyQueue.push_back( *it );
@@ -111,11 +131,15 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
     
 	/* Go through the IO queue and take away the time from the waiting time of the processes */
 	for( it = _IOWaitingQueue.begin(); it != _IOWaitingQueue.end(); ++it ) {
+		it->setIOTime(it->getIOTime() + time);
+
 		newIOBurstQueue = it->getIOBursts();
 		if( newIOBurstQueue.size() != 0 ) {
 			newIOBurstQueue[0] -= time; 
 
 			if( newIOBurstQueue[0] <= 0 ) {
+				it->setWaitTime(it->getWaitTime() + std::abs(newIOBurstQueue[0]));
+				it->setIOTime(it->getIOTime() - std::abs(newIOBurstQueue[0]));
 				/* Process is ready to be sent to the ready queue */
 				newIOBurstQueue.erase( newIOBurstQueue.begin() );
 				it->setIOBursts( newIOBurstQueue );
@@ -129,7 +153,7 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 			}
 		}
 	}
-    
+
 	/* Remove any processes that are no longer waiting from the TARQ/IO Queues */
 	_TimeArrivalReadyQueue.erase( std::remove_if( _TimeArrivalReadyQueue.begin(), _TimeArrivalReadyQueue.end(), checkToRemoveWaiting ), 
 			_TimeArrivalReadyQueue.end() );
@@ -344,3 +368,6 @@ float Algorithm::getAlpha( void ) const {
 	return _alpha;
 }
 
+std::vector<AlgorithmData> Algorithm::getFinalQueueOrder( void ){
+	return _finalQueueOrder;
+}
