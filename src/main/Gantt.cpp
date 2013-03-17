@@ -15,16 +15,15 @@ typedef struct {
 } times;
 
 typedef std::map<int,times> timeMap;
+typedef std::map<int,times>::iterator map_itr;
 
 Gantt::Gantt( std::vector<AlgorithmData> queue) : _queue(queue) {}
 
 void Gantt::display()
 {
-
    std::string chart = "| ";
    std::string chartTimes = "| ";
    itr it = _queue.begin();
-   
 
    for(it = _queue.begin() ; it != _queue.end(); ++it) {
        if( it->PID == IDLE) {
@@ -55,8 +54,6 @@ void Gantt::metrics()
 
    // if there was an IDLE placeholder, ignore it.
    totalProcesses = (pidTimes.find(-1)  != pidTimes.end()) ? pidTimes.size()-1 : pidTimes.size();
-
-   typedef std::map<int,times>::iterator map_itr;
 
    for(map_itr index = pidTimes.begin(); index != pidTimes.end(); ++index) {
        if(index->first == -1) {
