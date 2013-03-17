@@ -1,0 +1,4 @@
+PID    TARQ    PRIO    TNCPU  CPUl     I01    CPU2     I02    CPU3		I03    CPU4 //comments on this line are ok - this file tests FCFS to ensure
+1		0		5		1		8
+2		3		5		4		2		10		2		2		2		2		2
+3		6		5		3		3		20		5		1		1

@@ -20,6 +20,10 @@ int main(int argc, char* argv[]){
     	sched.welcomeMessage();
     	sched.runSpecifiedAlgorithm();
 
+    	for(int i=0; i < sched.getFinalQueueOrder().size(); i++){
+    		std::cout << "Current Alg Data: " << sched.getFinalQueueOrder()[i].PID << " " << sched.getFinalQueueOrder()[i].burstTime << " " << sched.getFinalQueueOrder()[i].waitTime << " " << sched.getFinalQueueOrder()[i].IOTime << std::endl;
+    	}
+
         do {
 		std::cout << "Do you wish to continue? ('y'/'n') ";
 		getline(std::cin, contSimulating);

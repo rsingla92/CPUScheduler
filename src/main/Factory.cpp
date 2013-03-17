@@ -18,7 +18,7 @@
 Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum, float alpha) {
     if (rawData.size() > 0 && isAlgorithmType(algorithmType)){
         if (algorithmType == "FCFS")
-            return new FirstComeFirstServe(rawData, -1); // -1 for infinite timeQuantum
+            return new FirstComeFirstServe(rawData, std::numeric_limits<int>::max()); // effectively infinite quantum time
         else if (algorithmType == "RR")
             return new FirstComeFirstServe(rawData, timeQuantum);
         else if (algorithmType == "TSP")

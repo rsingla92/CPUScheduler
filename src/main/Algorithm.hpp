@@ -13,6 +13,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
+typedef struct AlgorithmData{
+	int PID;
+	int burstTime;
+	int waitTime;
+	int IOTime;
+} AlgorithmData;
+
+const int IDLE = -1;
  
 class Algorithm{
 public:
@@ -21,7 +30,8 @@ public:
     virtual~Algorithm(){};
 
 	virtual void run() = 0;
-	virtual std::vector<ProcessControlBlock> getFinalQueueOrder() = 0;
+
+	std::vector<AlgorithmData> getFinalQueueOrder( void );
     
 protected:
 	void breakUpCPUBurst(ProcessControlBlock &refPCB);
@@ -35,6 +45,8 @@ protected:
 	void checkWaitingProcesses( void );
 	void sendExecutingProcessToIO( void ); 
 	void printInfo( void ); 
+	void printIOWaitingInfo( void );
+	void printTARQInfo( void );
 	void preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) );
 
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
@@ -43,7 +55,7 @@ protected:
 	std::vector<ProcessControlBlock> _TimeArrivalReadyQueue;
 
 private:
-	std::vector<ProcessControlBlock> _finalQueueOrder;	
+	std::vector<AlgorithmData> _finalQueueOrder;
 	int _quantumTime;
 	float _alpha;
 
