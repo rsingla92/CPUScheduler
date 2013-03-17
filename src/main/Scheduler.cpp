@@ -6,6 +6,7 @@
  */
 
 #include "Scheduler.hpp"
+#include <sstream>
 
 using std::vector;
 using std::cout;
@@ -44,32 +45,42 @@ void Scheduler::parseTextFile(){
 
     ifstream myfile (_fileStringToOpen.c_str());
     if (myfile.is_open()) {
-        getline(myfile,line); // the first column name line, dont need it
+       // getline(myfile,line); // the first column name line, dont need it
         while (myfile.good()) {
             // clearing both vectors so each PCB is populated with one line from the text file
+			stringstream ss; 
+			getline( myfile, line ); 
+
+			ss.str( line ); 
+
             PCB_IOTimes.clear();
             PCB_CPUTimes.clear();
 
-            myfile >> PID;
+            ss >> PID;
 
-            myfile >> TARQ;
+            ss >> TARQ;
 
-            myfile >> priority;
+            ss >> priority;
 
-            myfile >> TNCPU;
+            ss >> TNCPU;
 
             for (i = 0; i < (TNCPU-1); i++) { // need last burst to be CPU burst
-                myfile >> temp;
+                ss >> temp;
                 PCB_CPUTimes.push_back(temp);
 
-                myfile >> temp;
+                ss >> temp;
                 PCB_IOTimes.push_back(temp);
+
+				if( ss.fail() ) break; 
             }
-            myfile >> temp;
+
+            ss >> temp;
             PCB_CPUTimes.push_back(temp);
 
-            currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
-            _rawData.push_back(currentProcess);
+			if( !ss.fail() ) {
+				currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
+				_rawData.push_back(currentProcess);
+			} 
         }
         myfile.close();
     }
@@ -88,21 +99,15 @@ void Scheduler::welcomeMessage (){
 
     ifstream myFile(_fileStringToOpen.c_str());
 
-    while(myFile.fail()){
+    while(myFile.fail()) {
         cout << "Please type, including the suffix (.txt,etc), the name of the test file to be used: " ;
         getline(cin, _fileStringToOpen);
         ifstream myFile(_fileStringToOpen.c_str());
-        if(myFile.is_open()){
+        if(myFile.is_open()) {
             myFile >> tempString;
-            if (tempString == "PID") {
-                cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
-                break;
-            }
-            else {
-                cout << "Your entry, " << _fileStringToOpen << ", is not in the proper format." << endl;
-            }
-        }
-        else {
+            cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
+            break;
+        } else {
             cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
         }
     }
