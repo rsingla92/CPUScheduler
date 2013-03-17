@@ -12,6 +12,7 @@ typedef struct {
     int ioTime;
     int waitTime;
     int turnAroundTime;
+    int totalBurstTime;
 } times;
 
 typedef std::map<int,times> timeMap;
@@ -45,7 +46,8 @@ void Gantt::metrics()
    for(itr it =_queue.begin(); it != _queue.end(); ++it) {
        pidTimes[it->PID].waitTime = it->waitTime;
        pidTimes[it->PID].ioTime = it->IOTime;
-       pidTimes[it->PID].turnAroundTime = (it->burstTime + it->IOTime + it->waitTime);
+       pidTimes[it->PID].turnAroundTime = it->IOTime + it->waitTime;
+       pidTimes[it->PID].totalBurstTime += it->burstTime;
        totalBurstTime += it->burstTime;
    }
 
@@ -56,7 +58,7 @@ void Gantt::metrics()
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " - Turaround time: " << index->second.turnAroundTime << "\tWaiting Time: " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << "\tWaiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
        } 
    }
