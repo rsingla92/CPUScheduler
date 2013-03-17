@@ -10,14 +10,14 @@
 const float ProcessControlBlock::INIT_BURST_ESTIMATE = 10.0;
 
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
-                        _tncpu(-1), _waitTime(0), _IOTime(0), _burstavg(INIT_BURST_ESTIMATE)
+                        _tncpu(-1), _burstavg(INIT_BURST_ESTIMATE), _waitTime(0), _IOTime(0)
 {
 }
 
 ProcessControlBlock::ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
                         std::vector<int> CPUBursts, std::vector<int>IOBursts):
-                        _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU), _waitTime(0), _IOTime(0),
-                        _CPUBursts(CPUBursts),_IOBursts(IOBursts), _burstavg(INIT_BURST_ESTIMATE)
+                        _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU),_burstavg(INIT_BURST_ESTIMATE), _waitTime(0), _IOTime(0),
+                        _CPUBursts(CPUBursts),_IOBursts(IOBursts)
 {
 }
 

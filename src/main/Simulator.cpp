@@ -13,16 +13,19 @@
 
 int main(int argc, char* argv[]){
     std::string contSimulating = "y";
-    
     Scheduler sched = Scheduler();
-
+ 
     while(contSimulating == "y" && argc == 1){
     	sched.welcomeMessage();
     	sched.runSpecifiedAlgorithm();
 
-    	for(int i=0; i < sched.getFinalQueueOrder().size(); i++){
+    	for(unsigned int i=0; i < sched.getFinalQueueOrder().size(); i++){
     		std::cout << "Current Alg Data: " << sched.getFinalQueueOrder()[i].PID << " " << sched.getFinalQueueOrder()[i].burstTime << " " << sched.getFinalQueueOrder()[i].waitTime << " " << sched.getFinalQueueOrder()[i].IOTime << std::endl;
     	}
+
+        Gantt gantt = Gantt(sched.getFinalQueueOrder());
+        gantt.display();
+        gantt.metrics();
 
         do {
 		std::cout << "Do you wish to continue? ('y'/'n') ";

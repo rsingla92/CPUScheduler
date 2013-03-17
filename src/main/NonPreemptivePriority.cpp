@@ -31,14 +31,14 @@ void NonPreemptivePriority:: run(){
             passTimeAndCheckWaiting(newCPUBursts[0]);
             
             // for testing purposes
-            cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
+            //cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
             
             if (_readyQueue.size() >= oldReadyQSize){
                 std::sort(_readyQueue.begin()+1, _readyQueue.end(), isHigherPriority);
             }
             
             // for testing purposes
-            for (int i=0; i< _readyQueue.size(); i++) {
+            for (unsigned int i=0; i< _readyQueue.size(); i++) {
                 cout << "READY-Q ORDER: " << _readyQueue[i].getPID() << endl;
             }
             cout << endl;
@@ -46,7 +46,7 @@ void NonPreemptivePriority:: run(){
             if(_readyQueue[0].getIOBursts().size() > 0){
                 sendExecutingProcessToIO();
                 
-                for (int i = 0; i < _IOWaitingQueue.size() ; i++){
+                for (unsigned int i = 0; i < _IOWaitingQueue.size() ; i++){
                     // for testing purposes
                     cout <<  "PID "<< _IOWaitingQueue[i].getPID() << " now in IO for " << _IOWaitingQueue[i].getIOBursts()[0] << endl;
                 }
