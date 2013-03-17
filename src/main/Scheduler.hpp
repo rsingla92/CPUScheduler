@@ -21,7 +21,7 @@ class Scheduler {
  	void parseTextFile();
  	void welcomeMessage ();
  	void runSpecifiedAlgorithm();
- 	std::vector<ProcessControlBlock> getFinalQueueOrder();
+ 	std::vector<AlgorithmData> getFinalQueueOrder();
 
  private:
  	Algorithm * _currentAlgorithm;
