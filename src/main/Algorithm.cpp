@@ -303,7 +303,7 @@ void Algorithm::preempt( bool (*predicate)(const ProcessControlBlock&, const Pro
 		timeToPass = minTarq->getTARQ(); 
 	}
 
-	std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
+	//std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
 
 	if( preemptFlag ) {
 		_readyQueue[0].setFirstCPUBurst( _readyQueue[0].getCPUBursts()[0] - timeToPass ); 

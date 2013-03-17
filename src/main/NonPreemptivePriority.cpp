@@ -31,7 +31,7 @@ void NonPreemptivePriority:: run(){
             passTimeAndCheckWaiting(newCPUBursts[0]);
             
             // for testing purposes
-            cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
+            //cout << "PID " << _readyQueue[0].getPID() << " running for " << newCPUBursts[0] << endl;
             
             if (_readyQueue.size() >= oldReadyQSize){
                 std::sort(_readyQueue.begin()+1, _readyQueue.end(), isHigherPriority);
