@@ -21,6 +21,7 @@ typedef struct AlgorithmData{
 	int IOTime;
 } AlgorithmData;
 
+const int IDLE = -1;
  
 class Algorithm{
 public:

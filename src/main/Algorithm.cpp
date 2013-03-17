@@ -97,16 +97,23 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 	std::vector<int> newIOBurstQueue;
 
 	AlgorithmData executingData;
-	executingData.PID = _readyQueue[0].getPID();
 	executingData.burstTime = time;
-	executingData.waitTime = _readyQueue[0].getWaitTime();
-	executingData.IOTime = _readyQueue[0].getIOTime();
-	_finalQueueOrder.push_back(executingData);
+	if(_readyQueue.size() != 0) {
+		executingData.PID = _readyQueue[0].getPID();
+		executingData.waitTime = _readyQueue[0].getWaitTime();
+		executingData.IOTime = _readyQueue[0].getIOTime();
 
-	//increment waiting time of all processes in ready queue that are not executing
-	for(it = (_readyQueue.begin()+1); it != _readyQueue.end() ; ++it){
-		it->setWaitTime(it->getWaitTime() + time);
+		//increment waiting time of all processes in ready queue that are not executing
+		for(it = (_readyQueue.begin()+1); it != _readyQueue.end() ; ++it){
+			it->setWaitTime(it->getWaitTime() + time);
+		}
+	} else {
+		executingData.PID = IDLE;
+		executingData.waitTime = IDLE;
+		executingData.IOTime = IDLE;
 	}
+
+	_finalQueueOrder.push_back(executingData);
     
 	if( _TimeArrivalReadyQueue.size() == 0 && _IOWaitingQueue.size() == 0 ) return;
     
