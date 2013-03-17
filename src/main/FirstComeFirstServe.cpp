@@ -38,7 +38,7 @@ void FirstComeFirstServe::run() {
 			/* Remove the first element from the list of time slices */
 			newCPUQuantumVec.erase( newCPUQuantumVec.begin() );
 			_readyQueue[0].setCPUQuantumVec( newCPUQuantumVec );
-			/** Testing **/ std::cout << "Process: " << _readyQueue[0].getPID() <<" Time Slice: " << firstTimeSlice << std::endl;
+		//	/** Testing **/ std::cout << "Process: " << _readyQueue[0].getPID() <<" Time Slice: " << firstTimeSlice << std::endl;
 			deductedCPUBurst[0] -= firstTimeSlice;
 			_readyQueue[0].setCPUBursts( deductedCPUBurst );
 			passTimeAndCheckWaiting( firstTimeSlice );
