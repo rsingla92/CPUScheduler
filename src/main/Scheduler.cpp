@@ -18,12 +18,12 @@ using std::stringstream;
 
 
 Scheduler::Scheduler(){
-	_currentAlgorithm = NULL;
-	_algFactory = Factory();
-	_intAlgorithmChoice = -1;
-	_quantumTimeSlice = -1;
-	_preemption = 0;
-	_fileStringToOpen = "";
+    _currentAlgorithm = NULL;
+    _algFactory = Factory();
+    _intAlgorithmChoice = -1;
+    _quantumTimeSlice = -1;
+    _preemption = 0;
+    _fileStringToOpen = "";
 }
 
 Scheduler::~Scheduler(){
@@ -48,10 +48,10 @@ void Scheduler::parseTextFile(){
        // getline(myfile,line); // the first column name line, dont need it
         while (myfile.good()) {
             // clearing both vectors so each PCB is populated with one line from the text file
-			stringstream ss; 
-			getline( myfile, line ); 
+            stringstream ss; 
+            getline( myfile, line ); 
 
-			ss.str( line ); 
+            ss.str( line ); 
 
             PCB_IOTimes.clear();
             PCB_CPUTimes.clear();
@@ -71,16 +71,16 @@ void Scheduler::parseTextFile(){
                 ss >> temp;
                 PCB_IOTimes.push_back(temp);
 
-				if( ss.fail() ) break; 
+                if( ss.fail() ) break; 
             }
 
             ss >> temp;
             PCB_CPUTimes.push_back(temp);
 
-			if( !ss.fail() ) {
-				currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
-				_rawData.push_back(currentProcess);
-			} 
+            if( !ss.fail() ) {
+                currentProcess = ProcessControlBlock(PID, TARQ, priority, TNCPU, PCB_CPUTimes, PCB_IOTimes);
+                _rawData.push_back(currentProcess);
+            } 
         }
         myfile.close();
     }
@@ -156,11 +156,11 @@ void Scheduler::welcomeMessage (){
         }
     }
 
-	return;
+    return;
 }
 
 void Scheduler::runSpecifiedAlgorithm(){
-	this->parseTextFile();
+    this->parseTextFile();
     delete this->_currentAlgorithm;
     this->_currentAlgorithm = NULL;
     
@@ -213,10 +213,10 @@ void Scheduler::runSpecifiedAlgorithm(){
             cout << "Please input a proper algorithm number (must be between 1 and 5)." << endl;
             _intAlgorithmChoice = -1;
             break;
-	}
-	_currentAlgorithm->run();
+    }
+    _currentAlgorithm->run();
     _rawData.clear();
-	return;
+    return;
 }
 
 vector<AlgorithmData> Scheduler::getFinalQueueOrder(){
