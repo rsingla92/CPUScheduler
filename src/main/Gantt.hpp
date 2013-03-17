@@ -8,21 +8,22 @@
 #ifndef GANTT_H
 #define GANTT_H
 
-#include "ProcessControlBlock.hpp"
+#include "Algorithm.hpp"
 #include "Utilities.hpp"
 #include <string>
 #include <iostream>
+#include <map>
 
 class Gantt
 {
    public:
-       Gantt( std::vector<ProcessControlBlock> queue );
+       Gantt( std::vector<AlgorithmData> queue );
        void display();
        void metrics();
-       std::vector<ProcessControlBlock> getQueue();
+       std::vector<AlgorithmData> getQueue();
 
    private:
-     std::vector<ProcessControlBlock> _queue;
+     std::vector<AlgorithmData> _queue;
 };
 
 
