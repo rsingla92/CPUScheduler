@@ -10,13 +10,13 @@
 const float ProcessControlBlock::INIT_BURST_ESTIMATE = 10.0;
 
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
-                        _tncpu(-1), _burstavg(INIT_BURST_ESTIMATE)
+                        _tncpu(-1), _waitTime(0), _IOTime(0), _burstavg(INIT_BURST_ESTIMATE)
 {
 }
 
 ProcessControlBlock::ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
                         std::vector<int> CPUBursts, std::vector<int>IOBursts):
-                        _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU),
+                        _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU), _waitTime(0), _IOTime(0),
                         _CPUBursts(CPUBursts),_IOBursts(IOBursts), _burstavg(INIT_BURST_ESTIMATE)
 {
 }
@@ -29,6 +29,8 @@ ProcessControlBlock& ProcessControlBlock::operator=(const ProcessControlBlock& o
         this->_tarq = otherProcess._tarq;
         this->_prio = otherProcess._prio;
         this->_tncpu = otherProcess._tncpu;
+        this->_IOTime = otherProcess._IOTime;
+        this->_waitTime = otherProcess._waitTime;
         this->_CPUBursts = otherProcess._CPUBursts;
         this->_IOBursts = otherProcess._IOBursts;
         this->_burstavg = otherProcess._burstavg; 
@@ -127,6 +129,22 @@ float ProcessControlBlock::getBurstAvg() const {
 
 void ProcessControlBlock::setBurstAvg( float burstAvg ) {
 	_burstavg = burstAvg; 
+}
+
+int ProcessControlBlock::getWaitTime() const {
+	return _waitTime;
+}
+
+void ProcessControlBlock::setWaitTime(int waitTime){
+	_waitTime = waitTime;
+}
+
+int ProcessControlBlock::getIOTime() const{
+	return _IOTime;
+}
+
+void ProcessControlBlock::setIOTime(int IOTime){
+	_IOTime = IOTime;
 }
 
 void ProcessControlBlock::calculateAverageBurst( float alpha, int lastBurst ) {
