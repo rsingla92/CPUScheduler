@@ -24,12 +24,20 @@ void Gantt::display()
 {
    std::string chart = "| ";
    itr it = _queue.begin();
+   int incrementalBurst = 0;
 
    for(it = _queue.begin() ; it != _queue.end(); ++it) {
+       incrementalBurst = it->burstTime;
+
+        while( it->PID == (it+1)->PID) {
+           incrementalBurst += it->burstTime;
+           ++it;
+     }
+
        if( it->PID == IDLE) {
            chart += "IDLE: " + intToString(it->burstTime)+ " | ";
        } else {
-           chart += "PID " + intToString(it->PID) + ": " + intToString(it->burstTime) + " | ";
+           chart += "PID " + intToString(it->PID) + ": " + intToString(incrementalBurst) + " | ";
        }
    }
 
