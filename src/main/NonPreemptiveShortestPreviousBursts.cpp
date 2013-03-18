@@ -8,11 +8,9 @@
 #include "NonPreemptiveShortestPreviousBursts.hpp"
 
 NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha ) : Algorithm(rawData, 0, alpha){
-    std::cout << "make a SPB object" << std::endl;
 }
 
 void NonPreemptiveShortestPreviousBursts:: run(){
-    std::cout << "running SPB" << std::endl;
 
 	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
 	vec_sz initialSize = 0;
