@@ -83,7 +83,7 @@ void Scheduler::parseTextFile(){
         myfile.close();
     }
     else {
-        cout << "unable to open file" << endl;
+        cout << "Unable to open file" << endl;
     }
     return;
 }
@@ -123,7 +123,7 @@ void Scheduler::welcomeMessage (){
 
     if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
         if (_intAlgorithmChoice == 5) {
-            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption: ";
+            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
         }
