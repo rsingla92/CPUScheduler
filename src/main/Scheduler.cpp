@@ -45,9 +45,7 @@ void Scheduler::parseTextFile(){
 
     ifstream myfile (_fileStringToOpen.c_str());
     if (myfile.is_open()) {
-       // getline(myfile,line); // the first column name line, dont need it
         while (myfile.good()) {
-            // clearing both vectors so each PCB is populated with one line from the text file
             stringstream ss; 
             getline( myfile, line ); 
 
@@ -85,9 +83,9 @@ void Scheduler::parseTextFile(){
         myfile.close();
     }
     else {
-        cout << "unable to open file" << endl;
+        cout << "Unable to open file" << endl;
     }
-return;
+    return;
 }
 
 void Scheduler::welcomeMessage (){
@@ -104,11 +102,10 @@ void Scheduler::welcomeMessage (){
         getline(cin, _fileStringToOpen);
         ifstream myFile(_fileStringToOpen.c_str());
         if(myFile.is_open()) {
-            myFile >> tempString;
             cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
             break;
         } else {
-            cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
+        cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
         }
     }
 
@@ -124,22 +121,25 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _intAlgorithmChoice;
     }
 
-    if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5){
-        cout << "Please enter the quantum timeslice to use: ";
-        getline(cin,tempString);
-        stringstream(tempString) >> _quantumTimeSlice;
-        while(_quantumTimeSlice <= 0) {
-            cout << "Must input an integer > 0. Re-input: ";
-            getline(cin,tempString);
-            stringstream(tempString) >> _quantumTimeSlice;
-        }
-
-        if(_intAlgorithmChoice == 5) {
-            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption: ";
+    if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
+        if (_intAlgorithmChoice == 5) {
+            cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
         }
-    } else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
+        if (_preemption == 1 || _intAlgorithmChoice == 2){
+            cout << "Please enter the quantum timeslice to use: ";
+            getline(cin,tempString);
+            stringstream(tempString) >> _quantumTimeSlice;
+            while(_quantumTimeSlice <= 0) {
+                cout << "Must input an integer > 0. Re-input: ";
+                getline(cin,tempString);
+                stringstream(tempString) >> _quantumTimeSlice;
+            }
+        }
+    }
+    
+    else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
         cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
         getline(cin,tempString);
         stringstream(tempString) >> _preemption;
@@ -163,7 +163,7 @@ void Scheduler::runSpecifiedAlgorithm(){
     this->parseTextFile();
     delete this->_currentAlgorithm;
     this->_currentAlgorithm = NULL;
-    
+    cout << endl;
     switch(_intAlgorithmChoice){
     case 1 :
             cout << "FCFS selected to run..." << endl << endl;
@@ -201,7 +201,7 @@ void Scheduler::runSpecifiedAlgorithm(){
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
             }
             else if(_preemption == 2){
-                cout << "wit impatient premption..." << endl << endl;
+                cout << "with impatient premption..." << endl << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
             }
             else{
