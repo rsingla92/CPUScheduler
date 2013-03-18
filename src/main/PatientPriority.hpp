@@ -13,7 +13,7 @@ class PatientPriority :
    public Algorithm
 {
 public:
-	PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime);
+	PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime, bool aging);
 	~PatientPriority( void );
 
 	void run();

@@ -11,7 +11,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-PreemptiveShortestJobFirst::PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData){
+PreemptiveShortestJobFirst::PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, bool aging) : Algorithm(rawData, 0, aging){
 }
 
 void PreemptiveShortestJobFirst::run(){

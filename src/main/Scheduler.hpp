@@ -32,6 +32,7 @@ class Scheduler {
 	int _quantumTimeSlice;
 	int _preemption;
 	float _alpha;
+    bool _aging;
  };
 
 #endif

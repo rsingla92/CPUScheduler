@@ -7,7 +7,7 @@
 #include "PatientPriority.hpp"
 #include <iostream>
 
-PatientPriority::PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime) : Algorithm(inputRawData, quantumTime) {
+PatientPriority::PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime, bool aging) : Algorithm(inputRawData, quantumTime, aging) {
 }
 
 PatientPriority::~PatientPriority(void)
@@ -43,7 +43,7 @@ void PatientPriority::run() {
 			deductedCPUBurst[0] -= firstTimeSlice; 
 			_readyQueue[0].setCPUBursts( deductedCPUBurst );
 			passTimeAndCheckWaiting( firstTimeSlice ); 
-
+            _readyQueue[0].revertAgingDefault();
 			flagSort = ( _readyQueue.size() > checkInitialSize )?true:flagSort; 
 		}
 

@@ -10,32 +10,15 @@
 const float ProcessControlBlock::INIT_BURST_ESTIMATE = 10.0;
 
 ProcessControlBlock::ProcessControlBlock(): _pid(-1), _tarq(-1), _prio(-1),
-                        _tncpu(-1), _burstavg(INIT_BURST_ESTIMATE), _waitTime(0), _IOTime(0)
+                        _tncpu(-1), _burstavg(INIT_BURST_ESTIMATE), _waitTime(0), _IOTime(0), _agingPriorityOffset(0), _agingTimeOffset(1)
 {
 }
 
 ProcessControlBlock::ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
                         std::vector<int> CPUBursts, std::vector<int>IOBursts):
                         _pid(PID), _tarq(TARQ), _prio(PRIO), _tncpu(TNCPU),_burstavg(INIT_BURST_ESTIMATE), _waitTime(0), _IOTime(0),
-                        _CPUBursts(CPUBursts),_IOBursts(IOBursts)
+                        _CPUBursts(CPUBursts),_IOBursts(IOBursts), _agingTimeOffset(1), _agingPriorityOffset(0)
 {
-}
-
-ProcessControlBlock& ProcessControlBlock::operator=(const ProcessControlBlock& otherProcess)
-{
-    if (&otherProcess != this)
-    {
-        this->_pid = otherProcess._pid;
-        this->_tarq = otherProcess._tarq;
-        this->_prio = otherProcess._prio;
-        this->_tncpu = otherProcess._tncpu;
-        this->_IOTime = otherProcess._IOTime;
-        this->_waitTime = otherProcess._waitTime;
-        this->_CPUBursts = otherProcess._CPUBursts;
-        this->_IOBursts = otherProcess._IOBursts;
-        this->_burstavg = otherProcess._burstavg; 
-    }
-    return *this;
 }
 
 int ProcessControlBlock::getPID() const
@@ -151,10 +134,23 @@ void ProcessControlBlock::calculateAverageBurst( float alpha, int lastBurst ) {
 	_burstavg = alpha*lastBurst + _burstavg*(1-alpha); 
 }
 
-void ProcessControlBlock::setAgingIndex(int index){
-    _agingIndex = index;
+void ProcessControlBlock::setAgingTimeOffset(int offset){
+    _agingTimeOffset = offset;
 }
 
-int ProcessControlBlock::getAgingIndex(){
-    return _agingIndex;
+int ProcessControlBlock::getAgingTimeOffset() const{
+    return _agingTimeOffset;
+}
+
+void ProcessControlBlock::setAgingPriorityOffset(int offset){
+    _agingPriorityOffset = offset;
+}
+
+int ProcessControlBlock::getAgingPriorityOffset() const{
+    return _agingPriorityOffset;
+}
+
+void ProcessControlBlock::revertAgingDefault() {
+    _agingPriorityOffset = 0;
+    _agingTimeOffset = 1;
 }

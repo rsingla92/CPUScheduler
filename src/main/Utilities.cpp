@@ -5,7 +5,7 @@
  *           Jeremy Lord, Rohit Singla
  */
 #include "Utilities.hpp"
-#include "PatientPriority.hpp" //temporarily
+#include <math.h>
 
 std::string intToString(const int i) {
    std::stringstream ss;
@@ -20,7 +20,7 @@ std::string intToString(const int i) {
  * Purpose: This is a predicate used to sort the PCB queues for the Priority algorithms.
  */
 bool isHigherPriority( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
-	return (pcb1.getPriority() < pcb2.getPriority()); 
+    return (pcb1.getPriority() - pcb1.getAgingPriorityOffset() < pcb2.getPriority() - pcb2.getAgingPriorityOffset());
 }
 
 bool isLowerTarq( const ProcessControlBlock& pcb1, const ProcessControlBlock& pcb2 ) {
@@ -61,9 +61,9 @@ bool isAlgorithmType (std::string algorithmType){
 }
 
 bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
-    return (lhs.getCPUBursts().at(0) < rhs.getCPUBursts().at(0) );
+    return (ceil((float)lhs.getCPUBursts().at(0)/lhs.getAgingTimeOffset()) < ceil((float)rhs.getCPUBursts().at(0)/rhs.getAgingTimeOffset()) );
 }
 
 bool isShorterPreviousCPUAvg(const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
-    return( lhs.getBurstAvg() < rhs.getBurstAvg() ); 
+    return( ceil((float)lhs.getBurstAvg()/lhs.getAgingTimeOffset()) < ceil((float)rhs.getBurstAvg()/rhs.getAgingTimeOffset()) );
 }

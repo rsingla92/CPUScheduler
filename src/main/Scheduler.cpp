@@ -24,6 +24,7 @@ Scheduler::Scheduler(){
     _quantumTimeSlice = -1;
     _preemption = 0;
     _fileStringToOpen = "";
+    _aging = false;
 }
 
 Scheduler::~Scheduler(){
@@ -126,6 +127,9 @@ void Scheduler::welcomeMessage (){
             cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
+            cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
+            getline(cin, tempString);
+            stringstream(tempString) >> _aging;
         }
         if (_preemption == 1 || _intAlgorithmChoice == 2){
             cout << "Please enter the quantum timeslice to use: ";
@@ -140,7 +144,7 @@ void Scheduler::welcomeMessage (){
     }
     
     else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
-        cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
+        cout << "Please enter whether to have preemption ('0' = without Preemption, otherwise  Preemption): ";
         getline(cin,tempString);
         stringstream(tempString) >> _preemption;
 

@@ -25,7 +25,7 @@ const int IDLE = -1;
  
 class Algorithm{
 public:
-	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime, double alpha = 1.0);
+	Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime, bool aging = false, double alpha = 1.0);
 	Algorithm(std::vector<ProcessControlBlock> inputRawData);
     virtual~Algorithm(){};
 

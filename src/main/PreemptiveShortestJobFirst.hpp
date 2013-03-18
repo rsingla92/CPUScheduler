@@ -12,7 +12,7 @@
 
 class PreemptiveShortestJobFirst : public Algorithm {
 public:
-    PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData);
+    PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, bool aging);
     void run();
     
 };

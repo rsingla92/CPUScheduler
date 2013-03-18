@@ -7,7 +7,7 @@
 
 #include "NonPreemptiveShortestPreviousBursts.hpp"
 
-NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha ) : Algorithm(rawData, 0, alpha){
+NonPreemptiveShortestPreviousBursts:: NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, bool aging, float alpha ) : Algorithm(rawData, 0, aging, alpha){
 }
 
 void NonPreemptiveShortestPreviousBursts:: run(){
