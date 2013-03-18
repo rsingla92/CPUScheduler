@@ -94,6 +94,7 @@ void Scheduler::welcomeMessage (){
     _intAlgorithmChoice = -1;
     _quantumTimeSlice = -1;
     _preemption = 0;
+    _aging = false;
     string tempString = "";
 
     ifstream myFile(_fileStringToOpen.c_str());
@@ -171,48 +172,49 @@ void Scheduler::runSpecifiedAlgorithm(){
     delete this->_currentAlgorithm;
     this->_currentAlgorithm = NULL;
     cout << endl;
+    
     switch(_intAlgorithmChoice){
     case 1 :
-            cout << "FCFS selected to run..." << endl << endl;
+            cout << "FCFS selected to run..." << endl;
             _currentAlgorithm = _algFactory.factory_makeAlgorithm("FCFS", _rawData, _quantumTimeSlice);
             break;
     case 2 :
-            cout << "RR selected to run..." << endl << endl;
+            cout << "RR selected to run..." << endl;
             _currentAlgorithm = _algFactory.factory_makeAlgorithm("RR", _rawData, _quantumTimeSlice);
             break;
     case 3 :
             cout << "SJF selected to run ";
             if(_preemption){
-                cout << "with preemption..." << endl << endl;
+                cout << "with preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice, _aging);
             } else{
-                cout << "without preemption..." << endl << endl;
+                cout << "without preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice, _aging);
             }
             break;
     case 4 :
             cout << "SPB selected to run ";
             if(_preemption){
-                cout << "with preemption..." << endl << endl;
+                cout << "with preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice, _aging, _alpha);
             }
             else{
-                cout << "without preemption..." << endl << endl;
+                cout << "without preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice, _aging, _alpha);
             }
             break;
     case 5 :
             cout << "Priority selected to run ";
             if(_preemption == 1){
-                cout << "with patient preemption..." << endl << endl;
+                cout << "with patient preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice, _aging);
             }
             else if(_preemption == 2){
-                cout << "with impatient premption..." << endl << endl;
+                cout << "with impatient premption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice, _aging);
             }
             else{
-                cout << "without preemption..." << endl << endl;
+                cout << "without preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice, _aging);
             }
             break;
@@ -221,6 +223,10 @@ void Scheduler::runSpecifiedAlgorithm(){
             _intAlgorithmChoice = -1;
             break;
     }
+    if(_aging)
+        cout << "Aging enabled" << endl << endl;
+    else
+        cout << "Aging not enabled" << endl << endl;
     _currentAlgorithm->run();
     _rawData.clear();
     return;
