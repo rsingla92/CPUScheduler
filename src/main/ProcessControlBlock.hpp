@@ -20,8 +20,6 @@ public:
     ProcessControlBlock(int PID, int TARQ, int PRIO, int TNCPU,
                             std::vector<int> CPUBursts, std::vector<int>IOBursts);
     
-    ProcessControlBlock& operator=(const ProcessControlBlock& otherProcess);
-    
     int getPID() const;
     void setPID(int PID);
     
@@ -34,17 +32,17 @@ public:
     int getTNCPU() const;
     void setTNCPU(int TNCPU);
 
-	float getBurstAvg() const;
-	void setBurstAvg( float burstAvg ); 
+    float getBurstAvg() const;
+    void setBurstAvg( float burstAvg ); 
 
-	int getWaitTime() const;
-	void setWaitTime(int waitTime);
+    int getWaitTime() const;
+    void setWaitTime(int waitTime);
 
-	int getIOTime() const;
-	void setIOTime(int IOTime);
+    int getIOTime() const;
+    void setIOTime(int IOTime);
     
-	PCB_STATES getState() const;
-	void setState( PCB_STATES state ); 
+    PCB_STATES getState() const;
+    void setState( PCB_STATES state ); 
 
     std::vector<int> getCPUBursts() const;
     void setCPUBursts(std::vector<int> CPUBursts);
@@ -55,10 +53,18 @@ public:
     std::vector<int> getCPUQuantumVec() const;
     void setCPUQuantumVec(std::vector<int> CPUQuantumVec);
 
-	void setFirstCPUBurst( int burst ); 
+    void setFirstCPUBurst( int burst ); 
 
-	void calculateAverageBurst( float alpha, int lastBurst ); 
-   
+    void calculateAverageBurst( float alpha, int lastBurst );
+    
+    void setAgingPriorityOffset(int offset);
+    int getAgingPriorityOffset() const;
+    
+    void setAgingTimeOffset (int offset);
+    int getAgingTimeOffset () const;
+    
+    void revertAgingDefault();
+    
 private:
     int _pid;
     int _tarq;
@@ -71,8 +77,10 @@ private:
     std::vector<int> _CPUBursts;
     std::vector<int> _IOBursts;
     std::vector<int> _CPUQuantumVec;
-
-	/* Constants */
+    int _agingPriorityOffset;
+    int _agingTimeOffset;
+    
+    /* Constants */
     static const float INIT_BURST_ESTIMATE; 
 };
 

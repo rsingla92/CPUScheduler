@@ -10,10 +10,10 @@ using std::endl;
 using std::cout;
 using std::vector;
 
-NonPreemptivePriority::NonPreemptivePriority(vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+NonPreemptivePriority::NonPreemptivePriority(vector<ProcessControlBlock> rawData, int quantumTime, bool aging) : Algorithm(rawData, quantumTime, aging){
 }
 
-void NonPreemptivePriority:: run(){
+void NonPreemptivePriority::run(){
     
     populateInitialQueues(isHigherPriority);
     

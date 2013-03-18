@@ -12,7 +12,7 @@
 
 class ImpatientPriority: public Algorithm {
 public:
-    ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime, bool aging);
     void run();
 };
 

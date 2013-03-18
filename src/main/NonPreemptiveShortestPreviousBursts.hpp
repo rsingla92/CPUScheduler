@@ -12,7 +12,7 @@
 
 class NonPreemptiveShortestPreviousBursts : public Algorithm {
 public:
-    NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha);
+    NonPreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, bool aging, float alpha);
     void run();
     
 };

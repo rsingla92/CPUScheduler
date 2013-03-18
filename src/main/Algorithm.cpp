@@ -9,12 +9,9 @@
 
 const int Algorithm::NO_WAITING_PROCESSES = -1;
 
-Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime, double alpha)
-: _dataInputToAlgorithm(inputRawData), _quantumTime(quantumTime), _alpha(alpha)
+Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData, int quantumTime,bool aging, double alpha)
+: _dataInputToAlgorithm(inputRawData), _quantumTime(quantumTime), _aging(aging), _alpha(alpha)
 {
-}
-
-Algorithm::Algorithm(std::vector<ProcessControlBlock> inputRawData) : _dataInputToAlgorithm(inputRawData), _quantumTime(0), _alpha(1.0) { 
 }
 
 /*
@@ -106,6 +103,11 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 		//increment waiting time of all processes in ready queue that are not executing
 		for(it = (_readyQueue.begin()+1); it != _readyQueue.end() ; ++it){
 			it->setWaitTime(it->getWaitTime() + time);
+            if(_aging){
+                if (it->getAgingPriorityOffset() < it->getPriority())
+                    it->setAgingPriorityOffset(it->getAgingPriorityOffset()+1);
+                it->setAgingTimeOffset(it->getAgingTimeOffset() + 1);
+            }
 		}
 	} else {
 		executingData.PID = IDLE;
@@ -223,13 +225,10 @@ int Algorithm::getMinimumWaitIndex( void )
 
 void Algorithm::sendExecutingProcessToIO( void ) {
 
-	if( _readyQueue.size() == 0) return; 
+	if( _readyQueue.size() == 0) return;
+    _readyQueue[0].revertAgingDefault();
 
 	std::vector<int> newCPUBurstsVec = _readyQueue[0].getCPUBursts();
-
-	/* For checking the order - testing */
-	//std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << newCPUBurstsVec[0] << ", estimated avg is " <<
-	//	_readyQueue[0].getBurstAvg() << std::endl;
 
 	/* Calculate the predicted burst time based on the history */
 	_readyQueue[0].calculateAverageBurst(_alpha, newCPUBurstsVec[0] ); 
@@ -303,8 +302,6 @@ void Algorithm::preempt( bool (*predicate)(const ProcessControlBlock&, const Pro
 		timeToPass = minTarq->getTARQ(); 
 	}
 
-	//std::cout << "PCB " << _readyQueue[0].getPID() << " bursts for " << timeToPass << std::endl;
-
 	if( preemptFlag ) {
 		_readyQueue[0].setFirstCPUBurst( _readyQueue[0].getCPUBursts()[0] - timeToPass ); 
 		passTimeAndCheckWaiting( timeToPass ); 
@@ -370,4 +367,12 @@ float Algorithm::getAlpha( void ) const {
 
 std::vector<AlgorithmData> Algorithm::getFinalQueueOrder( void ){
 	return _finalQueueOrder;
+}
+
+bool Algorithm::getAging() {
+    return _aging;
+}
+
+void Algorithm::setAging(bool aging){
+    _aging = aging;
 }
