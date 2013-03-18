@@ -8,11 +8,10 @@
 #include "PreemptiveShortestPreviousBursts.hpp"
 
 PreemptiveShortestPreviousBursts:: PreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha) : Algorithm(rawData, 0, alpha){
-    //std::cout << "make a PSPB object" << std::endl;
 }
 
 void PreemptiveShortestPreviousBursts:: run(){
-    //std::cout << "running PSPB" << std::endl;
+    
 	typedef std::vector<ProcessControlBlock>::size_type vec_sz;
 	vec_sz initialSize = 0;
 	std::vector<ProcessControlBlock>::iterator it;

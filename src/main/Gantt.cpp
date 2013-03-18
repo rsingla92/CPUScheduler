@@ -33,7 +33,7 @@ void Gantt::display()
        }
    }
 
-   std::cout << chart << std::endl;
+    std::cout << chart << std::endl << std::endl;
 }
 
 void Gantt::metrics()
@@ -53,7 +53,7 @@ void Gantt::metrics()
 
    // if there was an IDLE placeholder, ignore it.
    totalProcesses = (pidTimes.find(-1)  != pidTimes.end()) ? pidTimes.size()-1 : pidTimes.size();
-
+    
    for(map_itr index = pidTimes.begin(); index != pidTimes.end(); ++index) {
        if(index->first == -1) {
            continue;
