@@ -27,12 +27,13 @@ void Gantt::display()
    int incrementalBurst = 0;
 
    for(it = _queue.begin() ; it != _queue.end(); ++it) {
-       incrementalBurst = it->burstTime;
+	   incrementalBurst = it->burstTime;
 
-        while( it->PID == (it+1)->PID) {
-           incrementalBurst += it->burstTime;
+       while( it->PID == (it+1)->PID) {
+    	   std::cout << "info btw: " << it->PID << " " << it->burstTime << std::endl;
            ++it;
-     }
+           incrementalBurst += it->burstTime;
+       }
 
        if( it->PID == IDLE) {
            chart += "IDLE: " + intToString(it->burstTime)+ " | ";
