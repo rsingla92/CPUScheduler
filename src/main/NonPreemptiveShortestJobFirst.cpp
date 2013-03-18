@@ -36,8 +36,3 @@ void NonPreemptiveShortestJobFirst::run(){
        }
     }
 }
-
-std::vector<ProcessControlBlock> NonPreemptiveShortestJobFirst::getFinalQueueOrder()
-{
-	return _readyQueue;
-}

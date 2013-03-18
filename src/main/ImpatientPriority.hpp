@@ -14,10 +14,6 @@ class ImpatientPriority: public Algorithm {
 public:
     ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
-    
-    std::vector<ProcessControlBlock> getFinalQueueOrder();
-private:
-    
 };
 
 #endif
