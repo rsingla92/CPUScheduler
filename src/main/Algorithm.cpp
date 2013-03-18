@@ -371,11 +371,3 @@ float Algorithm::getAlpha( void ) const {
 std::vector<AlgorithmData> Algorithm::getFinalQueueOrder( void ){
 	return _finalQueueOrder;
 }
-
-bool Algorithm::getAging() {
-    return _aging;
-}
-
-void Algorithm::setAging(bool aging){
-    _aging = aging;
-}

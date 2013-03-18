@@ -48,9 +48,7 @@ protected:
 	void printIOWaitingInfo( void );
 	void printTARQInfo( void );
 	void preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) );
-    void setAging(bool _aging);
-    bool getAging();
-    
+
 	std::vector<ProcessControlBlock> _dataInputToAlgorithm;
 	std::vector<ProcessControlBlock> _readyQueue; 
 	std::vector<ProcessControlBlock> _IOWaitingQueue;
@@ -60,7 +58,6 @@ private:
 	std::vector<AlgorithmData> _finalQueueOrder;
 	int _quantumTime;
 	float _alpha;
-    bool _aging;
 
 	/* Constants */
 	static const int NO_WAITING_PROCESSES;

@@ -150,11 +150,3 @@ void ProcessControlBlock::setIOTime(int IOTime){
 void ProcessControlBlock::calculateAverageBurst( float alpha, int lastBurst ) {
 	_burstavg = alpha*lastBurst + _burstavg*(1-alpha); 
 }
-
-void ProcessControlBlock::setAgingIndex(int index){
-    _agingIndex = index;
-}
-
-int ProcessControlBlock::getAgingIndex(){
-    return _agingIndex;
-}

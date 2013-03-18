@@ -15,12 +15,8 @@
 
 class FirstComeFirstServe : public Algorithm {
 public:
-	FirstComeFirstServe(std::vector<ProcessControlBlock> rawData, int quantumTime);
-
+    FirstComeFirstServe(std::vector<ProcessControlBlock> rawData, int quantumTime);
     void run();
-
-    std::vector<ProcessControlBlock> getFinalQueueOrder();
-private:
 
 };
 

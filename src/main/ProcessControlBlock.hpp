@@ -57,10 +57,7 @@ public:
 
 	void setFirstCPUBurst( int burst ); 
 
-	void calculateAverageBurst( float alpha, int lastBurst );
-    
-    void setAgingIndex(int index);
-    int getAgingIndex();
+	void calculateAverageBurst( float alpha, int lastBurst ); 
    
 private:
     int _pid;
@@ -74,8 +71,7 @@ private:
     std::vector<int> _CPUBursts;
     std::vector<int> _IOBursts;
     std::vector<int> _CPUQuantumVec;
-    int _agingIndex;
-    
+
 	/* Constants */
     static const float INIT_BURST_ESTIMATE; 
 };

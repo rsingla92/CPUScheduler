@@ -10,12 +10,6 @@
 FirstComeFirstServe::FirstComeFirstServe(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
 }
 
-std::vector<ProcessControlBlock> FirstComeFirstServe::getFinalQueueOrder()
-{
-	return _readyQueue;
-}
-
-
 void FirstComeFirstServe::run() {
     
 	int firstTimeSlice = 0;
