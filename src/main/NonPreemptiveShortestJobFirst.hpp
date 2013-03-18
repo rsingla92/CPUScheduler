@@ -14,7 +14,6 @@ class NonPreemptiveShortestJobFirst : public Algorithm {
 public:
     NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, bool aging);
     void run();
-    
 };
 
 #endif
