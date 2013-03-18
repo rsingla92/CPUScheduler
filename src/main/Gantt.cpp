@@ -63,7 +63,7 @@ void Gantt::metrics()
        } 
    }
 
-   std::cout << "The total waiting time was " << totalWaitTime << std:: endl;
+   std::cout << "The total waiting time was " << totalWaitTime << std::endl;
    std::cout << "The total CPU execution time was " << totalBurstTime << std::endl;
    std::cout << "The number of processes executed was " << totalProcesses << std::endl;
    std::cout << "The throughput of this run per one time unit was " << (float) totalProcesses/totalBurstTime << std::endl;
