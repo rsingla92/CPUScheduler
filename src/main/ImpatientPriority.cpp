@@ -8,7 +8,6 @@
 #include "ImpatientPriority.hpp"
 
 ImpatientPriority:: ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
-    std::cout << "make an INSTP object" << std::endl;
 }
 
 void ImpatientPriority:: run(){

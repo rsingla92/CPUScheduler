@@ -33,7 +33,7 @@ void Gantt::display()
        }
    }
 
-   std::cout << chart << std::endl;
+    std::cout << chart << std::endl << std::endl;
 }
 
 void Gantt::metrics()
@@ -53,17 +53,17 @@ void Gantt::metrics()
 
    // if there was an IDLE placeholder, ignore it.
    totalProcesses = (pidTimes.find(-1)  != pidTimes.end()) ? pidTimes.size()-1 : pidTimes.size();
-
+    
    for(map_itr index = pidTimes.begin(); index != pidTimes.end(); ++index) {
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " - Turaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << "\tWaiting Time: " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << " \t Waiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
        } 
    }
 
-   std::cout << "The total waiting time was " << totalWaitTime << std:: endl;
+   std::cout << "The total waiting time was " << totalWaitTime << std::endl;
    std::cout << "The total CPU execution time was " << totalBurstTime << std::endl;
    std::cout << "The number of processes executed was " << totalProcesses << std::endl;
    std::cout << "The throughput of this run per one time unit was " << (float) totalProcesses/totalBurstTime << std::endl;

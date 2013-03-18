@@ -12,11 +12,9 @@ using std::endl;
 using std::vector;
 
 PreemptiveShortestJobFirst::PreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData){
-    cout << "make a PSJF object" << endl;
 }
 
 void PreemptiveShortestJobFirst::run(){
-    cout << "running PSJF with preemption" << endl;
     
     populateInitialQueues(isShorterCPUBurst);
     
