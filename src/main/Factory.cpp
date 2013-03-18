@@ -15,7 +15,7 @@
  * Purpose: To abstract the creation of the different Algorithm objects
  */
 
-Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum, float alpha, bool aging) {
+Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector<ProcessControlBlock> rawData, int timeQuantum, bool aging, float alpha ) {
     if (rawData.size() > 0 && isAlgorithmType(algorithmType)){
         if (algorithmType == "FCFS")
             return new FirstComeFirstServe(rawData, std::numeric_limits<int>::max()); // effectively infinite quantum time

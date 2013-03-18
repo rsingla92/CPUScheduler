@@ -122,14 +122,17 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _intAlgorithmChoice;
     }
 
+	if( _intAlgorithmChoice > 2 ) {
+		 cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
+         getline(cin, tempString);
+         stringstream(tempString) >> _aging;
+	}
+
     if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
         if (_intAlgorithmChoice == 5) {
             cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption): ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
-            cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
-            getline(cin, tempString);
-            stringstream(tempString) >> _aging;
         }
         if (_preemption == 1 || _intAlgorithmChoice == 2){
             cout << "Please enter the quantum timeslice to use: ";
@@ -181,36 +184,36 @@ void Scheduler::runSpecifiedAlgorithm(){
             cout << "SJF selected to run ";
             if(_preemption){
                 cout << "with preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice, _aging);
             } else{
                 cout << "without preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPSJF", _rawData, _quantumTimeSlice, _aging);
             }
             break;
     case 4 :
             cout << "SPB selected to run ";
             if(_preemption){
                 cout << "with preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice, _alpha);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice, _aging, _alpha);
             }
             else{
                 cout << "without preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice, _alpha);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("SPB", _rawData, _quantumTimeSlice, _aging, _alpha);
             }
             break;
     case 5 :
             cout << "Priority selected to run ";
             if(_preemption == 1){
                 cout << "with patient preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice, _aging);
             }
             else if(_preemption == 2){
                 cout << "with impatient premption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice, _aging);
             }
             else{
                 cout << "without preemption..." << endl << endl;
-                _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice);
+                _currentAlgorithm = _algFactory.factory_makeAlgorithm("NPP", _rawData, _quantumTimeSlice, _aging);
             }
             break;
     default :
