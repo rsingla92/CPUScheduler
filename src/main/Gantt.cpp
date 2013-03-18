@@ -11,7 +11,7 @@ typedef std::vector<AlgorithmData>::iterator itr;
 typedef struct {
     int ioTime;
     int waitTime;
-    int turnAroundTime;
+    int nonExecutingTime;
     int totalBurstTime;
 } times;
 
@@ -47,7 +47,7 @@ void Gantt::metrics()
    for(itr it =_queue.begin(); it != _queue.end(); ++it) {
        pidTimes[it->PID].waitTime = it->waitTime;
        pidTimes[it->PID].ioTime = it->IOTime;
-       pidTimes[it->PID].turnAroundTime = it->IOTime + it->waitTime;
+       pidTimes[it->PID].nonExecutingTime = it->IOTime + it->waitTime;
        pidTimes[it->PID].totalBurstTime += it->burstTime;
        totalBurstTime += it->burstTime;
    }
@@ -59,9 +59,9 @@ void Gantt::metrics()
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << " \t Waiting Time: " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.nonExecutingTime + index->second.totalBurstTime) << " \t Waiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
-           totalTurnaround += index->second.turnAroundTime + index->second.totalBurstTime;
+           totalTurnaround += index->second.nonExecutingTime + index->second.totalBurstTime;
        } 
    }
 

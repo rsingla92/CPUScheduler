@@ -17,8 +17,6 @@ public:
 	~PatientPriority( void );
 
 	void run();
-	std::vector<ProcessControlBlock> getFinalQueueOrder();
-
 private: 
 	/* Constants used by the class */
 	static const int NO_WAITING_PROCESSES;
