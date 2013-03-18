@@ -12,7 +12,7 @@
 
 class NonPreemptivePriority : public Algorithm {
 public:
-    NonPreemptivePriority(std::vector<ProcessControlBlock> rawData, int quantumTime);
+    NonPreemptivePriority(std::vector<ProcessControlBlock> rawData, int quantumTime, bool aging);
     void run();
     
 };

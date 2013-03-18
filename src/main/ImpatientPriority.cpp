@@ -7,7 +7,7 @@
 
 #include "ImpatientPriority.hpp"
 
-ImpatientPriority:: ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
+ImpatientPriority::ImpatientPriority(std::vector<ProcessControlBlock> rawData, int quantumTime, bool aging) : Algorithm(rawData, quantumTime , aging){
 }
 
 void ImpatientPriority:: run(){

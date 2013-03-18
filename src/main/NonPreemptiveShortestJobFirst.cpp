@@ -8,7 +8,7 @@
 #include "NonPreemptiveShortestJobFirst.hpp"
 #include "Utilities.hpp"
 
-NonPreemptiveShortestJobFirst::NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData) {
+NonPreemptiveShortestJobFirst::NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData, bool aging) : Algorithm(rawData,0, aging) {
 }
 
 void NonPreemptiveShortestJobFirst::run(){
