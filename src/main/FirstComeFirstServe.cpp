@@ -8,7 +8,7 @@
 #include "FirstComeFirstServe.hpp"
 
 FirstComeFirstServe::FirstComeFirstServe(std::vector<ProcessControlBlock> rawData, int quantumTime) : Algorithm(rawData, quantumTime){
-    std::cout << "make a FCFS object" << std::endl;
+    //std::cout << "make a FCFS object" << std::endl;
 }
 
 std::vector<ProcessControlBlock> FirstComeFirstServe::getFinalQueueOrder()
@@ -38,7 +38,7 @@ void FirstComeFirstServe::run() {
 			/* Remove the first element from the list of time slices */
 			newCPUQuantumVec.erase( newCPUQuantumVec.begin() );
 			_readyQueue[0].setCPUQuantumVec( newCPUQuantumVec );
-		//	/** Testing **/ std::cout << "Process: " << _readyQueue[0].getPID() <<" Time Slice: " << firstTimeSlice << std::endl;
+            //	/** Testing **/ std::cout << "Process: " << _readyQueue[0].getPID() <<" Time Slice: " << firstTimeSlice << std::endl;
 			deductedCPUBurst[0] -= firstTimeSlice;
 			_readyQueue[0].setCPUBursts( deductedCPUBurst );
 			passTimeAndCheckWaiting( firstTimeSlice );

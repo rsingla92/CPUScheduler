@@ -58,7 +58,7 @@ void Gantt::metrics()
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " - Turaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << "\tWaiting Time: " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << "\tWaiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
        } 
    }

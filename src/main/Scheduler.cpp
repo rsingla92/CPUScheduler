@@ -45,9 +45,7 @@ void Scheduler::parseTextFile(){
 
     ifstream myfile (_fileStringToOpen.c_str());
     if (myfile.is_open()) {
-       // getline(myfile,line); // the first column name line, dont need it
         while (myfile.good()) {
-            // clearing both vectors so each PCB is populated with one line from the text file
             stringstream ss; 
             getline( myfile, line ); 
 
@@ -87,7 +85,7 @@ void Scheduler::parseTextFile(){
     else {
         cout << "unable to open file" << endl;
     }
-return;
+    return;
 }
 
 void Scheduler::welcomeMessage (){
@@ -104,7 +102,6 @@ void Scheduler::welcomeMessage (){
         getline(cin, _fileStringToOpen);
         ifstream myFile(_fileStringToOpen.c_str());
         if(myFile.is_open()) {
-            myFile >> tempString;
             cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
             break;
         } else {
@@ -163,7 +160,7 @@ void Scheduler::runSpecifiedAlgorithm(){
     this->parseTextFile();
     delete this->_currentAlgorithm;
     this->_currentAlgorithm = NULL;
-    
+    cout << endl;
     switch(_intAlgorithmChoice){
     case 1 :
             cout << "FCFS selected to run..." << endl << endl;
@@ -201,7 +198,7 @@ void Scheduler::runSpecifiedAlgorithm(){
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("TSP", _rawData, _quantumTimeSlice);
             }
             else if(_preemption == 2){
-                cout << "wit impatient premption..." << endl << endl;
+                cout << "with impatient premption..." << endl << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("INSTP", _rawData, _quantumTimeSlice);
             }
             else{

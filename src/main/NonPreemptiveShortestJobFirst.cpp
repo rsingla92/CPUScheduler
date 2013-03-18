@@ -10,11 +10,11 @@
 
 NonPreemptiveShortestJobFirst::NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData) : Algorithm(rawData)
 {
-    std::cout << "make an NPSJF object" << std::endl;
+    //std::cout << "make an NPSJF object" << std::endl;
 }
 
 void NonPreemptiveShortestJobFirst::run(){
-   std::cout << "running NPSJF" << std::endl;
+   //std::cout << "running NPSJF" << std::endl;
 
    typedef std::vector<ProcessControlBlock>::size_type vec_sz;
    vec_sz initialSize = 0;

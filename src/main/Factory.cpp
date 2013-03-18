@@ -29,15 +29,12 @@ Algorithm* Factory::factory_makeAlgorithm(std::string algorithmType, std::vector
             return new NonPreemptivePriority(rawData, timeQuantum);
         else if (algorithmType == "PSJF")
             return new PreemptiveShortestJobFirst(rawData);
-        // this is assuming SJF implements instantaneous preemption
-        // otherwise lets process go until completion
         else if (algorithmType == "SPB")
             return new NonPreemptiveShortestPreviousBursts(rawData, alpha);
         else if (algorithmType == "PSPB")
             return new PreemptiveShortestPreviousBursts(rawData, alpha);
         else if (algorithmType == "NPSJF")
             return new NonPreemptiveShortestJobFirst(rawData);
-        // same assumptions as above
     }
 
     std::cout << "Invalid Parameters: now implementing First Come First Serve" << std::endl;
