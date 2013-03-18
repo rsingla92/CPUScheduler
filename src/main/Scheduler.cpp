@@ -122,11 +122,11 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _intAlgorithmChoice;
     }
 
-	if( _intAlgorithmChoice > 2 ) {
-		 cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
+    if( _intAlgorithmChoice > 2 ) {
+         cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
          getline(cin, tempString);
          stringstream(tempString) >> _aging;
-	}
+    }
 
     if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
         if (_intAlgorithmChoice == 5) {
