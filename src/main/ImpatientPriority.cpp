@@ -33,8 +33,3 @@ void ImpatientPriority:: run(){
 		}
 	}
 }
-
-std::vector<ProcessControlBlock> ImpatientPriority::getFinalQueueOrder()
-{
-	return _readyQueue;
-}

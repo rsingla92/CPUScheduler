@@ -15,9 +15,6 @@ public:
     NonPreemptiveShortestJobFirst(std::vector<ProcessControlBlock> rawData);
     void run();
     
-    std::vector<ProcessControlBlock> getFinalQueueOrder();
-private:
-    
 };
 
 #endif
