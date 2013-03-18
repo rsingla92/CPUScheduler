@@ -26,11 +26,10 @@ void Gantt::display()
    itr it = _queue.begin();
    int incrementalBurst = 0;
 
-   for(it = _queue.begin() ; it != _queue.end(); ++it) {
+   for(it = _queue.begin(); it != _queue.end(); ++it) {
 	   incrementalBurst = it->burstTime;
 
-       while( it->PID == (it+1)->PID) {
-    	   std::cout << "info btw: " << it->PID << " " << it->burstTime << std::endl;
+       while((it+1) !=_queue.end() && it->PID == (it+1)->PID) {
            ++it;
            incrementalBurst += it->burstTime;
        }
