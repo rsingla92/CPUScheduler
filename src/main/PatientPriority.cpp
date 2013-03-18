@@ -10,7 +10,7 @@
 PatientPriority::PatientPriority(std::vector<ProcessControlBlock> inputRawData, int quantumTime) 
 	: Algorithm(inputRawData, quantumTime)
 {
-   std::cout << "make a Patient Priority object" << std::endl;
+   //std::cout << "make a Patient Priority object" << std::endl;
 }
 
 PatientPriority::~PatientPriority(void)

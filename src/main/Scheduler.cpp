@@ -105,7 +105,7 @@ void Scheduler::welcomeMessage (){
             cout << "Your entry, " << _fileStringToOpen << ", is valid." << endl << "loading input file..." << endl << endl;
             break;
         } else {
-            cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
+        cout << "Your entry, " << _fileStringToOpen << ", is not valid." << endl;
         }
     }
 
@@ -121,22 +121,25 @@ void Scheduler::welcomeMessage (){
         stringstream(tempString) >> _intAlgorithmChoice;
     }
 
-    if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5){
-        cout << "Please enter the quantum timeslice to use: ";
-        getline(cin,tempString);
-        stringstream(tempString) >> _quantumTimeSlice;
-        while(_quantumTimeSlice <= 0) {
-            cout << "Must input an integer > 0. Re-input: ";
-            getline(cin,tempString);
-            stringstream(tempString) >> _quantumTimeSlice;
-        }
-
-        if(_intAlgorithmChoice == 5) {
+    if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
+        if (_intAlgorithmChoice == 5) {
             cout << "Please select which type of preemption to run ('1' = Patient Preemption, '2' = Impatient Preemption, otherwise No Preemption: ";
             getline(cin, tempString);
             stringstream(tempString) >> _preemption;
         }
-    } else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
+        if (_preemption == 1 || _intAlgorithmChoice == 2){
+            cout << "Please enter the quantum timeslice to use: ";
+            getline(cin,tempString);
+            stringstream(tempString) >> _quantumTimeSlice;
+            while(_quantumTimeSlice <= 0) {
+                cout << "Must input an integer > 0. Re-input: ";
+                getline(cin,tempString);
+                stringstream(tempString) >> _quantumTimeSlice;
+            }
+        }
+    }
+    
+    else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
         cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
         getline(cin,tempString);
         stringstream(tempString) >> _preemption;
