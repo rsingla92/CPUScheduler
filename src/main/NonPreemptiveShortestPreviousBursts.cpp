@@ -40,3 +40,8 @@ void NonPreemptiveShortestPreviousBursts:: run(){
 		}
 	}
 }
+
+std::vector<ProcessControlBlock> NonPreemptiveShortestPreviousBursts::getFinalQueueOrder()
+{
+	return _readyQueue;
+}

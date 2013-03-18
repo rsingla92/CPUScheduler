@@ -41,3 +41,8 @@ void NonPreemptivePriority:: run(){
         }
     }
 }
+
+std::vector<ProcessControlBlock> NonPreemptivePriority::getFinalQueueOrder()
+{
+	return _readyQueue;
+}

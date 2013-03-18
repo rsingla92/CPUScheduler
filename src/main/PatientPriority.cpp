@@ -57,3 +57,8 @@ void PatientPriority::run() {
 		}
 	}
 }
+
+std::vector<ProcessControlBlock> PatientPriority::getFinalQueueOrder()
+{
+	return _readyQueue; 
+}

@@ -15,6 +15,9 @@ public:
     PreemptiveShortestPreviousBursts(std::vector<ProcessControlBlock> rawData, float alpha);
     void run();
     
+    std::vector<ProcessControlBlock> getFinalQueueOrder();
+private:
+    
 };
 
 #endif

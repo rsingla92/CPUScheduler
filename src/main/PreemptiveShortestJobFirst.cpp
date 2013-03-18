@@ -32,3 +32,8 @@ void PreemptiveShortestJobFirst::run(){
         }
     }
 }
+
+std::vector<ProcessControlBlock> PreemptiveShortestJobFirst::getFinalQueueOrder()
+{
+	return _readyQueue;
+}

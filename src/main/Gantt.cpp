@@ -11,7 +11,7 @@ typedef std::vector<AlgorithmData>::iterator itr;
 typedef struct {
     int ioTime;
     int waitTime;
-    int nonExecutingTime;
+    int turnAroundTime;
     int totalBurstTime;
 } times;
 
@@ -42,12 +42,11 @@ void Gantt::metrics()
    int totalBurstTime = 0;
    int totalWaitTime = 0;
    int totalProcesses = 0;
-   int totalTurnaround = 0;
 
    for(itr it =_queue.begin(); it != _queue.end(); ++it) {
        pidTimes[it->PID].waitTime = it->waitTime;
        pidTimes[it->PID].ioTime = it->IOTime;
-       pidTimes[it->PID].nonExecutingTime = it->IOTime + it->waitTime;
+       pidTimes[it->PID].turnAroundTime = it->IOTime + it->waitTime;
        pidTimes[it->PID].totalBurstTime += it->burstTime;
        totalBurstTime += it->burstTime;
    }
@@ -59,9 +58,8 @@ void Gantt::metrics()
        if(index->first == -1) {
            continue;
        } else {
-           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.nonExecutingTime + index->second.totalBurstTime) << " \t Waiting Time: " << index->second.waitTime << std::endl;
+           std::cout << "PID " << index->first << " - Turnaround time: " << (index->second.turnAroundTime + index->second.totalBurstTime) << " \t Waiting Time: " << index->second.waitTime << std::endl;
            totalWaitTime += index->second.waitTime;
-           totalTurnaround += index->second.nonExecutingTime + index->second.totalBurstTime;
        } 
    }
 
@@ -70,7 +68,7 @@ void Gantt::metrics()
    std::cout << "The number of processes executed was " << totalProcesses << std::endl;
    std::cout << "The throughput of this run per one time unit was " << (float) totalProcesses/totalBurstTime << std::endl;
    std::cout << "The average waiting time per process was " << (float) totalWaitTime/totalProcesses << std::endl;
-   std::cout << "the average turnaround time per process was " << (float) totalTurnaround/totalProcesses << std::endl;
+
    return;
 }
 

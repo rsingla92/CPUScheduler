@@ -34,3 +34,8 @@ void PreemptiveShortestPreviousBursts:: run(){
 		}
 	}
 }
+
+std::vector<ProcessControlBlock> PreemptiveShortestPreviousBursts::getFinalQueueOrder()
+{
+	return _readyQueue;
+}
