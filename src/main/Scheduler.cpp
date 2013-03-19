@@ -124,9 +124,12 @@ void Scheduler::welcomeMessage (){
     }
 
     if( _intAlgorithmChoice > 2 ) {
-         cout << "Would you like to implement aging? (enter '0' = No Aging, otherwise Aging): ";
-         getline(cin, tempString);
-         stringstream(tempString) >> _aging;
+        cout << "Would you like to implement aging? (enter '1' = Aging, otherwise No Aging): ";
+        getline(cin, tempString);
+        if(tempString == "1")
+            _aging = true;
+        else
+            _aging = false;
     }
 
     if(_intAlgorithmChoice == 2 || _intAlgorithmChoice == 5) {
@@ -148,7 +151,7 @@ void Scheduler::welcomeMessage (){
     }
     
     else if( _intAlgorithmChoice == 3 || _intAlgorithmChoice == 4 ) {
-        cout << "Please enter whether to have preemption ('0' = without Preemption, otherwise  Preemption): ";
+        cout << "Please enter whether to have preemption ('1' = with Preemption, otherwise No Preemption): ";
         getline(cin,tempString);
         stringstream(tempString) >> _preemption;
 
@@ -184,7 +187,7 @@ void Scheduler::runSpecifiedAlgorithm(){
             break;
     case 3 :
             cout << "SJF selected to run ";
-            if(_preemption){
+            if(_preemption == 1){
                 cout << "with preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSJF", _rawData, _quantumTimeSlice, _aging);
             } else{
@@ -194,7 +197,7 @@ void Scheduler::runSpecifiedAlgorithm(){
             break;
     case 4 :
             cout << "SPB selected to run ";
-            if(_preemption){
+            if(_preemption == 1){
                 cout << "with preemption..." << endl;
                 _currentAlgorithm = _algFactory.factory_makeAlgorithm("PSPB", _rawData, _quantumTimeSlice, _aging, _alpha);
             }
