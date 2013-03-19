@@ -13,6 +13,7 @@ FirstComeFirstServe::FirstComeFirstServe(std::vector<ProcessControlBlock> rawDat
 void FirstComeFirstServe::run() {
     
 	int firstTimeSlice = 0;
+	int pastReadyQueueSize = 0;
 
 	populateInitialQueues( isHigherPriority );
 
@@ -33,7 +34,12 @@ void FirstComeFirstServe::run() {
 
 			deductedCPUBurst[0] -= firstTimeSlice;
 			_readyQueue[0].setCPUBursts( deductedCPUBurst );
+			pastReadyQueueSize = _readyQueue.size();
 			passTimeAndCheckWaiting( firstTimeSlice );
+			if(_readyQueue.size() - pastReadyQueueSize > 0) {
+				std::sort(_readyQueue.begin()+pastReadyQueueSize, _readyQueue.end(), arrivesEarlier);
+			}
+
 		}
 
 		if( _readyQueue[0].getCPUQuantumVec().size() == 0 ) // current CPU Burst has completed, send to IO queue
