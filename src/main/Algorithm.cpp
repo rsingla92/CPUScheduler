@@ -142,6 +142,8 @@ void Algorithm::passTimeAndCheckWaiting( int time ) {
 			if( newIOBurstQueue[0] <= 0 ) {
 				it->setWaitTime(it->getWaitTime() + std::abs(newIOBurstQueue[0]));
 				it->setIOTime(it->getIOTime() - std::abs(newIOBurstQueue[0]));
+				it->setTARQ(newIOBurstQueue[0] );
+					// hacky fix
 				/* Process is ready to be sent to the ready queue */
 				newIOBurstQueue.erase( newIOBurstQueue.begin() );
 				it->setIOBursts( newIOBurstQueue );
