@@ -80,7 +80,7 @@ bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBloc
 }
 
 /*
- * Function: isShorterPreviousCPUBurst
+ * Function: isShorterPreviousCPUBAvg
  * Parameters: The two PCBs to compare (lhs and rhs)
  * Returns: true if the lhs CPUBurst Average is less than the rhs CPUBurst Average
  * Purpose: This is a predicate used to sort the PCB queues ShortestPreviousBursts Algorithm and 
