@@ -1,0 +1,4 @@
+PID    TARQ    PRIO    TNCPU  CPUl     I01    CPU2     I02    CPU3	I03    CPU4 
+2	0	0	1	3
+3	0	1	1	3
+1	0	2	1	24
