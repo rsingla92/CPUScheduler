@@ -53,6 +53,13 @@ bool checkToRemoveTARQ( const ProcessControlBlock& val ) {
 	return ( val.getTARQ() <= 0 ); 
 }
 
+/* 
+ * Function : isAlgorithmType
+ * Parameters : a string that contains the initials for an algorithm type
+ * Returns : true if the string matches any of the known initials for an algorithm
+ * Purpose : to verify that the algorithm to create is known by the Factory
+ */
+
 bool isAlgorithmType (std::string algorithmType){
     if(algorithmType == "FCFS" || algorithmType == "RR" || algorithmType == "NPP" || algorithmType == "TSP" || algorithmType == "INSTP" || algorithmType == "PSJF" || algorithmType == "PSPB" || algorithmType == "SPB" || algorithmType == "NPSJF")
         return true;
@@ -60,9 +67,25 @@ bool isAlgorithmType (std::string algorithmType){
         return false;
 }
 
+/*
+ * Function: isShorterCPUBurst
+ * Parameters: The two PCBs to compare (lhs and rhs) 
+ * Returns: true if the lhs CPUBurst is less than the rhs CPUBurst
+ * Purpose: This is a predicate used to sort the PCB queues ShortestJobFirst Algorithm and takes into
+ *          account the aging offset for time.
+ */
+
 bool isShorterCPUBurst( const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
     return (ceil((float)lhs.getCPUBursts().at(0)/lhs.getAgingTimeOffset()) < ceil((float)rhs.getCPUBursts().at(0)/rhs.getAgingTimeOffset()) );
 }
+
+/*
+ * Function: isShorterPreviousCPUBurst
+ * Parameters: The two PCBs to compare (lhs and rhs)
+ * Returns: true if the lhs CPUBurst Average is less than the rhs CPUBurst Average
+ * Purpose: This is a predicate used to sort the PCB queues ShortestPreviousBursts Algorithm and 
+ *          takes into account the aging offset for time.
+ */
 
 bool isShorterPreviousCPUAvg(const ProcessControlBlock& lhs, const ProcessControlBlock& rhs) {
     return( ceil((float)lhs.getBurstAvg()/lhs.getAgingTimeOffset()) < ceil((float)rhs.getBurstAvg()/rhs.getAgingTimeOffset()) );
