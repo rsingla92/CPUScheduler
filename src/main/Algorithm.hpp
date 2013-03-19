@@ -47,7 +47,7 @@ protected:
     void printIOWaitingInfo( void );
     void printTARQInfo( void );
     void preempt( bool (*predicate)(const ProcessControlBlock&, const ProcessControlBlock&) );
-    void setAging(bool _aging);
+    void setAging(bool aging);
     bool getAging();
     
     std::vector<ProcessControlBlock> _dataInputToAlgorithm;
